@@ -1,0 +1,28 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">常见问题</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="subject-container">
+    <div class="subject-header">
+      <img src="{{subject.icon}}" class="subject-icon">
+      <p class="subject-title">{{subject.title}}</p>
+    </div>
+    <div class="qna-list">
+      <div class="qna-item" *ngFor="let qna of subject.qna" [class.shown]="qna.isShown">
+        <div class="question">
+          <div class="question-title">
+            {{qna.question}}
+          </div>
+          <div class="plus-button-container">
+            <img src="assets/img/faq/plus_red.png" class="plus-button" (click)="togglePlusButton(qna)">
+          </div>
+        </div>
+        <div class="answer" *ngIf="qna.isShown">
+          {{qna.answer}}
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

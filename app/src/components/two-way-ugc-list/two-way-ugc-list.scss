@@ -1,0 +1,18 @@
+component-two-way-ugc-list {
+  .two-way-card-list {
+    .card-list {
+      padding: 0;
+      $padding-between-cards: 5px;
+
+      &:nth-child(1) {
+        padding-left: $padding-between-cards*2 !important;
+        padding-right: $padding-between-cards !important;
+      }
+
+      &:nth-child(2) {
+        padding-left: $padding-between-cards !important;
+        padding-right: $padding-between-cards*2 !important;
+      }
+    }
+  }
+}

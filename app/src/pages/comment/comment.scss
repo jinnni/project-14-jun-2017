@@ -1,0 +1,124 @@
+page-comment {
+  $inputVerticalPadding: 5px;
+  $inputHorizontalPadding: 5px;
+  $inputHeight: 30px;
+
+  display: block;
+  height: $inputHeight + $inputVerticalPadding * 2;
+  box-shadow: 0 -1px 1px $pjAnotherGray;
+  .scroll-content{
+    padding-bottom: 0px !important;
+  }
+  .alternate-bg:nth-child(odd) {background: #ffffff}
+  .comment-section {
+    .input-container {
+      height: 100%;
+      background-color: #ffffff;
+      margin: 0px;
+      padding: 0px;
+      display: flex;
+      border-radius: 5px;
+      overflow: hidden;
+      ion-input {
+        height: $inputHeight;
+        input {
+          margin: 0 !important;
+          padding-left: 10px;
+          line-height: $inputHeight;
+        }
+      }
+    }
+
+    .image-container {
+      display: flex;
+      img {
+        width: $inputHeight;
+        height: $inputHeight;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+  ion-footer{
+    padding: 10px;
+    background-color: rgba(255, 0, 0, 0.12);
+  }
+  .ion-footer {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(255, 231, 231);
+}
+  .footer-md{
+    left: auto;
+    bottom: auto;
+    position: relative;
+  }
+  .footer-ios{
+    left: 0;
+    bottom: 0;
+    position: absolute;
+  }
+  .header-md::after{
+    background-image: none;
+    height: 0px;
+  }
+  ion-header {
+    border-bottom: 1px solid #e2e2e2;
+  }
+  .comment-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    .comment-top {
+      position: relative;
+      display: flex;
+      img.writer-image {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      .writer-name {
+        display: flex;
+        margin-top: 5px;
+      }
+    }
+    
+    .comment-content {
+      font-size: 1em;
+      word-break: break-word;
+    }
+
+    .comment-bottom {
+      text-align: right;
+      padding: 0px 5px;
+
+      .button-section {
+        display: inline-block;
+        vertical-align: middle;
+
+        img {
+          display: inline-block;
+          vertical-align: middle;
+
+          width: 15px;
+          height: 15px;
+        }
+        p {
+          display: inline-block;
+          vertical-align: middle;
+          color: #000000;
+          margin: 0;
+          font-size: 12px;
+          margin-bottom: 10px;
+        }
+
+        &:nth-child(1) {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

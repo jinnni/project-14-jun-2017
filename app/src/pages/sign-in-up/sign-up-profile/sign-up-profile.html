@@ -1,0 +1,99 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios" transparent>
+    <ion-buttons end>
+      <button [disabled]="isIncomplete()" (click)="submit()" style="color: #ffffff;background-color: #ff2744;padding: 0px 20px;border-radius: 20px;height: 30px;margin-right: 10px;">完成</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid>
+    <ion-row class="header-logo">
+      <div class="profile-image-container bordered" *ngIf="profilepic == ''" [style.backgroundImage]="'url(assets/img/profile/unknown.png)'">
+        <div (click) = "addImage('profile')">
+          <img class="upload-icon" src="assets/img/ugc-selector/edit_picture.png">
+        </div>
+      </div>
+      <div class="profile-image-container" *ngIf="profilepic != '' && platform.is('ios') == true" [style.backgroundImage]="'url('+profilepic+')'">
+        <div (click) = "addImage('profile')">
+          <img class="upload-icon" src="assets/img/ugc-selector/edit_picture.png">
+        </div>
+      </div>
+      <div class="profile-image-container" *ngIf="profilepic != '' && platform.is('ios') == false && this.win.Ionic.WebView != undefined" [style.backgroundImage]="'url('+profilepic+')'">
+        <div (click) = "addImage('profile')">
+          <img class="upload-icon" src="assets/img/ugc-selector/edit_picture.png">
+        </div>
+      </div>
+      <!-- for browser -->
+      <div class="profile-image-container" *ngIf="platform.is('ios') == false && this.win.Ionic.WebView == undefined" [style.backgroundImage]="'url('+(profilepic)+')'">
+        <div (click) = "addImage('profile')">
+          <img class="upload-icon" src="assets/img/ugc-selector/edit_picture.png">
+        </div>
+      </div>
+    </ion-row>
+    
+    <ion-row class="input">
+      <ion-list>
+        <ion-item>
+          <ion-label class="icon-label icon-user"></ion-label>
+          <ion-input type="text" placeholder="姓名" [(ngModel)]="name" (ionBlur)="onBlurValidateBlank($event);"></ion-input>
+        </ion-item>
+        <ion-item text-left>
+          <ion-label class="icon-label icon-birthday"></ion-label>
+          <ion-datetime placeholder="出生日期" doneText="完成" cancelText="取消"  displayFormat="YYYY年 M月 D日" pickerFormat="YYYY-MM-DD" min="1950" max="2005-12-31" [(ngModel)]="dob" [pickerOptions]="pickerOptions"></ion-datetime>
+        </ion-item>
+        <ion-row>
+          <ion-col col-6 style="padding-right: 5px;padding-left: 0px;">
+            <ion-item>
+              <ion-label class="icon-label icon-gender"></ion-label>
+              <ion-select placeholder="性别" okText="完成" cancelText="取消" [(ngModel)]="gender">
+                <ion-option value="F">女</ion-option>
+                <ion-option value="M">男</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6 style="padding-left: 5px;padding-right: 0px;">
+            <ion-item>
+              <ion-label class="icon-label icon-location"></ion-label>
+              <ion-select placeholder="省份" okText="完成" cancelText="取消" [(ngModel)]="selectedProvince">
+                <ion-option *ngFor="let province of provinces" [value]="province">{{province.name}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6 style="padding-right: 5px;padding-left: 0px;">
+            <ion-item>
+              <ion-label class="icon-label icon-location"></ion-label>
+              <ion-select placeholder="城市" okText="完成" cancelText="取消" [(ngModel)]="selectedCity" [disabled]="!selectedProvince">
+                <ng-container *ngIf="selectedProvince">
+                  <ion-option *ngFor="let city of selectedProvince.cities" [value]="city">{{city.name}}</ion-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6 style="padding-left: 5px;padding-right: 0px;">
+            <ion-item>
+              <ion-label class="icon-label icon-location"></ion-label>
+              <ion-select placeholder="地区"  okText="完成" cancelText="取消" [(ngModel)]="selectedArea" [disabled]="!selectedCity">
+                <ng-container *ngIf="selectedCity">
+                  <ion-option *ngFor="let area of selectedCity.districts" [value]="area">{{area.name}}</ion-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-item>
+          <ion-label class="icon-label icon-nickname"></ion-label>
+          <ion-input type="text" placeholder="昵称" [(ngModel)]="nickname" maxlength="9" (ionBlur)="onBlurValidateBlank($event);"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label class="icon-label icon-nickname"></ion-label>
+          <ion-input type="text" placeholder="邀请码 (非必选项)" [(ngModel)]="referralCode" maxlength="5" (ionBlur)="onBlurValidateBlank($event);"></ion-input>
+        </ion-item>
+        <ion-item style="visibility: hidden;">
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+  </ion-grid>
+</ion-content>

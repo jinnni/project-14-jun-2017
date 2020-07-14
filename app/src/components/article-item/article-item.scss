@@ -1,0 +1,136 @@
+article-item {
+  #item-wrapper {
+    padding: 0;
+    border: 0;
+    margin-bottom: 10px;
+
+    .item-inner {
+      padding: 0;
+      border: 0;
+
+      ion-label {
+        margin: 0;
+      }
+    }
+  }
+
+  .article-header {
+    position: relative;
+    width: 100%;
+    padding: 10px 10px;
+
+    .inline-middle {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .profile-image-container {
+      img {
+        display: block;
+        margin: auto;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+      }
+    }
+
+    .article-publish-info {
+      margin-left: 5px;
+
+      .article-publisher {
+        font-size: 0.9em;
+        color: $pjRed;
+        margin-bottom: 2px;
+      }
+
+      .article-publish-time {
+        font-size: 0.7em;
+        color: $pjGray;
+      }
+    }
+
+    button.follow {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      right: 0;
+      $more-padding: 5px;
+      padding: 0 $more-padding+10px 0 $more-padding+5px !important;
+      background-color: transparent;
+
+      img {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-left: -2px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 15px;
+        font-weight: bold;
+        color: $pjBlack;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      &:active {
+        background-color: $pjLightGray;
+      }
+    }
+  }
+
+  .article-image {
+    width: 100%;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .article-title {
+    padding: 12px;
+    color: $pjBlack;
+  }
+
+  .article-footer {
+    margin-bottom: 20px;
+
+    $height: 15px;
+
+    .article-footer-statistics {
+      height: $height;
+      padding-left: 10px;
+
+      img {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      p {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 10px 0 0;
+      }
+    }
+
+    img.share {
+      position: absolute;
+      bottom: 15px;
+      right: 10px;
+      height: 25px;
+
+      &:active {
+        filter: brightness(85%);
+      }
+    }
+  }
+}

@@ -1,0 +1,434 @@
+page-survey {
+
+  $padding-left: 20px;
+  $space-between-header-and-content: 10px;
+  .scroll-content{
+    display: flex !important;
+    flex-flow: column !important;
+    padding-bottom: 0px !important;
+    // height: 200% !important;
+  }
+  .option-container{
+    overflow: auto;
+    flex:1;
+  }
+  .radio-options{
+    margin-bottom: 20px;
+    .choice-option-title{
+      margin-bottom: 5px;
+      &.isTitleNotSelected{
+        color: $pjRed; 
+      }
+    }
+  }
+  .question-header {
+    background-color: #ffffff;
+    z-index: 2;
+    position: relative;
+    .question-title {
+      text-align: center;
+      margin: 2px;
+      font-size: 1.1em;
+      padding-top: 0px;
+      padding: 10px 0;
+    }
+    .instruction{
+      text-align: center;
+      position: absolute;
+      bottom: -10px;
+      width: 100%;
+      small{
+        padding: 2px 15px 2px 15px;
+        font-size: 16px;
+        color: #ffffff;
+        background-color: #ff2744;
+        border-radius: 50px;
+      }
+    }
+    .question-notice {
+      padding: 10px $padding-left;
+      text-align: center;
+      font-size: 0.9em;
+      color: $pjRed;
+    }
+
+    .question-description {
+      padding: 0 $padding-left 5px $padding-left;
+      margin: 0 auto;
+      font-size: 1.0em;
+    }
+  }
+  // .question-header {
+  //   background-color: $pjBackground;
+
+  //   .question-title {
+  //     text-align: center;
+  //     margin: 2px;
+  //     font-size: 1.1em;
+  //     background-color: #f1f1f1;
+  //     padding: 10px 0;
+  //   }
+
+  //   .question-notice {
+  //     padding: 10px $padding-left;
+  //     text-align: center;
+  //     font-size: 0.9em;
+  //     color: $pjRed;
+  //   }
+
+  //   .question-description {
+  //     padding: 0 $padding-left 5px $padding-left;
+  //     margin: 0 auto;
+  //     font-size: 1.0em;
+  //   }
+  // }
+  .banner-image{
+    padding: 20px;
+    margin: 20px 20px 0px 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    display: block;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 5px;
+    overflow: hidden;
+  }
+  .radio-options{
+    padding: 20px;
+    margin: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 0px;
+    .answer-choice{
+      padding: 10px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      img.tick{
+        position: absolute;
+        height: 20px;
+        top: 12px;
+        right: 15px;  
+      }
+    }
+  }
+  .answer-choices{
+    padding: 20px;
+    padding-bottom: 0px;
+    .answer-choice-image{
+      padding: 0px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      display: block;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 5px;
+      overflow: hidden;
+    }
+    .answer-choice{
+      padding: 15px;
+      margin-bottom: 5px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      img.tick{
+        position: absolute;
+        height: 20px;
+        top: 15px;
+        right: 20px;
+      }
+    }
+    .answer-choice-image .answer-choice{
+      border-bottom: 0px;
+      border-left: 0px;
+      border-right: 0px;
+      border-radius: 0px;
+      margin-bottom: 0px;
+    }
+  }
+  .answer-choice {
+    .choice-button {
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      width: 30px;
+      height: 20px;
+      position: absolute;
+      z-index: 0;
+      ion-radio, ion-checkbox {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .choice-title {
+      display: inline-block;
+      vertical-align: middle;
+      width: 70vw;
+      max-height: 20vh;
+      overflow: auto;
+      padding-left: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 1;
+      &.selected {
+        color: $pjRed;
+      }
+    }
+    .custom-input {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 5px;
+
+      input {
+        border: none;
+        border-bottom: 1px solid $pjGray;
+        background-color: transparent;
+        width: 100px;
+        margin-top: 2px;
+        padding-left: 5px;
+      }
+    }
+  }
+  // .answer-choices { 
+  //   padding: 10px $padding-left 0 $padding-left;
+  // }
+  // .radio-options{
+  //   margin-bottom: 20px;
+  //   .choice-option-title{
+  //     margin-bottom: 5px;
+  //     &.isTitleNotSelected{
+  //       color: $pjRed; 
+  //     }
+  //   }
+  // }
+  // .answer-choice {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: flex-start;
+  //   margin-bottom: 5px;
+  //   height: 30px;
+  //   .choice-button {
+  //     display: inline-block;
+  //     vertical-align: middle;
+  //     position: relative;
+  //     width: 20px;
+  //     height: 20px;
+  //     margin-right: 5px;
+  //     ion-radio, ion-checkbox {
+  //       position: absolute;
+  //       top: 50%;
+  //       left: 50%;
+  //       transform: translate(-50%, -50%);
+  //     }
+  //   }
+  //   .choice-title {
+  //     width: 100%;
+  //     &.selected {
+  //       color: $pjRed;
+  //     }
+  //   }
+  //   .custom-input {
+  //     display: inline-block;
+  //     vertical-align: middle;
+  //     margin-left: 5px;
+
+  //     input {
+  //       border: none;
+  //       border-bottom: 1px solid $pjGray;
+  //       background-color: transparent;
+  //       width: 100px;
+  //       margin-top: 2px;
+  //       padding-left: 5px;
+  //     }
+  //   }
+    
+  // }
+
+  .intensity-subjects {
+    padding: $space-between-header-and-content $padding-left 0 $padding-left;
+
+    .intensity-subject {
+      margin-bottom: 20px;
+
+      .intensity-subject-title {
+        font-size: 1.1em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .drop-down {
+    position: relative;
+    background-color: $pjWhite;
+    border-radius: 5px;
+  }
+  ion-select{
+    max-width: none;
+  }
+
+  .open-text-answer-area {
+    padding: 20px 20px 0 20px;
+
+    ion-textarea {
+      background-color: #fff;
+      height: 85px;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 1.1em;
+
+      textarea {
+        margin: 0;
+      }
+    }
+  }
+  .text-answer-area{
+    width: 95%;
+    height:100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    padding: 10px;
+    transition: border 0.5s;
+    border: solid 1px gray;
+  }
+
+  .pj-long-button {
+    margin: auto;
+    font-weight: 700;
+    height: 45px;
+    border-radius: 30px;
+    width: 150px;
+    font-size: 16px;
+    position: relative;
+  }
+  .pj-long-button-skip {
+    display: block;
+    margin: 30px;
+    font-weight: normal;
+    font-size: 1.1em;
+    border-radius: 5px;
+    width: 100px;
+    height: 35px;
+    background-color: white;
+    border: 2px solid $pjRed;
+  }
+  .place-holder-message {
+    height: 100%;
+    position: relative;
+
+    .text {
+      color: $pjRed;
+      position: absolute;
+      font-weight: lighter;
+      font-size: 1.2em;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .circular-selector {
+    .checkbox .checkbox-icon {
+      border-radius: 29px !important;
+    }
+
+  }
+  .item.item .checkbox {
+    margin: 0px 5px 0px 0px !important;
+  }
+
+  .item {
+    background-color: transparent !important;
+  }
+  .item-block{
+    width: 90vw;
+  }
+  textarea {
+    width: 100%;
+    border-radius: 12px;
+    resize: none;
+    border: none;
+    padding: 10px;
+  }
+
+
+  /* The container */
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 88px;
+border-radius: 10px;
+width: 88px;
+    opacity: 0.3;
+  background-color: transparent;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: transparent;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+  // style for single-choice radio check when optoin contains image
+  // .single-choice-image{
+  //   ion-radio{
+  //     position: absolute;
+  //     top: 7%;
+  //     left: 7%;
+  //   }
+  //   .radio-md .radio-checked {
+  //     border-color: #ffffff;
+  //   }
+  //   .radio-md .radio-inner{
+  //     background-color: #ffffff;
+  //   }
+  // }
+}
+.popover-content{
+  width: 90vw !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}

@@ -1,0 +1,68 @@
+<ion-header mode="ios" no-border="">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">"{{searchtext}}"</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div *ngFor="let item of searchArticleList; let i = index">
+    <ion-card class="ugc_cards" *ngIf="item.timelineContent == 'TIMELINE_ARTICLE' || item.timelineContent == 'ARTICLE'" style="margin-bottom: 8px;">
+      <ion-item style="width:100%">
+        <ion-avatar item-start (click)="goToUserProfile(item.user)" *ngIf="isGuestUser">
+          <img useImg=true *ngIf="item.user.id == userData.id" [src]="socialProfilePic">
+          <img useImg=true *ngIf="item.user.id != userData.id && !item.user.profileImage && item.user.gender == 'M'" src="assets/img/profile/man.png">
+          <img useImg=true *ngIf="item.user.id != userData.id && !item.user.profileImage && item.user.gender == 'F'" src="assets/img/profile/woman.png">
+          <img useImg=true *ngIf="item.user.id != userData.id && item.user.profileImage" [src]="imageUrl+item.user.profileImage">
+        </ion-avatar>
+        <ion-avatar item-start (click)="goToUserProfile(item.user)" *ngIf="!isGuestUser">
+          <img useImg=true *ngIf="item.user.profileImage" [src]="imageUrl+item.user.profileImage">
+          <img useImg=true *ngIf="!item.user.profileImage && item.user.gender == 'M'" src="assets/img/profile/man.png">
+          <img useImg=true *ngIf="!item.user.profileImage && item.user.gender == 'F'" src="assets/img/profile/woman.png">
+        </ion-avatar>
+        <h2 (click)="goToUserProfile(item.user)">{{item.user.nickname}}</h2>
+        <p style="font-size:12px;" (click)="goToUserProfile(item.user)">{{item.createdOn | date:'MM-dd hh:mm'}}</p>
+        <div *ngIf="userAuth" item-right>
+          <button style="border-radius: 20px; width: 55px !important; height: 22px; padding: 0px; border: 1px solid #ff2744; background-color: #ff2744;" ion-button color="danger" outline *ngIf="item.user.following == 0 && this.userData.id != item.user.id" (click)="toggleFollowUser(item,i)">
+            <p style="font-size: 12px;color: #ffffff;align-self: center;font-weight: bold;margin: 0px;">关注</p>
+          </button>
+          <button style="border-radius: 20px; width: 55px !important; height: 22px; padding: 0px;border: 1px solid #000000;" ion-button color="danger" outline *ngIf="item.user.following == 1 && this.userData.id != item.user.id" (click)="toggleUnfollowUser(item,i)">
+            <p style="font-size: 12px;color: #000000;align-self: center;font-weight: bold;margin: 0px;">已关注</p>
+          </button>
+        </div>
+        <div *ngIf="!userAuth" item-right>
+          <button style="border-radius: 20px; width: 55px !important; height: 22px; padding: 0px;border: 1px solid #000000;" ion-button color="danger" outline (click)="toggleUnfollowUser(item,i)">
+            <p style="font-size: 12px;color: #000000;align-self: center;font-weight: bold;margin: 0px;">跟随</p>
+          </button>
+        </div>
+      </ion-item>
+      <div style="height: 230px; overflow:hidden">
+        <img useImg=true  [src]="imageUrl+item.imageArray[0]" (click)="gotoNextArticle(item.timelineContent,item.id,item.featured,item)">
+      </div>
+      <div class="ugc-title">{{item.title}}</div>
+      <ion-row>
+        <div>
+          <button ion-button icon-left clear small style="padding: 0px 0.5rem;">
+            <div *ngIf="item.liked == false" (click)="toggleLikeUp(item,i)">
+              <img class="icon-like" src="assets/img/icons/heart_white_new.png">
+            </div>
+            <div *ngIf="item.liked == true" (click)="toggleLikeDown(item,i)">
+              <img class="icon-like" src="assets/img/icons/heart_red_new.png">
+            </div>
+            <div *ngIf="!isGuestUser" (click)="toggleLikeDown(item,i)">
+              <img class="icon-like" src="assets/img/icons/heart_white_new.png">
+            </div>
+            <div class="count-timeline" *ngIf="item.likeCount > 0">{{item.likeCount}}</div>
+          </button>
+        </div>
+        <div>
+          <button ion-button icon-left clear small style="padding: 0px 0.5rem;" (click)="ugcComment(item)">
+            <img class="icon-comment" src="assets/img/icons/comment_white_new.png">
+            <div class="count-timeline" *ngIf="item.commentCount > 0">{{item.commentCount}}</div>
+          </button>
+        </div>
+      </ion-row>
+    </ion-card>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!lastPage" threshold="100%">
+    <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,54 @@
+<ion-footer
+  [class.isOpened]="isMenuOpened"
+  [class.isClosed]="!isMenuOpened">
+  <ion-row>
+
+    <ion-col class="pj-tab-button" (click)="goToTab(0)">
+      <img *ngIf="selectedTab != 0" src="assets/img/footer-menu/icon-1.png">
+      <img *ngIf="selectedTab == 0" src="assets/img/footer-menu/icon-1-active.png">
+    </ion-col>
+
+    <ion-col class="pj-tab-button" (click)="goToTab(1)" >
+      <img *ngIf="selectedTab != 1"  src="assets/img/footer-menu/icon-2.png">
+      <img *ngIf="selectedTab == 1"  src="assets/img/footer-menu/icon-2-active.png">
+    </ion-col>
+
+    <ion-col class="pj-tab-button-menu" (click)="toggleMenu()">
+      <div class="plus-button-container-for-centering">
+        <img src="assets/img/footer-menu/icon-3-back.png">
+        <div class="plus-button-container-for-rotating">
+          <img src="assets/img/footer-menu/icon-3.png">
+        </div>
+      </div>
+
+      <div class="floating-buttons-container" *ngIf="isMenuOpened">
+        <div class="floating-button float-1"  style="width:40px;" (click)="onSeeBadge()">
+          <img src="assets/img/footer-menu/floating-icon-1.png">
+        </div>
+
+        <div class="floating-button float-3" style="width:43px;" (click)="showUgcCreate()">
+          <img src="assets/img/footer-menu/floating-icon-3.png">
+        </div>
+
+        <div class="floating-button float-2" style="width:40px;" (click)="onWriteReview()">
+          <img src="assets/img/footer-menu/floating-icon-2.png">
+        </div>
+      </div>
+    </ion-col>
+
+    <ion-col class="pj-tab-button" (click)="goToTab(3)">
+      <img *ngIf="selectedTab != 3" src="assets/img/footer-menu/icon-4.png">
+      <img *ngIf="selectedTab == 3" src="assets/img/footer-menu/icon-4-active.png">
+      <ion-badge class="pj-badge-sms"  color="danger">{{badgeCount}}</ion-badge>
+    </ion-col>
+
+    <ion-col class="pj-tab-button" (click)="goToTab(4)">
+      <img *ngIf="selectedTab != 4"  src="assets/img/footer-menu/icon-5.png">
+      <img *ngIf="selectedTab == 4"  src="assets/img/footer-menu/icon-5-active.png">
+      <div class="camp_badge" *ngIf=" campaigns.length > 0"> {{badgesCounter}}</div>
+    </ion-col>
+
+    <div class="white-mask"></div>
+
+  </ion-row>
+</ion-footer>

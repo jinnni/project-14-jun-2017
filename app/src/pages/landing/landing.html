@@ -1,0 +1,30 @@
+<ion-tabs #myTabs>CampaignListPage
+  <ion-tab [root]="timeLinePage" (ionSelect)="goToTab(0);" [tabIcon]="isTimelinePage ? 'tab-11' : 'tab-1'"></ion-tab>
+  <!-- <ion-tab [root]="ugcPage"  (ionSelect)="goToTab(1);" [tabIcon]="isUgcPage ? 'tab-22' : 'tab-2'"></ion-tab> -->
+  <!-- <ion-tab [root]="campaignPage"  (ionSelect)="goToTab(8);" [tabIcon]="isCampaignListPage ? 'tab-22' : 'tab-2'" tabBadge="{{this.settingsProvider.getbadgeCounter()}}" tabBadgeStyle="danger"></ion-tab> -->
+  <ion-tab [root]="quickTryPage"  (ionSelect)="goToTab(7);" [tabIcon]="isQuickTryPage ? 'tab-22' : 'tab-2'" [tabBadge]="settingsProvider.qtcBadgeCounter" tabBadgeStyle="danger"></ion-tab>
+  <div [class.isOpened]="this.settingsProvider.isMenuOpened" [class.isClosed]="!this.settingsProvider.isMenuOpened">
+      <div class="white-mask"></div>
+    <div class="floating-buttons-container" *ngIf="this.settingsProvider.isMenuOpened">
+      <div class="floating-button float-1"  style="width:40px;" (click)="onSeeBadge()">
+        <img src="assets/img/footer-menu/floating-icon-1.png">
+      </div>
+  
+      <div class="floating-button float-3" style="width:45px;" (click)="showUgcCreate()">
+        <img src="assets/img/footer-menu/floating-icon-3.png">
+      </div>
+  
+      <div class="floating-button float-2" style="width:40px;" (click)="onWriteReview()">
+        <img src="assets/img/footer-menu/floating-icon-2.png">
+      </div>
+    </div>
+    
+  </div>
+  <ion-tab [root]="" (ionSelect)="toggleMenu()" [tabIcon]="this.settingsProvider.isMenuOpened ? 'tab-33' : 'tab-3'"></ion-tab>
+  <!-- <ion-tab [root]="noticePage"  (ionSelect)="goToTab(3);" [tabIcon]="isNP ? 'tab-44' : 'tab-4'" *ngIf="this.settingsProvider.getbadgeCount() == 0"></ion-tab> -->
+  <ion-tab [root]="noticePage"  (ionSelect)="goToTab(3);" [tabIcon]="isNoticePage ? 'tab-44' : 'tab-4'" [tabBadge]="settingsProvider.msgBadgeCounter" tabBadgeStyle="danger"></ion-tab>
+  <!-- <ion-tab [root]="quickTryPage"  (ionSelect)="goToTab(7);" [tabIcon]="isNP ? 'tab-44' : 'tab-44'"></ion-tab> -->
+  <ion-tab [root]="profilePage"  (ionSelect)="goToTab(4);" [tabIcon]="isProfilePage ? 'tab-55' : 'tab-5'" [tabBadge]="settingsProvider.campBadgeCounter" tabBadgeStyle="danger"></ion-tab>
+  <!-- <ion-tab [root]="SignUpProfilePage" (ionSelect)="goToTab(5);" [tabIcon]="isTP ? 'tab-11' : 'tab-1'"></ion-tab> -->
+  <!-- <ion-tab [root]="DeliveryInfoPage" (ionSelect)="goToTab(6);" [tabIcon]="isTP ? 'tab-11' : 'tab-1'"></ion-tab> -->
+</ion-tabs>

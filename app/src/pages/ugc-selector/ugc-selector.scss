@@ -1,0 +1,24 @@
+page-ugc-selector {
+  ion-fab[left] {
+    left: 70px;
+  }
+  ion-fab[right] {
+    right: 70px;
+  }
+  ion-content {
+    background-color: #ffffff !important;
+  }
+
+  .button-round-md {
+    padding: 0 9.6rem !important;
+  }
+  .fab {
+    width: 65px !important;
+    height: 65px !important;
+    line-height: 65px !important;
+
+    ion-icon {
+      font-size: 3.4rem !important;
+    }
+  }
+}

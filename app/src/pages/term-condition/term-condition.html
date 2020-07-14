@@ -1,0 +1,16 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">使用条款</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div style="background-color: #ffffff;" class="card-subtitle1 ql-editor" padding></div>
+</ion-content>
+<ion-footer>
+  <ion-row class="agreement" style="width: 70%;margin: 20px auto;justify-content: center;align-items: center;">
+    <ion-checkbox color="danger" [(ngModel)]="agreementIsChecked" style="margin-right: 5px;width: 16px;height: 16px;"></ion-checkbox>
+    <div style="font-size: 10px;">免责声明(同意使用条款和隐私设置)</div>
+  </ion-row>
+  <button ion-button (click)="DenyTerms()" style="margin-right: 10px;background-color: #343434;margin-bottom: 20px;height: 35px;width: 100px;border-radius: 20px;">Deny</button>
+  <button ion-button (click)="AcceptTerms()" style="margin-left: 10px;margin-bottom: 20px;height: 35px;width: 100px;border-radius: 20px;">Accept</button>
+</ion-footer>

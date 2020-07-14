@@ -1,0 +1,362 @@
+.remove_margin .content.content-md .fixed-content {
+  margin-bottom: 0px !important;
+}
+
+.remove_margin .content.content-md .scroll-content {
+  margin-bottom: 0px !important;
+}
+
+article-ugc-detail {
+  $inputVerticalPadding: 5px;
+  $inputHorizontalPadding: 5px;
+  $inputHeight: 30px;
+  hr {
+    width: 93% !important;
+    margin: 0px auto !important;
+  }
+  .item-block.item-ios,.item-block.item-md {
+    padding: 0px;
+    .item-inner{
+      padding-left: 8px;
+      padding-right: 8px;
+      border-bottom: 0px;
+    }
+  }
+  ion-content{
+    background-color: #ffffff !important;
+  }
+  ion-card {
+    height: 125px;
+    max-width: 100%;
+    box-shadow: none !important;
+    border-width: 0 !important;;
+    border-radius: 10px !important;
+    width: 98% !important;
+    margin: 0px auto 4px auto !important;;
+  }
+  .comment-item {
+    padding: 0px 0px 5px 0px;
+    .comment-top {
+      position: relative;
+      padding:0px;
+      display: flex;
+    }
+    .writer-name {
+      margin-left: 10px;
+      display: inline-block;
+      vertical-align: middle;
+      font-weight: bold;
+      font-size: 13px;
+      flex: 1;
+    }
+    .comment-content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+      // max-width: 400px;
+      padding: 0px 0px 0 11px;
+      font-size: 13px;
+      flex: 5;
+    }
+  }
+  
+  .profile-top {
+    position: relative;
+    max-height: 40vh;
+    .image-container {
+      .profile-background-container {
+        .background-wrapper {
+          img{
+            width: 100%;
+            filter: brightness(0.4);
+          }
+        }
+      }
+
+      .profile-image-container {
+        position: absolute;
+        height: 90px;
+        width: 90px;
+        left: 15%;
+        transform: translate(-50%, 0%);
+        top: 44%;
+
+        img {
+          border-radius: 50%;
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+
+    .user-info {
+      text-align: center;
+      color: white;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      position: absolute;
+      bottom: 10%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 1.1rem;
+      width: 100%;
+      .user-name-image {
+        font-size: 2.1rem;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        box-sizing: border-box;
+        width: 90%;
+        margin: auto;
+      }
+
+      .followers {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .divider {
+        display: inline-block;
+        vertical-align: middle;
+        width: 1px;
+        height: 15px;
+        background-color: white;
+      }
+
+      .followed {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    .write-article-icon {
+      text-align: center;
+      font-size: 1.4em;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      height: 25px;
+      width: 25px;
+      z-index: 999999;
+    }
+
+  }
+
+  .card-subtitle {
+    background-color: #ffffff;
+  }
+
+  .profile-top1 {
+    .image-container {
+      // position: relative;
+      height: 200px;
+
+      .profile-background-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        //top: -100px;
+        //left: 50%;
+        //transform: translate(-50%, 0%);
+
+        .background-wrapper {
+          // border-radius: 80% / 40%;
+          height: 100%;
+          position: relative;
+          background-color: #222222; //BACKGROUND TO PROFILE BACKGROUND IMAGE
+
+          img {
+            position: absolute;
+            width: 100%;
+            left: 50%;
+            transform: translate(-50%, 0%);
+            height: 250px;
+            opacity: 0.3;
+
+          }
+        }
+      }
+    }
+  }
+  ion-footer {
+    ion-col {
+      text-align: center;
+
+    }
+    background-color: #222222;
+    height: 40px;
+    padding: -7px;
+
+    .wrapper {
+      height: 100%;
+      position: relative;
+
+      .container {
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+
+        .container-small {
+          display: inline-block;
+          width: 32vw;
+
+          img {
+            display: inline-block;
+            vertical-align: middle;
+
+            &.like {
+              width: 18px;
+              height: 18px;
+
+            }
+            &.comment {
+              width: 25px;
+              height: 25px;
+
+            }
+            &.share {
+              width: 27px;
+              height: 27px;
+
+            }
+          }
+
+          .count {
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+  .top-icons {
+    padding: 0em 2.5em !important;
+  }
+  .comments-lable {
+    $height: 50px;
+    background: #f3f3f3;
+    /* width: 100vw; */
+    height: 50px;
+    margin: 10px;
+    ion-col {
+      padding: 0 !important;
+      height: $height;
+      line-height: $height;
+      font-size: 1.1em;
+      p {
+        margin: 0;
+        font-weight: 300;
+      }
+
+    }
+
+    $side-padding: 10px;
+    .section-header-left p {
+      padding-left: $side-padding;
+    }
+    .section-header-right p {
+      padding-right: $side-padding;
+    }
+  }
+  .comments-showmore {
+    text-align: center;
+  }
+
+  .button-md {
+    border-radius: 2px;
+    overflow: hidden;
+    height: 3.6rem;
+    font-size: 1.2rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .icon-like1 {
+    display: inline-block;
+    vertical-align: top;
+    width: 15px;
+    height: 15px;
+    margin-right: 17px;
+  }
+  .likeButton {
+    align-self: center;
+    padding: 0px;
+  }
+  .icon-like {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+  }
+
+  .icon-comment {
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+  }
+
+  .icon-view {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 15px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+  }
+  .comment-section {
+    left: auto;
+    bottom: auto;
+    position: initial;
+    .input-container {
+      height: 100%;
+      background-color: transparent;
+      margin: 8px 8px 0px 8px;
+      padding: 0px;
+      display: flex;
+      border: 1px solid #e8e8e8;
+      border-radius: 5px;
+      overflow: hidden;
+      ion-input {
+        height: $inputHeight;
+        input {
+          margin: 0 !important;
+          padding-left: 10px;
+          line-height: $inputHeight;
+          &::placeholder {
+            color: #adadad
+          }
+        }
+      }
+    }
+
+    .image-container {
+      display: flex;
+      img {
+        width: $inputHeight;
+        height: $inputHeight;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  ion-spinner {
+    * {
+      stroke: red !important;
+    }
+  }
+  .label-ios, .label-md{
+    display: flex;
+    justify-content: space-between;
+  }
+}

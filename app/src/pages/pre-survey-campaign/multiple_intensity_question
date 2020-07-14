@@ -1,0 +1,94 @@
+toggleCheckboxItemForIntensity(subject,intensity) {
+    let removeIndex = 0;
+    this.selectedItems = [];
+    let indexFound = this.selectedIntensityItems[subject.questionSubjectCode].findIndex((item,index) => {
+      if(item == intensity.questionIntensityCode){
+        removeIndex = index;
+      }
+      return item == intensity.questionIntensityCode;
+    });
+    if (indexFound < 0) {
+      this.selectedIntensityItems1[subject.id].push(intensity.id);
+      this.selectedIntensityItems[subject.questionSubjectCode].push(intensity.questionIntensityCode);
+    }else {
+      this.selectedIntensityItems1[subject.id].splice(removeIndex, 1);
+      this.selectedIntensityItems[subject.questionSubjectCode].splice(removeIndex, 1);
+    }
+    if(this.selectedIntensityItems1[subject.id].length > 0){
+      subject.isTitleSelected = true;
+    }else{
+      subject.isTitleSelected = false;
+    }
+    for (let index = 0; index < this.intensityOptions.length; index++) {
+      for (let index1 = 0; index1 < this.selectedIntensityItems.length; index1++) {
+        if (this.selectedIntensityItems[index1] != undefined) {
+          for (let index2 = 0; index2 < this.selectedIntensityItems[index1].length; index2++) {
+            let combination = index1+"."+this.selectedIntensityItems[index1][index2];
+            if (this.intensityOptions[index].questionOptionCode == combination) {
+              this.selectedItems.push(this.intensityOptions[index].id);
+            }
+          }
+        }
+      }
+    }
+  }
+  clickItem2(subject,intensity) {
+    this.toggleCheckboxItemForIntensity(subject,intensity);
+  }
+    isSelectedIntensity1(subject,intensity) {
+    let indexFound;
+    this.selectedIntensityItems1[subject.id].findIndex(item => {
+      indexFound = item.findIndex(item1 => {
+        return item1 == intensity.id;
+      });
+    });
+    return indexFound >= 0;
+  }
+
+
+  --------XX--------
+  <div *ngIf="!isIntensity">
+      <div class="radio-options" radio-group *ngFor="let subject of questionSubjectDTOList">
+        <div class="choice-option-title" [class.selected]="subject.isTitleSelected">
+          {{subject.subject}}
+        </div>
+        <div>
+          <div class="answer-choice" *ngFor="let intensity of questionIntensityDTOList" (click)="clickItem1(subject,intensity)">
+            <div class="choice-button">
+              <ion-radio mode="md" [checked]="isSelectedIntensity(subject,intensity)">
+              </ion-radio>
+            </div>
+            <div class="choice-title" [class.selected]="isSelectedIntensity(subject,intensity)">
+              {{intensity.intensity}}
+            </div>
+            <img class="tick" *ngIf="isSelectedIntensity(subject,intensity)" src="assets/img/badges/complete.png">
+          </div>
+          <div *ngIf="subject.customInput && isSelectedIntensity(subject,intensity)" class="custom-input">
+            <input type="text" [(ngModel)]="customInputs[subject.code]"> 
+          </div>
+        </div>
+    </div>
+    </div>
+    <div *ngIf="isIntensity">
+      <div class="radio-options" radio-group *ngFor="let subject of questionSubjectDTOList">
+        <div class="choice-option-title" [class.selected]="subject.isTitleSelected">
+          {{subject.subject}}
+        </div>
+        <div>
+          <div class="answer-choice" *ngFor="let intensity of questionIntensityDTOList" (click)="clickItem2(subject,intensity)">
+            <div class="choice-button">
+              <!-- <ion-radio mode="md" [checked]="isSelectedIntensity(subject,intensity)">
+              </ion-radio> -->
+              <ion-checkbox [checked]="isSelectedIntensity(subject,intensity)"></ion-checkbox>
+            </div>
+            <div class="choice-title" [class.selected]="isSelectedIntensity(subject,intensity)">
+              {{intensity.intensity}}
+            </div>
+            <img class="tick" *ngIf="isSelectedIntensity(subject,intensity)" src="assets/img/badges/complete.png">
+          </div>
+          <div *ngIf="subject.customInput && isSelectedIntensity(subject,intensity)" class="custom-input">
+            <input type="text" [(ngModel)]="customInputs[subject.code]"> 
+          </div>
+        </div>
+    </div>
+    </div>

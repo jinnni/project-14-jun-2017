@@ -1,0 +1,7 @@
+<ion-slides class="image-slide" autoplay="4000" loop="true" speed="800" autoplayDisableOnInteraction = "false">
+  <ion-slide class="image-section" *ngFor="let item of slideItems">
+    <a href="{{item.linkUrl}}" target="_blank" *ngIf="item.bannerType == 'URL_LINK'">
+      <img src={{item.imageName}}  onError="this.src='assets/img/placeholder.jpg';" ></a>
+    <img class="redirect" *ngIf="item.bannerType != 'URL_LINK'" src="assets/img/placeholder.jpg" (click)="showDetail(item)"  onError="this.src='assets/img/placeholder.jpg';">
+  </ion-slide>
+</ion-slides>

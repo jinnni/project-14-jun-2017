@@ -1,0 +1,51 @@
+<ion-header no-border mode="ios">
+  <ion-navbar transparent mode="ios">
+    <ion-title mode="ios">{{badge?.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="badge-image" [style.backgroundImage]="'url(' + imageUrl+badge?.imageName + ')'">
+    <!--<img [src]="imageUrl+badge?.imageName">-->
+  </div>
+  <div class="badge-content">
+    {{badge?.content}}
+  </div>
+  <div class="divider"></div>
+  <div class="point-indicator-container">
+    <div class="point-indicator-label">累计得分</div>
+    <div class="point-indicator-bar">
+      <div class="point-indicator-bar-outline"></div>
+      <div class="point-indicator-bar-fill" [style.width]="calculateWidth()"></div>
+    </div>
+    <div class="point-indicator-status-label">{{currentScore}}/100</div>
+  </div>
+  <div class="how-to-get-points">
+    <div class="desc-container">
+      <div class="desc-top">写评价</div>
+      <div class="desc-bottom">
+        <img src="assets/img/icons/write_review_red2.png">
+        <div class="desc-score">
+          +{{badge?.reviewScore}}分
+        </div>
+      </div>
+    </div>
+    <div class="desc-container">
+      <div class="desc-top">回答问题</div>
+      <div class="desc-bottom">
+        <img src="assets/img/icons/ask_question_red.png">
+        <div class="desc-score">
+          +{{badge?.answerScore}}分
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div> 
+  <div class="related-products">
+    <div class="related-product" *ngFor="let product of onlyAddEightRelatedProducts, let i = index">
+      <div *ngIf="product" style="height: 100%;">
+        <img *ngIf="i != onIndex" [src]="product.singleProductImage" (click)="showProductDetail(product)">
+        <img [class.disable] = "product.noRefresh" *ngIf="i == onIndex" src="assets/img/icons/refresh_gray.png" (click)="setRelatedProductsBeingShown()">
+      </div>
+    </div>
+  </div>
+</ion-content>

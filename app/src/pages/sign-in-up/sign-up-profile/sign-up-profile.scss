@@ -1,0 +1,66 @@
+page-sign-up-profile {
+  .header-logo {
+    position: relative;
+    height: 120px;
+    width: 100%;
+    margin: 20px auto 50px auto;
+  }
+
+  .sign-in-button {
+    margin-top: 50px;
+  }
+  .input ion-list .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+  .input ion-list .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner{border-bottom:1px solid #32db64 !important;box-shadow : 1px 2px 3px #d3d3d3 !important;}
+  .input ion-list .item-block .item-inner{border-bottom: 1px solid red !important;}
+  .input ion-list .item-block.item-input-has-value .item-inner{border-bottom: 1px solid #32db64 !important;}
+  .profile-image-container.bordered {
+    border: 1px solid red;
+  }
+  .profile-image-container {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    top: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    .upload-icon{
+      width: 45px;
+      position: relative;
+      top: 80px;
+      left: 80px;
+    }
+  }
+}
+.alert-md .alert-wrapper{
+  border-radius: 13px;
+}
+.alert-md .alert-button-group {
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+  flex-wrap: wrap;
+}
+.alert-md .alert-button{
+  margin: 0;
+  border-radius: 0;
+  overflow: hidden;
+  flex: 1 1 auto;
+  min-width: 50%;
+  height: 44px;
+  border-right: 0.55px solid #dbdbdf;
+  font-size: 17px;
+  color: #FF2742;
+  background-color: transparent;
+  border-top: 0.55px solid #dbdbdf;
+  .button-inner {
+    justify-content: center;
+  }
+}
+.alert-md .alert-head {
+  padding: 24px 24px 20px;
+  text-align: center !important;
+}

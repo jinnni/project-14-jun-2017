@@ -1,0 +1,24 @@
+
+<ion-content padding>
+  <h3 style="margin-top: 55px; text-align: center;">上传内容</h3>
+
+  <ion-row style="margin-top: 20%">
+    <ion-col align="center">
+      <a href="javascript: void (0)" (click)="chooseFromLibrary()">
+        <img src="assets/img/ugc-selector/library_save.png" width="130">
+      </a>
+    </ion-col>
+    <ion-col align="center">
+      <a href="javascript:void (0)" (click)="chooseFromCamera()">
+        <img src="assets/img/ugc-selector/camera_save.png" width="130">
+      </a>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer style="min-height: 20%" text-center no-border>
+  <!--<button ion-button color="danger" round (click)="cancelButton()">取消</button>-->
+  <a href="javascript: void (0)" (click)="cancelButton()">
+    <img src="assets/img/ugc-selector/save_button.png" width="270">
+  </a>
+</ion-footer>

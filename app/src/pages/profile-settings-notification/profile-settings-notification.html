@@ -1,0 +1,13 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">通知设置</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let setting of notificationSettings">
+      <ion-label>{{setting.title}}</ion-label>
+      <ion-toggle [(ngModel)]="model[setting.key]" (ngModelChange)="onToggle($event, setting.key)"></ion-toggle>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,21 @@
+page-terms-condition-modal-camp {
+    ion-header{
+        background-color: #ffffff;
+        text-align: center;
+        .back-button{
+            position: absolute;
+            z-index: 9;
+        }
+        .toolbar-title{
+            font-size: 14px !important;
+        }
+    }
+    h3{
+          text-align: center;
+    }
+    ion-footer{
+        background-color: #ffffff;
+        text-align: center;
+        padding: 10px;
+    }
+}

@@ -1,0 +1,146 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">社交影响力</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content  *ngIf="userData" padding >
+  <div class="social-impact-description">关联你的社交媒体账户, 以提高你的达人影响力, 将有资格获取很棒的宝贝</div>
+  <div class="social-impact-container">
+    <ion-grid>
+      <ion-row class="description-at-top" text-center>
+        <ion-col *ngIf="referralInfo && referralInfo.privateRefcode" col4 text-left class="social-impact-score-label">
+          <ion-item  (click)="copyRefCode()" style="user-select: auto;">
+            {{referralInfo.privateRefcode}}
+          </ion-item>
+        </ion-col>
+        <ion-col col4 class="profile-img-col">
+          <div class="profile-img-container">
+            <img *ngIf="socialProfilePic" [src]="socialProfilePic" onError="this.src='assets/img/placeholder.jpg';">
+            <img *ngIf="userData.profileImage && !socialProfilePic" [src]="imageUrl+userData.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+          </div>
+        </ion-col>
+
+        <ion-col col4 class="social-impact-indicator-container" [ngSwitch]="socialImpactLevel">
+          <div *ngSwitchCase="1">
+            <img src="assets/img/indicator/signal_lv1.png">
+            <div class="social-impact-indicator">低</div>
+          </div>
+          <div *ngSwitchCase="2">
+            <img src="assets/img/indicator/signal_lv2.png">
+            <div class="social-impact-indicator">中</div>
+          </div>
+          <div *ngSwitchCase="3">
+            <img src="assets/img/indicator/signal_lv3.png">
+            <div class="social-impact-indicator">高</div>
+          </div>
+          <div *ngSwitchCase="4">
+            <img src="assets/img/indicator/signal_lv4.png">
+            <div class="social-impact-indicator">极高</div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="score-div-container" text-center>
+        <div>{{socialImpactScore}}</div>
+      </ion-row>
+      <ion-row class="sns-list">
+        <ion-col col-12>
+          <!--New-->
+          <ion-list *ngIf="snsServiceList">
+            <div *ngFor="let item of orderBy('rank'); index as i">
+              <hr>
+              <ion-item no-padding no-lines (click)="toggleGroup(i,item)" id="{{i}}" >
+                <ion-avatar item-start>
+                  <img src="{{imageUrl+item.icon}}">
+                </ion-avatar>
+                <ion-label style="opacity: 4.5!important;">
+                  {{item.name}}
+                </ion-label>
+                <ion-label item-right style="text-align: right; opacity: 0.5!important;">
+                  <ng-container *ngIf="item.followerCount != null  && (item.status != 'PENDING' && item.status != 'UNLINKED' )">
+                    {{item.followerCount}}
+                  </ng-container>
+                  <span *ngIf="item.status === 'APPROVED'"></span>粉丝
+                  <span style="font-size: 1.1rem" *ngIf="item.status == 'HOLD'"> | 审核中</span>
+                  <span style="font-size: 1.1rem" *ngIf="item.status == 'PENDING' || item.status == 'UNLINKED'"> | 有待</span>
+                  <span style="font-size: 1.1rem" *ngIf="item.status == 'REJECTED'"> | 被拒绝</span>
+                </ion-label>
+                
+                <ion-toggle *ngIf="item.status === 'APPROVED'" disabled checked class="btn_box green" color="secondary"></ion-toggle>
+                <ion-toggle *ngIf="item.status === 'HOLD'" disabled class="btn_box yellow" color="yellow"></ion-toggle>
+                <ion-toggle *ngIf="item.status === 'REJECTED'" disabled class="btn_box red" color="danger"></ion-toggle>
+                <ion-toggle *ngIf="item.status === 'PENDING' || item.status === 'UNLINKED'" disabled class="btn_box grey" color="yellow"></ion-toggle>
+              </ion-item>
+
+              <ion-item *ngIf="(toggleID == i)" no-lines>
+            
+                <div style="border: 2px solid #ccc;padding: 30px;margin: 10px 20px 20px 20px; text-align: center">
+                  <img *ngIf="imageContents[i] && platform.is('ios') == true" style="width: 110px;height: 110px;" [src]="imageContents[i]" (click)="getImage(i)">
+                  <img *ngIf="imageContents[i] && platform.is('ios') == false" style="width: 110px;height: 110px;" [src]="imageContents[i]" (click)="getImage(i)">
+                  <img *ngIf="!imageContents[i]" src="assets/img/icons/add_black.png" (click)="getImage(i)">
+                </div>
+
+                <ion-item class="no-validation-line" no-lines no-padding round *ngIf="item.id != 1 && item.id != 2"
+                          style="border-radius: 10rem; background-color: rgba(158,158,158,0.14);">
+                  <ion-input   type="text" placeholder="在这里粘贴社交媒体个人页面链接..."
+                             [value]="item.snsUserUrl == 'null' ? '' : item.snsUserUrl"
+                             [(ngModel)]="item.snsUserUrl"    clearInput></ion-input>
+                </ion-item>
+                <br/>
+
+                <div align="center">
+                  <button class="pj-long-button-upload" (click)="upload(i)">提交</button>
+                  <br/><br/>
+                  <p>有任何疑问吗?</p><br/>
+                  <p style="white-space: initial!important;">请点击下方“如何操作”，你可以获得帮助。</p><br>
+                  <button class="pj-long-button-nowmore" (click)="knowMore(item.name, item.detail)">如何操作</button>
+                </div>
+              </ion-item>
+
+            </div>
+            <hr>
+            <ion-item id="referalSection" *ngIf="referralInfo" no-padding no-lines  (click)="isOpen = !isOpen">
+     
+              <ion-avatar item-start>
+                <img src="assets/img/refimact.png">
+              </ion-avatar>
+              <ion-label style="opacity: 4.5!important;">
+               邀请码
+              </ion-label>
+              <ion-label item-right style="text-align: right; opacity: 0.5!important;">
+                <span *ngIf="referralInfo.refScore > 0">{{referralInfo.refScore}}</span>粉丝
+              </ion-label>
+              
+              <ion-toggle  *ngIf="!referralInfo || !referralInfo.refScore  || referralInfo.refScore <= 0"  disabled class="btn_box grey" color="yellow"></ion-toggle>
+
+              <ion-toggle *ngIf="referralInfo && referralInfo.refScore > 0" disabled checked class="btn_box green"
+              color="secondary"></ion-toggle>
+
+            </ion-item>
+            <hr>
+            <ion-item *ngIf="referralInfo && referralInfo.privateRefcode && isOpen" class="referalBody"  (click)="copyRefCode()"   no-lines>
+              <div align="center">
+                <h2 style="font-weight: bold">你的邀请码</h2>
+              </div>
+              
+              <div class="refCodeContainer" style="user-select: auto;">
+                {{referralInfo.privateRefcode}}
+              </div>
+          
+              <div class="social-impact-description" style="margin-top: 10px;text-align: initial; color: #666;"> 
+                与你的好友分享邀请码，并邀请他们注册评价达人APP，注册时输入你的邀请码，每位好友当关联好微博或小红书，你和你的好友都会获得各个5分哦！（小红书5分，微博5分）
+              </div>
+
+              <p style="font-weight: bold !important;
+              color: #666;
+              margin-top: 10px;">记住，你的社交影响力越高，获得宝BOX机会越高哦，加油！
+              </p>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="button-area" *ngIf="isSignUp">
+    <button class="pj-long-button" (click)="skip()">跳过</button>
+  </div>
+</ion-content>

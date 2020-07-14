@@ -1,0 +1,134 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">评论</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <!-- <div>{{hasFocus}}</div> -->
+  <ion-content *ngIf="this.platform.is('android')" style="height:calc(100% - 50px);" [ngStyle]="{'height': hasFocus == true ? 'calc(100% - 50px)' : 'calc(100% - 50px)' }">
+    <div class="alternate-bg" *ngFor="let comment of comments">
+      <div class="comment-item">
+        <div class="comment-top" *ngIf="isGuestUser">
+          <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="comment.user.id == userData.id" [src]="socialProfilePic" onError="this.src='assets/img/placeholder.jpg';">
+          <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="comment.user.id != userData.id && !comment.user.profileImage && comment.user.gender == 'M'" src="assets/img/profile/man.png">
+          <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="comment.user.id != userData.id && !comment.user.profileImage && comment.user.gender == 'F'" src="assets/img/profile/woman.png">
+          <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="comment.user.id != userData.id && comment.user.profileImage" [src]="imageUrl+comment.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+          <div style="flex: 1;">
+            <div class="writer-name">
+              <div style="display: flex;flex: 1;">
+                <b style="margin: 0px;">{{comment.user.nickname}}</b>
+              </div>
+              <div class="written-date" style="font-size: 12px;">{{util.formatTimeYearMonthDay(comment.createdOn)}}</div>
+            </div>
+            <div class="comment-content">{{comment.comment}}</div>
+          </div>
+        </div>
+        <div class="comment-top" *ngIf="!isGuestUser">
+          <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="comment.user.profileImage" [src]="imageUrl+comment.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+          <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="!comment.user.profileImage && comment.user.gender == 'M'" src="assets/img/profile/man.png" >
+          <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="!comment.user.profileImage && comment.user.gender == 'F'" src="assets/img/profile/woman.png">
+          <div style="flex: 1;">
+            <div class="writer-name">
+              <div style="display: flex;flex: 1;">
+                <b style="margin: 0px;">{{comment.user.nickname}}</b>
+              </div>
+              <div class="written-date" style="font-size: 12px;">{{util.formatTimeYearMonthDay(comment.createdOn)}}</div>
+            </div>
+            <div class="comment-content">{{comment.comment}}</div>
+          </div>
+        </div>
+        <!-- <div class="comment-content">{{comment.comment}}</div> -->
+        <div class="comment-bottom">
+          <div class="button-section like-section">
+            <img class="like-icon" *ngIf="comment.liked == false" src="assets/img/icons/heart_white_new.png" (click)="toggleLikeUp(comment)" >
+            <img class="like-icon" *ngIf="comment.liked == true" src="assets/img/icons/heart_red_new.png" (click)="toggleLikeDown(comment)">
+            <p *ngIf="comment.likeCount > 0">{{comment.likeCount}}</p>
+          </div>
+          <div class="button-section comment-section" (click)="ShowWriteComment(comment)">
+            <img src="assets/img/icons/comment_white_new.png">
+            </div>
+          </div>
+        </div>
+    </div>
+    <ion-infinite-scroll threshold="10px" *ngIf="!lastPage" (ionInfinite)="doInfinite_($event)">
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+      <div style="text-align: center;padding-bottom: 30px;">
+        <button style="height: 25px;border-radius: 20px;font-size: 12px;padding: 5px 20px;" (click)="doInfinite_('')">点击加载更多</button>
+      </div>
+    </ion-infinite-scroll>
+  </ion-content>
+  <div *ngIf="isWriting && this.platform.is('android')" class="comment-section ion-footer">
+    <div class="input-container">
+      <ion-input #input type="text" [(ngModel)]="item.createComment.postComment" class="postComment" placeholder="写评论" (ionFocus)="item.hasButton = true; hasFocus = true;" (ionBlur)=" hasFocus = false;"></ion-input>
+      <div class="image-container" style="background-color: #f3f3f3;" *ngIf="item.hasButton == false || item.createComment.postComment == ''">
+          <b style="color: #ffffff; line-height: 20px; padding: 5px 8px; letter-spacing: 1px;">发布</b>
+        </div>
+      <div class="image-container" style="background-color: #ff2744;" (click)="submitComment(item)" *ngIf="item.hasButton == true && item.createComment.postComment != ''">
+        <b style="color: #ffffff; line-height: 20px; padding: 5px 8px; letter-spacing: 1px;">发布</b>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="this.platform.is('ios')">
+    <div class="alternate-bg" *ngFor="let comment of comments">
+        <div class="comment-item">
+          <div class="comment-top" *ngIf="isGuestUser">
+            <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="comment.user.id == userData.id" [src]="socialProfilePic" onError="this.src='assets/img/placeholder.jpg';">
+            <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="comment.user.id != userData.id && !comment.user.profileImage && comment.user.gender == 'M'" src="assets/img/profile/man.png">
+            <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="comment.user.id != userData.id && !comment.user.profileImage && comment.user.gender == 'F'" src="assets/img/profile/woman.png">
+            <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="comment.user.id != userData.id && comment.user.profileImage" [src]="imageUrl+comment.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+            <div style="flex: 1;">
+              <div class="writer-name">
+                <div style="display: flex;flex: 1;">
+                  <b style="margin: 0px;">{{comment.user.nickname}}</b>
+                </div>
+                <div class="written-date" style="font-size: 12px;">{{util.formatTimeYearMonthDay(comment.createdOn)}}</div>
+              </div>
+              <div class="comment-content">{{comment.comment}}</div>
+            </div>
+          </div>
+          <div class="comment-top" *ngIf="!isGuestUser">
+            <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="comment.user.profileImage" [src]="imageUrl+comment.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+            <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="!comment.user.profileImage && comment.user.gender == 'M'" src="assets/img/profile/man.png" >
+            <img (click)="goToUserProfile(comment.user)" class="writer-image" *ngIf="!comment.user.profileImage && comment.user.gender == 'F'" src="assets/img/profile/woman.png">
+            <div style="flex: 1;">
+              <div class="writer-name">
+                <div style="display: flex;flex: 1;">
+                  <b style="margin: 0px;">{{comment.user.nickname}}</b>
+                </div>
+                <div class="written-date" style="font-size: 12px;">{{util.formatTimeYearMonthDay(comment.createdOn)}}</div>
+              </div>
+              <div class="comment-content">{{comment.comment}}</div>
+            </div>
+          </div>
+          <!-- <div class="comment-content">{{comment.comment}}</div> -->
+          <div class="comment-bottom">
+            <div class="button-section like-section">
+              <img class="like-icon" *ngIf="comment.liked == false" src="assets/img/icons/heart_white_new.png" (click)="toggleLikeUp(comment)" >
+              <img class="like-icon" *ngIf="comment.liked == true" src="assets/img/icons/heart_red_new.png" (click)="toggleLikeDown(comment)">
+              <p *ngIf="comment.likeCount > 0">{{comment.likeCount}}</p>
+            </div>
+            <div class="button-section comment-section" (click)="ShowWriteComment(comment)">
+              <img src="assets/img/icons/comment_white_new.png">
+              </div>
+            </div>
+          </div>
+    </div>
+    <ion-infinite-scroll threshold="10px" *ngIf="!lastPage" (ionInfinite)="doInfinite_($event)">
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+      <div style="text-align: center;padding-bottom: 30px;">
+        <button style="height: 25px;border-radius: 20px;font-size: 12px;padding: 5px 20px;" (click)="doInfinite_('')">点击加载更多</button>
+      </div>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>
+<ion-footer *ngIf="isWriting && this.platform.is('ios')" class="comment-section">
+  <div class="input-container">
+    <ion-input #input type="text" [(ngModel)]="item.createComment.postComment" class="postComment" placeholder="写评论" (ionFocus)="item.hasButton = true; hasFocus = true;" (ionBlur)=" hasFocus = false;"></ion-input>
+    <div class="image-container" style="background-color: #f3f3f3;" *ngIf="item.hasButton == false || item.createComment.postComment == ''">
+      <b style="color: #ffffff; line-height: 20px; padding: 5px 8px; letter-spacing: 1px;">发布</b>
+    </div>
+    <div class="image-container" style="background-color: #ff2744;" (click)="submitComment(item)" *ngIf="item.hasButton == true && item.createComment.postComment != ''">
+      <b style="color: #ffffff; line-height: 20px; padding: 5px 8px; letter-spacing: 1px;">发布</b>
+    </div>
+  </div>
+</ion-footer>

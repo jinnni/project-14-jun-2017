@@ -1,0 +1,106 @@
+page-sign-up-social-user {
+  .pj-long-button{
+    height: 45px;
+    line-height: 50px;
+    padding: 0 !important;
+    color: #fdfdfd;
+    background-color: #FF2742;
+    text-align: center;
+    font-size: 1.3em;
+    width: 65%;
+    margin: 10px auto;
+    border-radius: 25px;
+  }
+  .loginForm{
+        padding-top: 25%;
+        p{
+          color: gray;
+          font-size: 18px;
+          text-align: center;
+          margin: 40px;
+        }
+  }
+  .regForm{
+    padding-top: 35%;
+    p{
+      color: gray;
+      font-size: 18px;
+      text-align: center;
+      margin: 40px;
+    }
+    .input {
+      ion-col {
+        margin: 0px;
+        padding: 0px;
+      }
+    }
+
+    #auth-num-input-col {
+      padding-right: 10px;
+    }
+
+    .agreement {
+      margin-top: 15px;
+      margin-bottom: $footer-button-height + 20px;
+      display: flex;
+      justify-content: center;
+
+      $text-width: 220px;
+
+      ion-checkbox {
+        position: absolute;
+        transform: translate(-$text-width+100px, 4px);
+
+        .checkbox-icon {
+          width: 12px;
+          height: 12px;
+          border-radius: 15px;
+          position: relative;
+          top: 20%;
+
+          .checkbox-inner {
+            position: relative;
+            top: -15%;
+            left: 30%;
+            right: 0px;
+            bottom: 0px;
+          }
+        }
+      }
+
+      div {
+        width: $text-width;
+        position: absolute;
+      }
+    }
+
+    #pj-item-button {
+      border: 1px solid $pjLightRed !important;
+      background: $pjRed !important;
+      .item-inner {
+        ion-label {
+          color: white;
+          text-align: center;
+          margin: 0;
+        }
+      }
+
+      &:active {
+        border: 1px solid lighten($pjLightRed, 5) !important;
+        ion-label {
+          color: lighten($pjBlack, 30);
+        }
+      }
+
+      &.disabled {
+        border: 1px solid transparent !important;
+        background-color: $pjGray;
+
+        ion-label {
+          color: lighten($pjGray, 10);
+          font-weight: lighter;
+        }
+      }
+    }
+  }
+}

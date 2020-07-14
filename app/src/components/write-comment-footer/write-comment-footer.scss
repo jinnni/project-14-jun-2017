@@ -1,0 +1,42 @@
+write-comment-footer {
+
+  $inputVerticalPadding: 5px;
+  $inputHorizontalPadding: 5px;
+  $inputHeight: 30px;
+
+  display: block;
+  height: $inputHeight + $inputVerticalPadding * 2;
+  box-shadow: 0 -1px 1px $pjAnotherGray;
+
+  .comment-section {
+    .input-container {
+      height: 100%;
+      background-color: $pjBackground;
+      padding: $inputVerticalPadding 0 $inputVerticalPadding $inputVerticalPadding;
+
+      ion-input {
+        height: $inputHeight;
+        background-color: #fff;
+
+        input {
+          margin: 0 !important;
+          padding-left: 10px;
+          line-height: $inputHeight;
+        }
+      }
+    }
+
+    .image-container {
+      position: relative;
+
+      img {
+        width: $inputHeight;
+        height: $inputHeight;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+page-campaign-list {
+  display: block;
+  padding: 20px 10px;
+  width: 100%;
+  border-bottom: 1px solid $pjLightRed;
+  .hr1{
+    border: none;
+    height: 1px;
+    color: #F13636;
+    background-color: #F13636;
+    margin-top: 15px;
+    opacity: 0.5;
+  }
+  .campaign-name {
+    text-align: center;
+    font-size: 1.3em;
+    color: $pjRed;
+  }
+  .campaign-time-left {
+    text-align: center;
+    margin: 2px 0 5px 0;
+
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      height: 20px;
+      width: 20px;
+      margin-left: -1%;
+    }
+    p {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+      color: $pjRed;
+      font-size: 0.9em;
+    }
+  }
+  .campaign-description {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #efefef;
+    min-width: 90vw;
+    // min-height: 90vw;
+    img{
+      width: 100%;
+      margin: auto;
+    }
+  }
+  ion-card{
+    // width: 90% !important;
+    width: 90vw !important;
+    margin: 10px auto !important;
+    border-radius: 5px !important;
+    .top{
+      padding: 10px;
+    }
+    button{
+      height: 50px;
+      width: 100%;
+      font-size: 14px;
+      background-color:#ff2744;
+      color: #ffffff;
+      font-weight: 700;
+    }
+  }
+  
+  .see-badge-button {
+    display: block;
+    margin: 10px auto 0 auto;
+    height: 30px;
+    width: 170px;
+    border-radius: 5px;
+    background-color: $pjRed;
+    color: $pjWhite;
+
+    &:active {
+      background-color: $pjDarkRed;
+    }
+  }
+  .place-holder-message {
+    height: 100%;
+    position: relative;
+
+    .text {
+      color: $pjRed;
+      position: absolute;
+      font-weight: lighter;
+      font-size: 1.2em;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+ion-header,ion-navbar{
+  background-color: #ffffff;
+}

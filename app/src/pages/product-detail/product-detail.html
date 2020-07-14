@@ -1,0 +1,231 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios">
+    <div class="navbar-header-container">
+      <div style="display:inline-flex;">
+        <div *ngIf="productData.liked == false" (click)="toggleLikeUp(productData)">
+          <img class="like-icon" src="assets/img/icons/heart_white_new.png">
+        </div>
+        <div *ngIf="productData.liked == true" (click)="toggleLikeDown(productData)">
+          <img class="like-icon" src="assets/img/icons/heart_red_new.png">
+        </div>
+        <img class="share-icon" src="assets/img/icons/share_new.png" (click)="toggleShare(productData)">
+      </div>
+    </div>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row class="product-name" style="text-align: left ">
+      <div style="margin-left: 10px;overflow: hidden;white-space: nowrap;margin-right: 20px;text-overflow: ellipsis;">{{productData.name}}</div>
+    </ion-row>
+    <ion-row class="brand-name" style="text-align: left">
+      By {{productData.productBrand.name}}
+    </ion-row>
+    <ion-row class="rating-section">
+      <ion-col col-5>
+        <rating [(ngModel)]="productData.rating" readOnly="true"></rating>
+        <div class="rating-description">{{productData.rating}} ({{productData.reviewCount}}条评价)</div>
+      </ion-col>
+      <ion-col col-4 class="badge-section" *ngIf="Badges && Badges.length" (scroll)="getScroll()">
+        <div style="position: absolute; right: 0;">
+            <div class="right-side-fade"></div>
+        </div>
+        <table>
+          <tr>
+            <td class="badge" (click)="seeBadge(badgeitem)" *ngFor="let badgeitem of Badges">
+              <img class="badge-image" [src]="imageUrl+badgeitem.imageName" onError="this.src='assets/img/placeholder.jpg';">
+            </td>
+            <td class="badge"></td>
+          </tr>
+        </table>
+      </ion-col>
+    </ion-row>
+    <ion-row class="product-view-section">
+      <ion-slides pager>
+        <ion-slide class="product-image-section" *ngFor="let imageitem of productImage; let i = index ">
+          <img [src]="imageUrl+imageitem" onError="this.src='assets/img/placeholder.jpg';">
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+    <ion-row class="shopping-mall">
+      <div class="shopping-mall-image">
+        <div class="shopping-mall-item" *ngFor="let partner of partnerList">
+        <a href="{{partner.productUrl}}" target="_blank">
+          <img class="partner-image" style="height: 50px" src={{partner.partnerImage}}>
+          <div class="price">¥{{partner.productPrice}}</div>
+        </a>
+        </div>
+      </div>
+    </ion-row>
+    <ion-row class="button-section">
+      <ion-col id="write_review_button" col-6 text-center (click)="showWriteReview()">
+        <div class="description-container">
+          <img src="assets/img/icons/write_review.png">
+          <div class="button-description">评价</div>
+        </div>
+      </ion-col>
+      <ion-col id="ask_question_button" col-6 text-center (click)="showAskQuestion()">
+        <div class="description-container">
+          <img src="assets/img/icons/ask_question.png">
+          <div class="button-description">提问</div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="qna-section">
+      <ion-row class="section-header">
+        <ion-col col-9 text-left class="section-header-left">
+          <p>Q&A ({{questionList?.length}})</p>
+        </ion-col>
+        <ion-col col-9 text-right class="section-header-right" style="margin-right: -95px;">
+          <p (click)="showQnaList()">查看所有提问</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <div class="qna-list">
+          <div class="qna-item" *ngFor="let question of questionList | slice:0:1; let last=last" style="height: 100%;display: flex;align-items: center;padding-left: 10px;">
+            <div (click)="goToProfile(question.user)" *ngIf="isGuestUser">
+              <img class="profile-image" *ngIf="last && question.user.id == userData.id" [src]="socialProfilePic" onError="this.src='assets/img/placeholder.jpg';">
+              <img class="profile-image"
+                   *ngIf="last && question.user.id != userData.id && !question.user.profileImage && question.user.gender == 'M'"
+                   src="assets/img/profile/man.png">
+              <img class="profile-image"
+                   *ngIf="last && question.user.id != userData.id && !question.user.profileImage && question.user.gender == 'F'"
+                   src="assets/img/profile/woman.png">
+              <img class="profile-image" *ngIf="last && question.user.id != userData.id && question.user.profileImage"
+                   [src]="imageUrl+question.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+            </div>
+            <div (click)="goToProfile(question.user)" *ngIf="!isGuestUser">
+              <img class="profile-image" *ngIf="last && question.user.profileImage"
+                   [src]="imageUrl+question.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+              <img class="profile-image" *ngIf="last && !question.user.profileImage && question.user.gender == 'F'"
+                   src="assets/img/profile/woman.png">
+              <img class="profile-image" *ngIf="last && !question.user.profileImage && question.user.gender == 'M'"
+                   src="assets/img/profile/man.png">
+            </div>
+            <div *ngIf="last" class="content-section" (click)="showQuestionDetail(question)">
+              <div class="content_elipsize-3lines" [innerHtml]="question.content"></div>
+              <div class="replies">
+                <div *ngIf="question.answerCount > 0" class="has-reply">
+                  - 已收到{{question.answerCount}}个回复
+                </div>
+                <div *ngIf="question.answerCount == 0" class="has-no-reply">
+                  - 成为第一个回复她的人
+                </div>
+              </div>
+            </div>
+            <img class="arrow-button" src="assets/img/icons/enter.png" (click)="showQuestionDetail(question)">
+          </div>
+        </div>
+      </ion-row>
+    </ion-row>
+    <ion-row class="related-products-section" *ngIf="relatedProducts.length > 0">
+      <ion-row class="section-header">
+        <ion-col col-9 text-left class="section-header-left">
+          <p>相似产品</p>
+        </ion-col>
+        <ion-col col-3 text-right class="section-header-right">
+          <p></p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="product-list">
+        <ion-col class="product-image" *ngFor="let item of relatedProducts.slice(0,3)" col-4>
+          <img [src]="imageUrl+item.imageName" onError="this.src='assets/img/placeholder.jpg';">
+        </ion-col>
+      </ion-row>
+    </ion-row>
+    <!-- Review List Section -->
+    <ion-row class="review-section">
+      <ion-row class="section-header">
+        <ion-col col-9 text-left class="section-header-left">
+          <p>达人评价</p>
+        </ion-col>
+      </ion-row>
+      <div class="review-list" *ngIf="tenReviewList.length > 0">
+        <div class="review-item" *ngFor="let review of tenReviewList;let inde = index;" [ngStyle]="{ 'height': review.readmore ? (review.totalHeight + 'px') : 'auto' }">
+          <div (click)="goToProfile(review.user)" *ngIf="isGuestUser" class="profile-image-wrapper">
+            <img class="profile-image" *ngIf="review?.user.id == userData.id" [src]="socialProfilePic" onError="this.src='assets/img/placeholder.jpg';">
+            <img class="profile-image"
+                 *ngIf="review?.user.id != userData.id && !review?.user.profileImage && review?.user.gender == 'M'"
+                 src="assets/img/profile/man.png">
+            <img class="profile-image"
+                 *ngIf="review?.user.id != userData.id && !review?.user.profileImage && review?.user.gender == 'F'"
+                 src="assets/img/profile/woman.png">
+            <img class="profile-image" *ngIf="review?.user.id != userData.id && review?.user.profileImage"
+                 [src]="imageUrl+review?.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+          </div>
+          <div (click)="goToProfile(review.user)" *ngIf="!isGuestUser" style="margin-left:10px; padding-top: 20px;">
+            <img class="profile-image" *ngIf="review?.user.profileImage " [src]="imageUrl+review?.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+            <img class="profile-image" *ngIf="!review?.user.profileImage && review?.user.gender == 'M'"
+                 src="assets/img/profile/man.png">
+            <img class="profile-image" *ngIf="!review?.user.profileImage && review?.user.gender == 'F'"
+                 src="assets/img/profile/woman.png">
+          </div>
+          <div class="content-section">
+            <div class="review-header">
+              <h2 class="writer">{{review.user.nickname}}</h2>
+              <h2 style="font-size: 12px;font-weight: 100;margin-top: -8px;">{{review.createdOn | date:'yy-MM-dd'}}  {{review.user.city}}  {{review.user.age}}岁 </h2>
+
+            </div>
+          </div>
+          <div  style="width: 100%;padding: 0px 10px 0px 10px;">
+            <ion-slides [slidesPerView]="3" pager spaceBetween="5" (ionSlideTap)="toggleClose(); reviewarr = review.imageArray; slideClick($event);">
+              <ion-slide *ngFor="let item of review.imageArray; let i = index;" style="height:128px;">
+                <img class="imageHolder" [src]="imageUrl+item" onError="this.src='assets/img/placeholder.jpg';">
+              </ion-slide>
+            </ion-slides>
+          </div>
+          <div class="rating" style="margin-left:10px">
+            <rating [(ngModel)]="review.rating" readOnly="true"></rating>
+          </div>
+          <div class="content-wrapper">
+            <div *ngIf="review.content.length <= 140" class="card-subtitle" (click)="onReadLessReadMore1(review);">
+              <div class="ion-card-local">{{review.content}}</div>
+            </div>
+            <div *ngIf="review.content.length > 140" class="card-subtitle" (click)="onReadLessReadMore1(review);">
+              <div *ngIf="review.isopen == false" class="ion-card-local">{{review.contentLight}}...<b>展开</b></div>
+              <div *ngIf="review.isopen == true" class="ion-card-local">{{review.content}}<b>...收起</b></div>
+            </div>
+          </div>
+          <div class="likebtn">
+            <button clear color="#ffffff" style="padding: 0px 6px;color: #ffffff;background-color:transparent;width:35px;height: 35px;vertical-align: middle">
+              <div *ngIf="review.liked == false" (click)="reviewLikeUp(review,inde)">
+                <img src="assets/img/icons/heart_white_new.png">
+              </div>
+              <div *ngIf="review.liked == true" (click)="reviewLikeDown(review,inde)">
+                <img src="assets/img/icons/heart_red_new.png">
+              </div>
+            </button>
+            <p style="display: inline-block;margin-left: -5px;">{{review.likes}}</p>
+            <button *ngIf="userId==review.userId" clear color="#ffffff" style="padding: 0px 6px;color: #ffffff;background-color: transparent;width:35px;height: 35px;vertical-align: middle;margin-right: 10px;margin-top:12px;">
+              <div (click)="editReview(inde)">
+                <img src="assets/img/icons/write_review.png">
+                <div>评价</div>
+              </div>
+            </button>
+            <button clear color="#ffffff"
+                    style="padding: 0px 6px;color: #ffffff;background-color: #ffffff;width:35px;height: 35px;vertical-align: middle;float: right;margin-right: 10px;margin-top:5px;">
+              <div *ngIf="review.reported == false" (click)="presentReportPrompt(review)">
+                <img src="assets/img/icons/unreport_status.png">
+              </div>
+              <div *ngIf="review.reported == true" (click)="showAlert()">
+                <img src="assets/img/icons/report_status.png">
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button class="pj-long-button" (click)="showReviewList()" *ngIf="!islast">查看全部评价</button>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-content class="overlay-img" *ngIf="isOpen == true">
+  <button class="close-btn" (click)="toggleClose()" style=" background-image: url('assets/img/badges/failed.png');"></button>
+  <ion-slides effect="slide" speed="100" [slidesPerView]="1" zoom="true" pager [initialSlide]= "this.clickedIndex">
+    <ion-slide *ngFor="let item of reviewarr; let i = index">
+        <div class="swiper-zoom-container">
+          <div class="imageHolder" [style.backgroundImage]="'url('+imageUrl+item+')'"></div>
+        </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+    

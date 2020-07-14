@@ -1,0 +1,24 @@
+page-custom-html {
+  h1,h2,h3,h4 {
+    margin: 0;
+  }
+
+  custom-html-piece {
+    padding: 0 10px;
+  }
+  .bao-box {
+    padding: 20px;
+    text-align: center;
+
+    img {
+      display: inline-block;
+      width: 150px;
+      height: 150px;
+    }
+
+    .image-description {
+      margin-top: 5px;
+      font-size: 1.2em;
+    }
+  }
+}

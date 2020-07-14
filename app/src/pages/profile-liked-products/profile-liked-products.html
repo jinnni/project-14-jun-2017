@@ -1,0 +1,41 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">{{pageTitle}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content (ionScroll)="scrollHandler($event)">
+  <ion-row *ngIf="initial">
+    <ion-col class="product-container" col-12 *ngFor="let item of likedProducts">
+      <div class="product-container-with-padding" (click)="showProduct(item)">
+        <div class="product-image-container">
+          <img [src]="imageUrl+item.imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+        </div>
+        <div style="width: 60%;margin-left: 10px">
+          <div class="product-name">{{item.name}}</div>
+          <div class="product-footer">
+            <div class="product-rating">
+              <rating [(ngModel)]="item.rating" readOnly="true"></rating>
+            </div>
+            <div class="product-price">
+              <!--<div class="currency-sign">0.00¥</div>-->
+              <div class="currency-sign">¥{{item.productPrice}}</div>
+              {{item.jdPrice > item.tmPrice? item.tmPrice : item.jdPrice}}
+            </div>
+          </div>
+          <div class = "product-count">
+            <div class="product-view-count">{{item.likeCount}} 人收藏</div>
+            <div class="product-like-count">{{item.reviewCount}} 人评论</div>
+          </div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <!--  <div class="place-holder-message" *ngIf="!productList || productList.length == 0">
+    <div class="text">当前没有此类产品</div>
+  </div> -->
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="600px" *ngIf="!lastPage">
+    <!-- *ngIf="page < totalPage" -->
+    <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<img class="arrowup" *ngIf="isScroll" src="assets/img/icons/arrow-up.png" (click)="scrollTop()">

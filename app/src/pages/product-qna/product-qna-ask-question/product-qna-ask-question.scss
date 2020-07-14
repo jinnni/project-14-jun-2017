@@ -1,0 +1,40 @@
+page-product-qna-ask-question {
+
+  .question-header {
+    margin-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-right: 20px;
+    text-overflow: ellipsis;
+  }
+
+  .question-input {
+    margin: 15px 0px;
+    //border-radius: 10px;
+    //border: 0.5px solid #ababab;
+    border-bottom: 1.0px solid #ababab;
+    border-top: 1.0px solid #ababab;
+
+    ion-textarea {
+      padding: 15px;
+
+      textarea {
+        width: 100%;
+        margin: 0px;
+        height: 150px;
+      }
+    }
+  }
+
+  .question-publish-button {
+    position: relative;
+
+    .pj-long-button {
+      position: absolute;
+      right: 0px;
+      border-radius: 5px;
+      width: 100px;
+      font-weight: 300;
+    }
+  }
+}

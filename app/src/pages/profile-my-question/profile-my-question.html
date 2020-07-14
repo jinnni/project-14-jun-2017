@@ -1,0 +1,9 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">所有提问</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <profile-qna-item [type]="QnaItemType.QUESTION" *ngFor="let question of questionList" [qnaData]="question">
+  </profile-qna-item>
+</ion-content>

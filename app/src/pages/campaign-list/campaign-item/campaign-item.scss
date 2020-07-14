@@ -1,0 +1,49 @@
+campaign-item {
+  display: block;
+  padding: 20px 10px;
+  width: 100%;
+  border-bottom: 1px solid $pjLightRed;
+
+  .campaign-name {
+    text-align: center;
+    font-size: 1.3em;
+    color: $pjRed;
+  }
+  .campaign-time-left {
+    text-align: center;
+    margin: 2px 0 5px 0;
+
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      height: 20px;
+      width: 20px;
+      margin-left: -1%;
+    }
+    p {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+      color: $pjRed;
+      font-size: 0.9em;
+    }
+  }
+  .campaign-description {
+    display: block;
+    margin: 15px auto;
+    width: 90vw;
+  }
+  .see-badge-button {
+    display: block;
+    margin: 10px auto 0 auto;
+    height: 30px;
+    width: 170px;
+    border-radius: 5px;
+    background-color: $pjRed;
+    color: $pjWhite;
+
+    &:active {
+      background-color: $pjDarkRed;
+    }
+  }
+}

@@ -1,0 +1,91 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios" transparent>
+    <ion-title mode="ios">全部评价</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content (ionScroll)="scrollHandler($event)" >
+  <ion-row class="review-section">
+    <div class="review-list" *ngIf="reviewList.length > 0">
+      <div class="review-item"  *ngFor="let review of reviewList;let inde = index" [ngStyle]="{ 'height': review.readmore ? (review.totalHeight + 'px') : 'auto' }">
+        <div (click)="goToProfile(review.user)" *ngIf="isGuestUser" class="profile-image-wrapper">
+          <img class="profile-image" *ngIf="review.user.id == userData.id" [src]="socialProfilePic" onError="this.src='assets/img/placeholder.jpg';">
+          <img class="profile-image" *ngIf="review.user.id != userData.id && !review.user.profileImage && review.user.gender == 'M'" src="assets/img/profile/man.png">
+          <img class="profile-image" *ngIf="review.user.id != userData.id && !review.user.profileImage && review.user.gender == 'F'" src="assets/img/profile/woman.png">
+          <img class="profile-image" *ngIf="review.user.id != userData.id && review.user.profileImage" [src]="imageUrl+review.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+        </div>
+        <div (click)="goToProfile(review.user)" *ngIf="!isGuestUser" style="margin-left: 10px">
+          <img class="profile-image" *ngIf="review.user.profileImage" [src]="imageUrl+review.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+          <img class="profile-image" *ngIf="!review.user.profileImage && review.user.gender == 'F'" src="assets/img/profile/woman.png">
+          <img class="profile-image" *ngIf="!review.user.profileImage && review.user.gender == 'M'" src="assets/img/profile/man.png">
+        </div>
+        <div class="content-section">
+          <div class="review-header">
+            <h2 class="writer">{{review.user.nickname}}</h2>
+            <h2 style="font-size: 12px;font-weight: 100;margin-top: -8px;">{{review.createdOn | date:'yy-MM-dd'}}  {{review.user.city}}  {{review.user.age}}岁 </h2>
+          </div>
+        </div>
+        <div class="review-list-section" style="width: 100%;padding: 0px 10px 0px 10px;">
+          <ion-slides [slidesPerView]="3" pager spaceBetween="5" (ionSlideTap)="toggleCloseBtn(); reviewArrlist = review.imageArray; slideClickList($event);">
+            <ion-slide  *ngFor="let imageitem of review.imageArray; let i = index;" style="height:128px;">
+              <img class="imageHolder" [src]="imageUrl+imageitem" onError="this.src='assets/img/placeholder.jpg';">
+            </ion-slide>
+          </ion-slides>
+        </div>
+        <div class="rating">
+          <rating [(ngModel)]="review.rating" readOnly="true"></rating>
+        </div>
+        <div class="content-wrapper">
+          <div *ngIf="review.content.length <= 140" class="card-subtitle" (click)="onReadLessReadMore2(review);">
+            <div class="ion-card-local">{{review.content}}</div>
+          </div>
+          <div *ngIf="review.content.length > 140" class="card-subtitle" (click)="onReadLessReadMore2(review);">
+            <div *ngIf="review.isopen == false" class="ion-card-local">{{review.contentLight}}...<b>展开</b></div>
+            <div *ngIf="review.isopen == true" class="ion-card-local">{{review.content}}<b>...收起</b></div>
+          </div>
+        </div>
+        <div class="likebtn">
+          <button clear color="#ffffff" style="padding: 0px 6px;color: #ffffff;background-color:transparent;width:35px;height: 35px;vertical-align: middle">
+            <div *ngIf="review.liked == false" (click)="reviewLikeUp(review,inde)"> 
+              <img  src="assets/img/icons/heart_white_new.png">
+            </div>
+            <div *ngIf="review.liked == true" (click)="reviewLikeDown(review,inde)">
+              <img  src="assets/img/icons/heart_red_new.png">
+            </div>
+          </button>
+          <p style="display: inline-block;margin-left: -5px;">{{review.likes}}</p>
+          <button *ngIf="userId==review.userId" clear color="#ffffff" style="padding: 0px 6px;color: #ffffff;background-color:transparent;width:35px;height: 35px;vertical-align: middle;margin-right: 10px;margin-top:12px;">
+            <div (click)="editReview(inde)">
+              <img src="assets/img/icons/write_review.png">
+              <div>评价</div>
+            </div>
+          </button>
+          <button clear color="#ffffff" style="padding: 0px 6px;color: #ffffff;background-color:transparent;width:35px;height: 35px;vertical-align: middle;float: right;margin-right: 10px;margin-top:5px;">
+            <div *ngIf="review.reported == false" (click)="presentReportPrompt(review)">
+              <img  src="assets/img/icons/unreport_status.png">
+            </div>
+            <div *ngIf="review.reported == true" (click)="showAlert()">
+              <img  src="assets/img/icons/report_status.png">
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ion-row>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="10px" *ngIf="!lastPage">
+    <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+    <div style="text-align: center;padding-bottom: 30px;">
+      <button style="height: 25px;border-radius: 20px;font-size: 12px;padding: 5px 20px;" (click)="doInfinite('')">点击加载更多</button>
+    </div>
+  </ion-infinite-scroll>
+</ion-content>
+<img class="arrowup" *ngIf="isScroll" src="assets/img/icons/arrow-up.png" (click)="scrollTop()">
+<ion-content class="overlay-img1" *ngIf="isOpen == true">
+  <button class="close-btn1" (click)="toggleCloseBtn()" style=" background-image: url('assets/img/badges/failed.png');"></button>
+  <ion-slides effect="slide" speed="100" [slidesPerView]="1" zoom="true" pager [initialSlide]= "this.clickedIndex">
+    <ion-slide *ngFor="let item of reviewArrlist; let i = index">
+        <div class="swiper-zoom-container">
+            <div class="imageHolder" [style.backgroundImage]="'url('+imageUrl+item+')'"></div>
+        </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

@@ -1,0 +1,44 @@
+<ion-row class="input">
+  <ion-list>
+    <ion-item>
+      <ion-label class="icon-label icon-phone"></ion-label>
+      <!-- <ion-input type="number" placeholder="请输入手机号" [(ngModel)]="phoneNumber" value="13162970502"></ion-input> -->
+      <!-- <ion-input type="number" placeholder="请输入手机号" [(ngModel)]="phoneNumber" value="33917755"></ion-input> -->
+      <ion-input type="number" placeholder="请输入手机号" [(ngModel)]="phoneNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="icon-label icon-password"></ion-label>
+      <!-- <ion-input type="password" placeholder="请输入密码" [(ngModel)]="password" value="123456qq"></ion-input> -->
+      <!-- <ion-input type="password" placeholder="请输入密码" [(ngModel)]="password" value="test1234"></ion-input> -->
+      <ion-input type="password" placeholder="请输入密码" [(ngModel)]="password"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-row>
+<ion-row class="other-actions" style="justify-content:space-between;">
+  <ion-col col-4 text-left class="sm" (click)="guestUser()" *ngIf="showGuestUserAction == true">访客登录</ion-col>
+  <ion-col col-4></ion-col>
+  <ion-col col-4 text-right class="sm" (click)="goToForgotPwd()">忘记密码?</ion-col>
+</ion-row>
+<ion-row class="sign-in-button">
+  <ion-col text-center>
+    <button class="pj-long-button footer-button" (click)="signIn()">登录</button>
+  </ion-col>
+</ion-row>
+<ion-row class="sns-sign-in-header">
+  <ion-col col-12 text-center><span></span>其他登录方式<span></span></ion-col>
+</ion-row>
+<ion-row class="sns-sign-in">
+  <ion-col col-2></ion-col>
+  <ion-col col-4 text-center (click)="openWithCordovaBrowserWeibo()" *ngIf="httpService.weiboSDKInstalledIos" >
+    <img src="assets/img/icons/icon_weibo.png">
+  </ion-col>
+  <ion-col col-4 text-center (click)="openWithCordovaBrowserWeChat()" *ngIf="httpService.weChatInstalledIos">
+    <img src="assets/img/icons/icon_wechat.png">
+  </ion-col>
+  <ion-col col-2></ion-col>
+</ion-row>
+<ion-row class="agreement">
+    <ion-checkbox color="danger" [(ngModel)]="agreementIsChecked"></ion-checkbox>
+    <div><a href="https://cn.pjdaren.com/terms/" target="_blank" style="color: inherit;text-decoration: none;">免责声明(同意使用条款和隐私设置)</a></div>
+  </ion-row>
+  

@@ -1,0 +1,20 @@
+<div>
+  <div class="left">
+    <div class="image-container" (click)="showProduct()">
+      <img src="{{productData?.image}}">
+    </div>
+  </div>
+  <div class="right">
+    <div class="top">
+      <div class="product-name" (click)="showProduct()">{{productData?.name}}</div>
+      <ng-container *ngIf="!!reviewData">
+        <rating [(ngModel)]="reviewData.rating"></rating>
+      </ng-container>
+    </div>
+    <div class="review-content" [innerHtml]="reviewData?.content">
+    </div>
+    <div class="time-created">
+      {{util.formatTimeFacebookStyle(reviewData?.created)}}
+    </div>
+  </div>
+</div>

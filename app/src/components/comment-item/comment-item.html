@@ -1,0 +1,8 @@
+<div class="comment-item">
+  <div class="comment-top" *ngIf="isGuestUser">
+    <span class="writer-name">{{comment.user.nickname}}</span><span class="comment-content">{{comment.comment}}</span>
+  </div>
+  <div class="comment-top" *ngIf="!isGuestUser">
+    <span class="writer-name">{{comment.user.nickname}}</span><span class="comment-content">{{comment.comment}}</span>
+  </div>
+</div>

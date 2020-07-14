@@ -1,0 +1,81 @@
+<div class="ion-navbar" style="height: 60px">
+  <div class="header-container" [class.activate]="this.settingsProvider.isActivate">
+    <div class="search-bar">
+      <input id="myinput" type="text" placeholder="搜索产品/心得" [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()">
+      <button (click)="toggleSearchBtn();"></button>
+    </div>
+  </div>
+</div>
+<div class="ion-list">
+  <div class="search-space"></div>
+  <ion-content class="typed-text">
+    <div style="margin-bottom: 10%;">
+      <div class="ion-item-wrapper" *ngIf="searchResponse.filteredItems">
+        <ion-item *ngIf="searchResponse.countDetail.product">
+          <div *ngIf="searchResponse.countDetail.product > 1" (click) = "showList('product')">
+            <p class="left-text">{{searchResponse.countDetail.term}}</p>
+            <div class="count">
+              <h3>{{getCountStyle(searchResponse.countDetail.product)}}</h3>
+              <h4>| 产品</h4>
+            </div>
+          </div>
+          <div *ngIf="searchResponse.countDetail.product == 1" (click) = "showDetail('product','')">
+            <p class="left-text">{{searchResponse.countDetail.term}}</p>
+            <div class="count">
+              <h3>{{searchResponse.countDetail.product}}</h3>
+              <h4>| 产品</h4>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item *ngIf="searchResponse.countDetail.ugc">
+          <div *ngIf="searchResponse.countDetail.ugc > 1" (click) = "showList('ugc')">
+            <p class="left-text">{{searchResponse.countDetail.term}}</p>
+            <div class="count">
+              <h3>{{getCountStyle(searchResponse.countDetail.ugc)}}</h3>
+              <h4>| 宝帖</h4>
+            </div>
+          </div>
+          <div *ngIf="searchResponse.countDetail.ugc == 1" (click) = "showDetail('ugc','')">
+            <p class="left-text">{{searchResponse.countDetail.term}}</p>
+            <div class="count">
+              <h3>{{searchResponse.countDetail.ugc}}</h3>
+              <h4>| 宝帖</h4>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item *ngIf="searchResponse.countDetail.user">
+          <div *ngIf="searchResponse.countDetail.user > 1" (click) = "showList('user')">
+            <p class="left-text">{{searchResponse.countDetail.term}}</p>
+            <div class="count">
+              <h3>{{getCountStyle(searchResponse.countDetail.user)}}</h3>
+              <h4>| 达人</h4>
+            </div>
+          </div>
+          <div *ngIf="searchResponse.countDetail.user == 1" (click) = "showDetail('user','')">
+            <p class="left-text">{{searchResponse.countDetail.term}}</p>
+            <div class="count">
+              <h3>{{searchResponse.countDetail.user}}</h3>
+              <h4>| 达人</h4>
+            </div>
+          </div>
+        </ion-item>
+      </div>
+      <div class="ion-item-wrapper" *ngIf="searchResponse.filteredItems">
+        <ion-item *ngFor="let item of searchResponse.filteredItems.content">
+          <div *ngIf="item.searchObjectType == 'product'" (click) = "showDetail('product', item)">
+            <p class="left-text">{{item.name}}</p>
+          </div>
+          <div *ngIf="item.searchObjectType == 'ugc'" (click) = "showDetail('ugc', item)">
+            <p class="left-text">{{item.name}}</p>
+          </div>
+          <div *ngIf="item.searchObjectType == 'user'" (click) = "showDetail('user', item)">
+            <p class="left-text">{{item.name}}</p>
+          </div>
+        </ion-item>
+      </div>
+    </div>
+    <ion-infinite-scroll *ngIf="searchResponse.filteredItems" (ionInfinite)="pagination($event)" threshold="13px">
+      <ion-infinite-scroll-content *ngIf="!searchResponse.filteredItems.last" loadingSpinner="crescent"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+</div>

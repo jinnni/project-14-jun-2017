@@ -1,0 +1,229 @@
+page-follower-reviews {
+    .header{
+        background-color: #ffffff;
+        ion-segment{
+          padding-top: 0px !important;
+        }
+      }
+      .toolbar-content{
+        padding: 0px 100px !important;
+      }
+      .back-button{
+        position: absolute;
+      }
+      .header-ios .toolbar-background-ios, .footer-ios .toolbar-background-ios,.header-md .toolbar-background-md, .footer-md .toolbar-background-md{
+        border: 0px;
+      }
+      .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated,.segment-ios .segment-button.activated  {
+        border-color: #FF2742 !important;
+      }
+      .content-wrapper{
+        .card-subtitle{
+          font-weight: normal;
+          margin: 8px 15px 10px 15px;
+          overflow: hidden;
+          b{
+            font-weight: bold;
+            padding: 0px 5px;
+            color: #ff2744;
+            border-radius: 9px;
+            word-break: keep-all;
+          }
+        }
+      }
+        .review-item{
+            height: auto;
+            margin-bottom: 0px;
+          ion-slide{
+            width: calc((100vw / 3) - 10px);
+          }
+          .profile-image-wrapper {
+            margin-left: 10px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+          }
+          .rating {
+            text-align: left;
+            padding-left: 5px;
+            margin-bottom:0px;
+          }
+          .content-section {
+            position: static;
+            padding-left: 10px;
+            text-align: left;
+            align-self: center;
+          }
+          .likebtn {
+            text-align: left;
+          }
+        }
+        .review-list {
+            width: 100%;
+        
+        
+            .writer {
+              margin-top: 0.8rem;
+            }
+        
+            .writer-info {
+              font-size: 12px;
+              font-weight: 100;
+              margin-top: -8px;
+              margin-left: 2px;
+            }
+            .swiper-container{
+                padding-bottom: 35px;
+              }
+              .swiper-pagination-bullets {
+                left: 0;
+                width: 100%;
+              }
+              .swiper-slide{
+                border-radius: 10px;
+                overflow: hidden;
+                background-color: #eaeaea;
+                .slide-zoom{
+                  height: 100%;
+                  width: 100%;
+                  img{
+                    height: 100%;
+                    width:100%;
+                    object-fit: cover;
+                  }
+                }
+              }
+              .profile-image-wrapper{
+                margin-left:10px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+              }
+              
+          }
+        .content-wrapper{
+          .card-subtitle {
+            font-weight: normal;
+            margin: 8px 15px 10px 15px;
+            overflow: hidden;
+            .ion-card-local{
+              font-size: 14px !important;
+              font-weight: normal !important;
+            }
+          }
+        }
+        .product-container {
+          padding: 10px 0px;
+          background-color: whitesmoke;
+          .product-container-with-padding {
+            height: 100%;
+            margin:0 !important;
+            display: flex;
+            background-color: #ffffff;
+            border-radius: 5px;
+            .product-image-container {
+              height: 80px;
+              position: relative;
+              border: 70px;
+              width: 90px;
+              margin-left: 10px;
+              margin-top: 10px;
+              margin-bottom:10px;
+              img {
+                max-height:  100%;
+                max-width: 100%;
+                position: relative;
+              }
+            }
+            .product-name {
+              margin: 3px 0 0 0;
+              margin-top: 15px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              color: $pjBlack;
+              line-height: normal;
+              font-size: 14px;
+              padding-left: 5px;
+            }
+      
+            .product-footer {
+              .product-rating {
+                display: inline-block;
+                vertical-align: middle;
+                margin-top: 7px;
+                width: 45%;
+                img{
+                  width: 12px !important;
+                  height: 12px !important;
+                }
+              }
+      
+              .product-price {
+                display: inline-block;
+                vertical-align: middle;
+                width: 30%;
+                margin-top:7px;
+                color: $pjBlack;
+                .currency-sign {
+                  display: inline-block;
+                  font-size: 14px;
+                }
+              }
+            }
+            .product-count{
+              display: flex;
+              margin-top: 10px;
+              margin-left: 5px;
+              font-size: 10px;
+              display: flex;
+              .product-view-count{
+                display: inline-block;
+                width: 45%;
+              }
+              .product-like-count{
+                display: inline-block;
+              }
+            }
+          }
+      
+        }
+        .overlay-img
+        {
+          background-color: #ffffff !important;
+          z-index:99;
+          ion-slides {
+            padding: 60px 0px 60px 0px;
+            .slide-zoom{
+              height: 100%;
+            }
+            .imageHolder{
+              height: 100%;
+              width:100%;
+              background-size: contain;
+              background-position: center center;
+              background-repeat: no-repeat;
+            }
+            .swiper-container{
+              overflow: visible;
+            }
+            .swiper-pagination-bullets{
+              bottom: -35px;
+            }
+            .swiper-pagination-bullet-active {
+                background: $pjRed;
+                opacity: 1;
+                bottom: 0px;
+              }
+          }
+          .close-btn{
+            position: absolute;
+            right: 0px;
+            margin: 8px;
+            height: 30px;
+            width: 30px;
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: 9;
+          }
+        }
+}

@@ -1,0 +1,417 @@
+@import "product-review-item.scss";
+page-product-detail {
+  .toolbar-content{
+    justify-content: flex-end;
+  }
+  $margin-between-sections: 25px;
+  .navbar-header-container {
+    text-align: right;
+    margin-right: 10px;
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 20px;
+
+      &.like-icon {
+        height: 24px;
+      }
+
+      &.share-icon {
+        height: 22px;
+      }
+    }
+  }
+
+  ion-content {
+    background-color: #fff !important;
+  }
+
+  ion-grid {
+    padding: 0 !important;
+  }
+
+  .product-image-section {
+    .slide-zoom{
+      height: 100%;
+      width: 100%;
+      img{
+        height: 100%;
+        width:100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .product-name {
+    font-size: 1.4em;
+    border-top: 1.6px solid whitesmoke;
+  }
+
+  .brand-name {
+    margin-left: 10px;
+    font-size: 1.1em;
+    margin-top:3px;
+    color:$pjRed;
+  }
+
+  .shopping-mall {
+    .shopping-mall-image {
+      text-align: center;
+      margin: auto;
+      position: relative;
+      max-width: 90%;
+      display: flex;
+      flex-wrap: wrap;
+      div:last-child{
+        border-right: none;
+      }
+      .shopping-mall-item {
+        padding: 10px;
+        border-right:0.5px solid $pjRed;
+        .price {
+          position: relative;
+          margin-top:10px;
+        }
+      }
+
+      .divider {
+        display: inline-block;
+        width: 1px;
+        border-right: 2px solid $pjRed;
+        height: 45px;
+      }
+    }
+  }
+
+  .rating-section {
+    display:inline-block;
+    .rating {
+      display: inline-block;
+      vertical-align: sub;
+      padding:3px;
+    }
+    .rating-description {
+      display: inline-block;
+    }
+    .right-side-fade{
+      height: 40px;
+      width: 25px;
+      background: rgba(255, 255, 255, .8);
+      right: -6px;
+      position: fixed;
+      filter: blur(3px);
+      margin-top: -6px;
+    }
+    .left-side-fade {
+      height: 40px;
+      width: 25px;
+      background: rgba(255, 255, 255, .8);
+      position: absolute;
+      left: 0px;
+      filter: blur(3px);
+      margin-top: -6px;
+    }
+    .badge-section {
+      margin-top:-1px;
+      float:right;
+      overflow: overlay;
+      padding: 0px;
+      .badge {
+        padding-right:7px;
+        padding-left:7px;
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          max-width: none;
+        }
+      }
+    }
+    ion-col{
+      flex: none;
+    }
+  }
+
+  .partner-image{
+    max-width:60px;
+    max-height:45px;
+  }
+
+  .button-section {
+    width: 100vw;
+    height: 60px;
+    margin-top: 20px;
+    background-color: $pjWhite;
+
+    ion-col {
+      position: relative;
+
+      &:active {
+        background-color: #efefef;
+      }
+    }
+
+    $borderStyle: 1px solid #efefef;
+    ion-col:nth-child(1) {
+      border-top: $borderStyle;
+      border-bottom: $borderStyle;
+      border-right: $borderStyle;
+    }
+
+    ion-col:nth-child(2) {
+      border-top: $borderStyle;
+      border-bottom: $borderStyle;
+    }
+
+    .description-container {
+      position: absolute;
+      width: 30px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      img {
+        width: 20px;
+      }
+    }
+  }
+
+  .qna-section {
+    padding-top: $margin-between-sections;
+    background-color: $pjBackground;
+
+    .qna-list {
+      width: 100vw;
+      margin-top: 5px;
+      height: 100px;
+      $qna-item-height: 90px;
+      $qna-item-profile-side: 55px;
+
+      .qna-item {
+        width: 100%;
+        height: $qna-item-height;
+        background-color: #fff;
+        border-bottom: 2px solid #f9f9f9;
+        position: relative;
+
+        .profile-image {
+          width: $qna-item-profile-side;
+          height: $qna-item-profile-side;
+          border-radius: 50px;
+        }
+
+        .content-section {
+          position: absolute;
+          transform: translate(0%, -50%);
+          left: $qna-item-profile-side + 20px;
+          top: 50%;
+          width: 60vw;
+
+          $font-size: 1em;
+          $line-height: 1.2;
+          $lines-to-show: 3;
+          .content_elipsize-3lines{
+            display: block; /* Fallback for non-webkit */
+            display: -webkit-box;
+            max-width: 400px;
+            // height: 3.5em; /* Fallback for non-webkit */
+            margin: 0 auto;
+            font-size: $font-size;
+            line-height: $line-height;
+            // -webkit-line-clamp: $lines-to-show;
+            // -webkit-box-orient: vertical;
+            // overflow: hidden;
+            // text-overflow: ellipsis;
+            pre{
+              width: 100%;
+                text-overflow: ellipsis;
+                word-break: keep-all;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+          }
+          .has-reply {
+            color: $pjRed;
+          }
+          .has-no-reply {
+            color: $pjGray;
+          }
+        }
+
+        .arrow-button {
+          position: absolute;
+          width: 10px;
+          top: 50%;
+          right: 10px;
+          transform: translate(0%, -50%);
+        }
+      }
+    }
+  }
+
+  .related-products-section {
+    padding-top: $margin-between-sections;
+    background-color: $pjBackground;
+
+    .product-list {
+      width: 100vw;
+      height: 80px;
+      text-align: center;
+
+      .product-image {
+        padding: 0px;
+        position: relative;
+
+        img {
+          height: 100%;
+          vertical-align: middle;
+        }
+
+        $side-padding: 10px;
+        $side-padding-half: $side-padding/2;
+
+        &:nth-child(3n-2) {
+          padding-left: $side-padding;
+          padding-right: $side-padding-half;
+        }
+
+        &:nth-child(3n-1) {
+          padding-left: $side-padding-half;
+          padding-right: $side-padding-half;
+        }
+
+        &:nth-child(3n) {
+          padding-left: $side-padding-half;
+          padding-right: $side-padding;
+        }
+      }
+    }
+  }
+  .review-section {
+    padding-top: $margin-between-sections;
+    background-color: $pjBackground;
+
+    .review-list {
+      width: 100vw;
+      margin-top: 5px;
+      .writer {
+        margin-top: 0.8rem;
+      }
+
+      .writer-info {
+        font-size: 12px;
+        font-weight: 100;
+        margin-top: -8px;
+      }
+
+      page-product-detail .review-section .review-list .writer-info {
+        font-size: 12px;
+        font-weight: 100;
+        margin-top: -8px;
+      }
+    }
+
+    .pj-long-button {
+      width: 35vw;
+      border-radius: 5px;
+      font-weight: normal;
+      font-size: 1.1em;
+      margin: 20px auto 30px auto;
+    }
+
+    $font-size: 1em;
+    $line-height: 1.2;
+    $lines-to-show: 3;
+  }
+
+  .gallery-image {
+    left: 10px;
+    width: 100%;
+    height: 300px;
+    img{
+      padding: 5px;
+      width:100%;
+      height:260px;
+    }
+  }
+
+  .product-view-section .swiper-pagination-bullets {
+    left: 0;
+    bottom: -20px !important;
+    width: 100%;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: $pjRed;
+    opacity: 1;
+    bottom: 0px;
+  }
+  .product-view-section .swiper-container{
+    overflow: visible;
+    margin-bottom: 25px;
+  }
+  .review-section .swiper-container{
+    padding-bottom: 35px;
+  }
+  .review-section .swiper-pagination-bullets {
+    left: 0;
+    width: 100%;
+  }
+  .review-section .swiper-slide{
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #eaeaea;
+    .slide-zoom{
+      height: 100%;
+      width: 100%;
+      img{
+        height: 100%;
+        width:100%;
+        object-fit: cover;
+      }
+    }
+  }
+  .section-header .section-header-right p {
+    margin-right: -95px;
+    color: #FF2742;
+  }
+  .profile-image-wrapper{
+    margin-left:10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+.overlay-img
+{
+  background-color: #ffffff !important;
+  z-index:99;
+  ion-slides {
+    padding: 60px 0px 60px 0px;
+    .slide-zoom{
+      height: 100%;
+    }
+    .imageHolder{
+      height: 100%;
+      width:100%;
+      background-size: contain;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+    .swiper-container{
+      overflow: visible;
+    }
+    .swiper-pagination-bullets{
+      bottom: -35px;
+    }
+  }
+  .close-btn{
+    position: absolute;
+    right: 0px;
+    margin: 8px;
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 9;
+  }
+}

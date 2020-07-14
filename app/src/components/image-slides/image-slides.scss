@@ -1,0 +1,28 @@
+component-image-slides {
+  ion-slides {
+    height:auto;
+    // height: 310px;
+    // background-color: #FFFFFF;
+    ion-slide {
+      // position: relative;
+      // width:100% !important;
+      p {
+        position: absolute;
+        margin: 0;
+        width: 100%;
+        top: 50%;
+        transform: translate(0%, -50%);
+        z-index: 2;
+      }
+
+      img {
+        width: 100% !important;
+        z-index: 1;
+        // height: 300px !important;
+      }
+    }
+  }
+  .swiper-container{
+    height:auto;
+  }
+}

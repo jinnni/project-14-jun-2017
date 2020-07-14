@@ -1,0 +1,127 @@
+<ion-header mode="ios" no-border="">
+  <ion-navbar mode="ios" style="text-align: center;">
+    <ion-title mode="ios">产品 列表</ion-title>
+  </ion-navbar>
+  <ion-toolbar mode="md">
+    <ion-segment mode="md" class="wrapper" [(ngModel)]="pageTabs" color="dark">
+      <ion-segment-button value="tab1" (click)="selectedTab(0)" [class.selected]="selectedUgcTab == 1">
+        <div class="ugc-tab">
+          <div *ngIf="pageTabs == 'tab1'" style="width: 50%;margin: 0 auto;border-bottom: 4px solid red;">评价</div>
+          <div *ngIf="pageTabs != 'tab1'">评价</div>
+        </div>
+      </ion-segment-button>
+      <ion-segment-button value="tab2" (click)="selectedTab(1)" [class.selected]="selectedUgcTab == 2">
+        <div class="ugc-tab">
+          <div *ngIf="pageTabs == 'tab2'" style="width: 50%;margin: 0 auto;border-bottom: 4px solid red;">价格</div>
+          <div *ngIf="pageTabs != 'tab2'">价格</div>
+        </div>
+      </ion-segment-button>
+      <ion-segment-button value="tab3" (click)="selectedTab(2)" [class.selected]="selectedUgcTab == 3">
+        <div class="ugc-tab">
+          <div *ngIf="pageTabs == 'tab3'" style="width: 50%;margin: 0 auto;border-bottom: 4px solid red;">评分</div>
+          <div *ngIf="pageTabs != 'tab3'">评分</div>
+        </div>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+<ion-content (ionScroll)="scrollHandler($event)" class="review-content" [ngStyle]="{'display' : mainIndex == 0 ? 'block' : 'none'}">
+  <ion-row *ngIf="initial">
+    <ion-col class="product-container" col-12 *ngFor="let item of ProductDataList0">
+      <div class="product-container-with-padding" (click)="showProduct(item)">
+        <div class="product-image-container">
+          <img [src]="imageUrl+item.imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+        </div>
+        <div style="width: 60%;margin-left: 10px">
+          <div class="product-name">{{item.name}}</div>
+          <div class="product-footer">
+            <div class="product-rating">
+              <rating [(ngModel)]="item.rating" readOnly="true"></rating>
+            </div>
+            <div class="product-price">
+              <div class="currency-sign">¥{{item.price}}</div>
+              {{item.jdPrice > item.tmPrice? item.tmPrice : item.jdPrice}}
+            </div>
+          </div>
+          <div class = "product-count">
+            <div class="product-view-count">{{item.likeCount}} 人收藏</div>
+            <div class="product-like-count">{{item.reviewCount}} 人评论</div>
+          </div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-infinite-scroll (ionInfinite)="doInfinite0($event)" *ngIf="!lastPage0" threshold="3px">
+    <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+    <div style="text-align: center;padding-bottom: 30px;">
+      <button style="height: 25px;border-radius: 20px;font-size: 12px;padding: 5px 20px;" (click)="doInfinite0('')">点击加载更多</button>
+    </div>
+  </ion-infinite-scroll>
+</ion-content>
+<ion-content (ionScroll)="scrollHandler($event)" class="price-content"  [ngStyle]="{'display' : mainIndex == 1 ? 'block' : 'none'}">
+    <ion-row *ngIf="initial">
+      <ion-col class="product-container" col-12 *ngFor="let item of ProductDataList1">
+        <div class="product-container-with-padding" (click)="showProduct(item)">
+          <div class="product-image-container">
+            <img [src]="imageUrl+item.imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+          </div>
+          <div style="width: 60%;margin-left: 10px">
+            <div class="product-name">{{item.name}}</div>
+            <div class="product-footer">
+              <div class="product-rating">
+                <rating [(ngModel)]="item.rating" readOnly="true"></rating>
+              </div>
+              <div class="product-price">
+                <div class="currency-sign">¥{{item.price}}</div>
+                {{item.jdPrice > item.tmPrice? item.tmPrice : item.jdPrice}}
+              </div>
+            </div>
+            <div class = "product-count">
+              <div class="product-view-count">{{item.likeCount}} 人收藏</div>
+              <div class="product-like-count">{{item.reviewCount}} 人评论</div>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-infinite-scroll (ionInfinite)="doInfinite1($event)" *ngIf="!lastPage1" threshold="3px">
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+      <div style="text-align: center;padding-bottom: 30px;">
+        <button style="height: 25px;border-radius: 20px;font-size: 12px;padding: 5px 20px;" (click)="doInfinite1('')">点击加载更多</button>
+      </div>
+    </ion-infinite-scroll>
+  </ion-content>
+<ion-content (ionScroll)="scrollHandler($event)" class="rating-content" [ngStyle]="{'display' : mainIndex == 2 ? 'block' : 'none'}">
+  <ion-row *ngIf="initial">
+    <ion-col class="product-container" col-12 *ngFor="let item of ProductDataList2">
+      <div class="product-container-with-padding" (click)="showProduct(item)">
+        <div class="product-image-container">
+          <img [src]="imageUrl+item.imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+        </div>
+        <div style="width: 60%;margin-left: 10px">
+          <div class="product-name">{{item.name}}</div>
+          <div class="product-footer">
+            <div class="product-rating">
+              <rating [(ngModel)]="item.rating" readOnly="true"></rating>
+            </div>
+            <div class="product-price">
+              <div class="currency-sign">¥{{item.price}}</div>
+              {{item.jdPrice > item.tmPrice? item.tmPrice : item.jdPrice}}
+            </div>
+          </div>
+          <div class = "product-count">
+            <div class="product-view-count">{{item.likeCount}} 人收藏</div>
+            <div class="product-like-count">{{item.reviewCount}} 人评论</div>
+          </div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-infinite-scroll (ionInfinite)="doInfinite2($event)" *ngIf="!lastPage2" threshold="3px">
+    <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+    <div style="text-align: center;padding-bottom: 30px;">
+      <button style="height: 25px;border-radius: 20px;font-size: 12px;padding: 5px 20px;" (click)="doInfinite2('')">点击加载更多</button>
+    </div>
+  </ion-infinite-scroll>
+</ion-content>
+<img class="arrowup" *ngIf="isScroll" src="assets/img/icons/arrow-up.png" (click)="scrollTop()">

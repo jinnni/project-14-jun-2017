@@ -1,0 +1,189 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">达人小档案</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content *ngIf="surveyStatus != 'complete'">
+  <!-- <div *ngIf="surveyStatus != 'complete'" style="flex-direction: column;display: flex;"> -->
+    <div class="question-header" *ngIf="questionData != null">
+      <div class="question-title">
+        <div style="max-height:8vh;overflow: auto;margin-bottom: 15px;">
+          <p style="margin: 0px;">{{questionData.question}}</p>      
+        </div>
+        <div *ngIf="questionData.languageDetailDTOList.length > 0">
+          <div *ngIf="questionData.languageDetailDTOList[0].questionDescription">
+            <div *ngIf="questionData.languageDetailDTOList[0].questionDescription != ''" style="max-height:8vh;overflow: auto;margin-bottom: 15px;margin-top: 10px;">
+                <p style="color: red;padding: 0px 10px;text-align: center;margin: 0px;">{{questionData.languageDetailDTOList[0].questionDescription}}</p>
+            </div>
+          </div>
+          <div *ngIf="questionData.languageDetailDTOList[0].extendedQuestion">
+            <div *ngIf="questionData.languageDetailDTOList[0].extendedQuestion != ''" style="max-height: 8vh;overflow: auto;margin-bottom: 15px;margin-top: 10px;" >
+              <p style="padding: 0px 10px;text-align: center;margin: 0px;">{{questionData.languageDetailDTOList[0].extendedQuestion}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="instruction" *ngIf="questionData.type == 'single_choice' || questionData.type == 'drop_down_list'">
+          <small>单选</small>
+        </div>
+        <div class="instruction" *ngIf="questionData.type == 'multiple_choice'">
+          <small>多选</small>
+        </div>
+        <div class="instruction" *ngIf="questionData.type == 'open_text'">
+          <small>填写在框里</small>
+        </div>
+        <div class="instruction" *ngIf="questionData.type == 'intensity'">
+          <small>每一行单选</small>
+        </div>
+      </div>
+    </div>
+    <div class="option-container" #mydiv [ngStyle]="{'margin-top':this.marginValue}">
+      <div class="banner-image" *ngIf="questionData?.imageName != undefined"  #banner>
+          <img [src]="imageUrl+questionData.imageName">
+      </div>
+      <div>
+        <div *ngIf="questionData && (questionData?.type == 'intensity'|| questionData?.type == 'multiple_choice_intensity')">
+          <div class="radio-options" radio-group *ngFor="let choice of questionIntensityDTOList">
+            <div class="choice-option-title" [class.selectedTitle]="choice.isTitleSelected">
+              {{choice.intensity}}
+            </div>
+            <div>
+              <div class="answer-choice" *ngFor="let subject of questionSubjectDTOList" (click)="clickItem(choice,subject)">
+                <div class="choice-button">
+                  <ion-radio mode="md" [checked]="isSelectedIntensity(choice, subject)">
+                  </ion-radio>
+                </div>
+                <div class="choice-title" [class.selected]="isSelectedIntensity(choice, subject)">
+                  {{subject.subject}}
+                </div>
+              </div>
+              <div *ngIf="choice.customInput && isSelected(choice)" class="custom-input">
+                <input type="text" [(ngModel)]="customInputs[choice.code]"> 
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="answer-choices" #answer1 radio-group *ngIf=" questionData && questionData?.type == 'single_choice' && !imageTypeSingleChoice" #mydiv>
+          <div *ngFor="let choice of options" (click)="clickItem(choice,questionData)">
+            <div class="answer-choice"  *ngIf="choice.openResponseFlag == false">
+              <div class="choice-button">
+                <ion-radio mode="md" [checked]="isSelected(choice)"></ion-radio>
+              </div>
+              <div class="choice-title" [class.selected]="isSelected(choice)">{{choice.value}}</div>
+              <img class="tick" *ngIf="isSelected(choice)" src="assets/img/badges/complete.png">
+            </div>
+            <div class="answer-choice" *ngIf="choice.openResponseFlag == true">
+              <div class="choice-button">
+                <ion-radio mode="md" [checked]="this.enableOther"></ion-radio>
+              </div>
+              <div class="choice-title" [class.selected]="this.enableOther">{{choice.value}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="answer-choices" #answer1 radio-group *ngIf="questionData && questionData?.type == 'single_choice' && imageTypeSingleChoice" #mydiv>
+          <div class="answer-choice-image" *ngFor="let choice of options" (click)="clickItem(choice,questionData)">
+            <div *ngIf="choice.imageName" style="padding: 20px;padding-bottom: 0px;text-align: center;">
+              <img [src]="imageUrl+choice.imageName">
+            </div>
+            <div class="answer-choice" *ngIf="choice.openResponseFlag == false">
+              <div class="choice-button">
+                <ion-radio mode="md" [checked]="isSelected(choice)"></ion-radio>
+              </div>
+              <div class="choice-title" [class.selected]="isSelected(choice)">{{choice.value}}</div>
+              <img class="tick" *ngIf="isSelected(choice)" src="assets/img/badges/complete.png">
+            </div>
+            <div class="answer-choice" *ngIf="choice.openResponseFlag == true">
+              <div class="choice-button">
+                  <ion-radio mode="md" [checked]="this.enableOther"></ion-radio>
+              </div>
+              <div class="choice-title" [class.selected]="this.enableOther">{{choice.value}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="answer-choices" #answer1 *ngIf="questionData && questionData?.type == 'multiple_choice' && imageTypeMultipleChoice" #mydiv1>
+          <div class="answer-choice-image" *ngFor="let choice of options" (click)="clickItem(choice,questionData)">
+            <div *ngIf="choice.imageName" style="padding: 20px;padding-bottom: 0px;text-align: center;">
+              <img [src]="imageUrl+choice.imageName">
+            </div>
+            <div class="answer-choice" *ngIf="choice.openResponseFlag == false">
+              <div class="choice-button">
+                <ion-checkbox [checked]="isSelected(choice)"></ion-checkbox>
+              </div>
+              <div class="choice-title" [class.selected]="isSelected(choice)">{{choice.value}}</div>
+              <img class="tick" *ngIf="isSelected(choice)" src="assets/img/badges/complete.png">
+            </div>
+            <div class="answer-choice 123" *ngIf="choice.openResponseFlag == true">
+              <div class="choice-button">
+                <ion-checkbox [(ngModel)]="enableOther"></ion-checkbox>
+              </div>
+              <div class="choice-title" [class.selected]="this.enableOther">{{choice.value}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="answer-choices" #answer1 *ngIf="questionData && questionData?.type == 'multiple_choice' && !imageTypeMultipleChoice"  (click)="clickItem(choice,questionData)" #mydiv1>
+          <div *ngFor="let choice of options" (click)="clickItem(choice,questionData)">
+            <div class="answer-choice" *ngIf="choice.openResponseFlag == false">
+              <div class="choice-button">
+                <ion-checkbox [checked]="isSelected(choice)"></ion-checkbox>
+              </div>
+              <div class="choice-title" [class.selected]="isSelected(choice)">{{choice.value}}</div>
+              <img class="tick" *ngIf="isSelected(choice)" src="assets/img/badges/complete.png">
+            </div>
+            <div class="answer-choice 123" *ngIf="choice.openResponseFlag == true">
+              <div class="choice-button">
+                <ion-checkbox [(ngModel)]="enableOther"></ion-checkbox>
+              </div>
+              <div class="choice-title" [class.selected]="this.enableOther">{{choice.value}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="answer-choices" *ngIf=" questionData && questionData?.type == 'drop_down_list'">
+          <ion-select class="drop-down" interface="popover" [(ngModel)]="drop_answer" (ionChange)="onChange(drop_answer,questionData?.options)" placeholder="请选择选项">
+            <div *ngFor="let choice of options">
+            <ion-option [value]="choice.value">
+              <div>{{choice.value}}</div>
+            </ion-option>
+          </div>
+          </ion-select>
+        </div>
+      </div>
+      <div class="open-text-answer-area" #answer1 *ngIf="questionData && questionData?.type == 'open_text' || enableOther" style="position:relative;">
+        <ion-textarea #myInput (ionBlur) = "onBlurText(questionData)" (ionFocus) = "onFocusText(questionData)" minlength="5" maxlength="50" (ngModelChange)="change($event)" rows="8" name="comment" placeholder="请输入至少5-50个字符的答案" [(ngModel)]="open_text_answer"></ion-textarea>
+        <ion-row  item-right style="margin: -20px;">
+          <ion-col col-4></ion-col>
+          <ion-col col-8 text-right  *ngIf="counter">
+            <p  style="margin-right:20px; margin-bottom:10px; position: relative;top: 10px;color: #d9534f">
+              <b>{{characterLength}}</b>
+              <img class="tick" src="assets/img/badges/complete.png" style="height:20px;margin-top: -32px;visibility: hidden;">
+            </p>
+          </ion-col>
+          <ion-col col-8 text-right *ngIf="!counter">
+            <p  style="margin-right:20px;  margin-bottom:10px; position: relative;top: 10px;color: seagreen;display: flex;justify-content: flex-end;">
+              <b>{{characterLength}}</b>
+              <img class="tick" src="assets/img/badges/complete.png" style="height:20px;margin-top: -32px;">
+            </p>
+          </ion-col>
+        </ion-row>
+      </div>
+      <ion-row style="height:199px" *ngIf="questionData">
+        <ion-col col-12>
+          <p style="text-align:center;">
+            <!-- <button class="pj-long-button submit-btn" (click)="submit(questionData?.id)">提交</button> -->
+            <button class="pj-long-button submit-btn" (click)="submit(questionData?.id)" [disabled]="(enableOther && counter) || (questionData && questionData?.type == 'open_text' && counter)">
+              <div class="dot-wrapper" [ngStyle]="{'opacity': load ? 1 : 0}">
+                <div class="dot3"></div>
+                <div class="dot2"></div>
+                <div class="dot1"></div>
+              </div>
+              <div class="button-text" [ngStyle]="{'opacity': !load ? 1 : 0}">提交</div>
+            </button>
+          </p>
+        </ion-col>
+      </ion-row>
+    </div>
+  <!-- </div> -->
+</ion-content>
+<ion-content *ngIf="surveyStatus == 'complete'">
+  <div class="place-holder-message">
+    <div class="text">暂时没有更多问题，感谢回答！</div>
+  </div>
+</ion-content>

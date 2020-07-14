@@ -1,0 +1,103 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+
+// Font path is used to include ionicons,
+// roboto, and noto sans fonts
+$font-path: "../assets/fonts";
+
+//@font-face {
+//  font-family: "PingFang SC";
+//  src: url('../assets/fonts/PingFangMedium.ttf') format('truetype');
+//}
+
+// The app direction is used to include
+// rtl styles in your app. For more info, please see:
+// http://ionicframework.com/docs/theming/rtl-support/
+$app-direction: ltr;
+
+@import "ionic.globals";
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/theming/overriding-ionic-variables/
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$pjBlack: #101010;
+$pjGray: #bababa;
+$pjMediumGray: #c9c9c9;
+$pjAnotherGray: #e2e2e2;
+$pjLightGray: #f9f9f9;
+$pjWhite: #fdfdfd;
+$pjBackground: #f9f9f9;
+$pjRed: #FF2742; //b48;
+$pjDarkRed: #de0f1e;
+$pjLightRed: #fab7bc;
+$pjAnotherRed: #f33a48;
+
+$colors: (
+  primary: $pjRed,
+  secondary: #32db64,
+  yellow: #dbcf00,
+  danger: #f53d3d,
+  light: #f4f4f4,
+  dark: #222,
+  pjRed: $pjRed
+);
+
+$text-input-placeholder-color: $pjGray;
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+
+$font-family-ios-base: "Noto", "PingFang SC", "Helvetica Neue", "Roboto", sans-serif;
+$datetime-ios-placeholder-color: $pjGray;
+$select-ios-placeholder-color: $pjGray;
+$toolbar-ios-title-text-color: $pjBlack;
+$toolbar-ios-title-font-weight: 300;
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+$font-family-md-base: "Noto", "PingFang SC", "Helvetica Neue", "Roboto", sans-serif;
+$datetime-md-placeholder-color: $pjGray;
+$select-md-placeholder-color: $pjGray;
+$toolbar-md-title-text-color: $pjBlack;
+$item-md-detail-push-show: true;
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/ionicons/
+
+@import "ionic.ionicons";
+
+// Fonts
+// --------------------------------------------------
+
+@import "roboto";
+@import "noto-sans";

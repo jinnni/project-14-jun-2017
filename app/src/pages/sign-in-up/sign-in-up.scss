@@ -1,0 +1,41 @@
+page-sign-in-up {
+  ion-content {
+    background-color: #ffffff !important;
+    .header-tab {
+      display: flex;
+      z-index: 1;
+      padding: 0px 16px;
+      justify-content: center;
+      // position: absolute;
+      bottom: 0px;
+      width: 100%;
+      .ion-col {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: $pjBlack;
+        width: 50%;
+        &.active {
+          border-bottom: 2px solid $pjRed;
+        }
+      }
+    }
+  }
+
+  .bg-img-container {
+    position: relative;
+    // height: 48vh;
+    z-index: -1;
+    .bg-img-logo {
+      width: 150px;
+      position: absolute;
+      top: 53%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    img.bg-img {
+      width: 100%;
+    }
+  }
+}
+

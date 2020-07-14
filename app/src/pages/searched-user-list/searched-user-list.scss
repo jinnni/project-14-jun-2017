@@ -1,0 +1,27 @@
+page-searched-user-list {
+    hr{
+        margin: 0px!important;
+    }
+    .scroll-content{
+        padding: 0px!important;
+        background-color: #ffffff;
+    }
+    .list-item{
+        display: flex;
+        .info{
+            margin-top: 30px;
+        }
+        .image-container{
+            height: 80px;
+            width: 80px;
+            overflow: hidden;
+            border-radius: 50%;
+            margin: 20px;
+            img{
+                object-fit: cover;
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+}

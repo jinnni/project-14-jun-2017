@@ -1,0 +1,118 @@
+page-product-qna-detail {
+  ion-navbar .toolbar-background {
+    background-color: #fff !important;
+  }
+  .replyfocus .scroll-content{
+    // padding-bottom: 350px !important;
+    padding-bottom: 0px !important;
+  }
+  .question-list {
+    margin-top: 20px;
+    .section-header {
+      font-size: 0.9em;
+    }
+  }
+
+  .no-answer {
+    color: $pjGray;
+    text-align: center;
+    width: 100%;
+
+    .msg-top {
+      margin-top: 50px;
+      font-size: 1.2em;
+    }
+
+    .msg-bottom {
+      margin: 10px auto 0px auto;
+      width: 60%;
+      font-size: 1.1em;
+    }
+  }
+  $inputHeight: 30px;
+  .ion-footer {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(255, 231, 231);
+    .input-container {
+      height: 100%;
+      background-color: #ffffff;
+      margin: 0px;
+      padding: 0px;
+      display: flex;
+      border-radius: 5px;
+      overflow: hidden;
+      ion-input {
+        height: $inputHeight;
+        input {
+          margin: 0 !important;
+          padding-left: 10px;
+          line-height: $inputHeight;
+        }
+      }
+    }
+
+    .image-container {
+      display: flex;
+      img {
+        width: $inputHeight;
+        height: $inputHeight;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+  ion-footer {
+    $footer-height: 45px;
+    // height: 50px;
+    width: 100vw;
+
+    .footer-bar-container {
+      position: relative;
+      height: 100%;
+      border-top: 1px solid #ebebeb;
+
+      .input-container {
+        position: absolute;
+        width: 90%;
+        height: 100%;
+      }
+
+      ion-input {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 95%;
+        height: 80%;
+        border-radius: 5px;
+        transform: translate(-50%, -50%);
+        background-color: #f0f0f0;
+
+        input {
+          margin: 0px !important;
+          height: 105%;
+          width: 100%;
+          padding: 0px 10px;
+        }
+      }
+
+      .publish-button {
+        position: absolute;
+        width: 10%;
+        left: 89%;
+        text-align: center;
+        color: $pjGray;
+        top: 50%;
+        transform: translate(0%, -50%);
+
+        &.has-content {
+          color: $pjRed;
+        }
+      }
+    }
+  }
+}

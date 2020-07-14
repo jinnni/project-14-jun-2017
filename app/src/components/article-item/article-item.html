@@ -1,0 +1,34 @@
+<ion-item id="item-wrapper" (click)="showArticle()">
+  <div class="article-header">
+    <div class="inline-middle profile-image-container">
+      <img src="{{articleData.writerImage}}">
+    </div>
+    <div class="inline-middle article-publish-info">
+      <div class="article-publisher">{{articleData.writer}}</div>
+      <div class="article-publish-time">{{util.formatTimeFacebookStyle(articleData.created)}}</div>
+    </div>
+    <button class="follow" (click)="follow($event)">
+      <img src="assets/img/icons/add.png">
+      <p>关注</p>
+    </button>
+  </div>
+  <div class="article-content" >
+    <ion-row class="article-image">
+      <img src="{{articleData.headerImage}}">
+    </ion-row>
+    <ion-row class="article-title">{{articleData.title}}</ion-row>
+    <ion-row class="article-footer">
+      <div class="article-footer-statistics">
+        <img src="assets/img/icons/eye_gray.png" style="width: 20px;">
+        <p>{{articleData.viewCount}}</p>
+        <img src="assets/img/icons/heart_white_new.png" style="width: 17px;">
+        <p *ngIf="articleData.likeCount > 0">{{articleData.likeCount}}</p>
+        <img src="assets/img/icons/comment_gray.png" style="width: 17px;">
+        <p *ngIf="articleData.commentCount > 0">{{articleData.commentCount}}</p>
+      </div>
+      <img class="share"
+           src="assets/img/icons/share_gray.png"
+      (click)="share($event)">
+    </ion-row>
+  </div>
+</ion-item>

@@ -1,0 +1,13 @@
+<div class="campaign-name">
+  {{campaignData.title}}
+</div>
+<div class="campaign-time-left">
+  <img src="assets/img/icons/clock_red.png">
+  <p *ngIf="util.getRelativeTime(campaignData.dueDate) > 0">在{{util.getRelativeTime(campaignData.dueDate)}}天内结束</p>
+  <p *ngIf="util.getRelativeTime(campaignData.dueDate) == 0">今天结束</p>
+  <p *ngIf="util.getRelativeTime(campaignData.dueDate) < 0">{{(util.getRelativeTime(campaignData.dueDate)) * -1}}天前结束</p>
+</div>
+<img class="campaign-description" src="{{campaignData.image}}">
+<button class="see-badge-button" (click)="seeBadges()">
+  解锁勋章
+</button>

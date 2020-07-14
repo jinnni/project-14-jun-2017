@@ -1,0 +1,19 @@
+<ion-header no-border>
+    <ion-navbar>
+      <div class="navbar-header-container">
+          <ion-title>使用条款</ion-title>
+      </div>
+    </ion-navbar>
+  </ion-header>
+<ion-header>
+<ion-content>
+  <div style="background-color: #ffffff;" class="card-subtitle1 ql-editor" padding></div>
+</ion-content>
+<ion-footer>
+  <ion-row class="agreement" style="width: 70%;margin: 20px auto;">
+    <ion-checkbox color="danger" [(ngModel)]="agreementIsChecked"></ion-checkbox>
+    <div>免责声明(同意使用条款和隐私设置)</div>
+  </ion-row>
+  <button ion-button (click)="DenyTerms()">拒绝</button>
+  <button ion-button (click)="AcceptTerms()">同意</button>
+</ion-footer>

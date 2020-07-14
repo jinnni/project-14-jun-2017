@@ -1,0 +1,40 @@
+<ion-header no-border mode="ios">
+  <ion-navbar transparent mode="ios">
+    <div class="badge-type-select">
+      <div class="badge-type" (click)="selectBadgeType(1)" [class.selected]="selectedBadgeType == 1">达人
+      </div>
+      <div class="badge-type" (click)="selectBadgeType(2)" [class.selected]="selectedBadgeType == 2">生活方式
+      </div>
+    </div>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div [ngSwitch]="selectedBadgeType">
+    <div class="badge-list" *ngSwitchCase="'1'">
+      <div class="badge-item" *ngFor="let item of expertBadgeList" (click)="showBadge(item)">
+        <ion-row>
+          <ion-col col-4 class="badge-item-left">
+            <img [src]="imageUrl+item.imageName">
+          </ion-col>
+          <ion-col col-8 class="badge-item-right">
+            <div class="badge-name">{{item.name}}</div>
+            <div class="badge-description">{{item.description}}</div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <ion-list *ngSwitchCase="'2'">
+      <div class="badge-item" *ngFor="let item of lifeStyleBadgeList" (click)="showBadge(item)">
+        <ion-row>
+          <ion-col col-4 class="badge-item-left">
+            <img [src]="imageUrl+item.imageName">
+          </ion-col>
+          <ion-col col-8 class="badge-item-right">
+            <div class="badge-name">{{item.name}}</div>
+            <div class="badge-description">{{item.description}}</div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>

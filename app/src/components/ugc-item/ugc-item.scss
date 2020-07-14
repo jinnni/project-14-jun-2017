@@ -1,0 +1,72 @@
+component-ugc-item {
+  ion-card {
+    width: 100% !important;
+    margin: 0 auto 10px auto !important;
+  }
+
+  ion-card-content {
+    padding: 10px 10px 5px 10px !important;
+
+    .title {
+      font-weight: bold;
+      white-space: nowrap;
+      width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-bottom: 5px;
+    }
+
+    p {
+      display: block;
+      color: $pjBlack !important;
+      $line-height: 1.4em;
+      $line-count: 3;
+      line-height: $line-height !important;
+      max-height: $line-height * $line-count;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      display: -webkit-box;
+      -webkit-line-clamp: $line-count;
+      -webkit-box-orient: vertical;
+      // multi line ellipsis only supported in webkit
+    }
+  }
+
+  .card-writer-container {
+    margin-top: 10px;
+
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .writer-name {
+      display: inline-block;
+      vertical-align: middle;
+      color: $pjBlack;
+    }
+  }
+
+  .card-footer-container {
+    $footer-height: 30px;
+    height: $footer-height;
+    text-align: right;
+
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      width: $footer-height;
+      height: $footer-height;
+    }
+
+    .desc-label {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: -5px;
+    }
+  }
+}

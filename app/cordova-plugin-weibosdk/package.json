@@ -1,0 +1,73 @@
+{
+  "_from": "cordova-plugin-weibosdk@^0.6.4",
+  "_id": "cordova-plugin-weibosdk@0.6.4",
+  "_inBundle": false,
+  "_integrity": "sha512-hy/8dg/cFDMjIPsJFgMn6WNX2H8Zi7n9S2ksvvsh1nphlbN6W1/UIXhzqurN0m5CXNanORLQC3S3fiyV3UJpRA==",
+  "_location": "/cordova-plugin-weibosdk",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "cordova-plugin-weibosdk@^0.6.4",
+    "name": "cordova-plugin-weibosdk",
+    "escapedName": "cordova-plugin-weibosdk",
+    "rawSpec": "^0.6.4",
+    "saveSpec": null,
+    "fetchSpec": "^0.6.4"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-weibosdk/-/cordova-plugin-weibosdk-0.6.4.tgz",
+  "_shasum": "643943247ac109e61e17844d0e5d195aa4804b07",
+  "_spec": "cordova-plugin-weibosdk@^0.6.4",
+  "_where": "/Users/mac/Desktop/projects/pjprojects/my_ionic_client/app",
+  "author": {
+    "name": "https://github.com/iVanPan"
+  },
+  "bugs": {
+    "url": "https://github.com/iVanPan/cordova_weibo/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-weibosdk",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "codrova/phonegap wrapper for weibo sdk",
+  "engines": [
+    {
+      "name": "cordova-android",
+      "version": ">=7.0.0"
+    }
+  ],
+  "homepage": "https://github.com/iVanPan/cordova_weibo",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova",
+    "phonegap",
+    "plugin",
+    "weibosdk",
+    "weibo",
+    "sina",
+    "login",
+    "share"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "cordova-plugin-weibosdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iVanPan/cordova_weibo.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.6.4"
+}

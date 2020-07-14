@@ -1,0 +1,28 @@
+<ion-content class="notice">
+    <ion-list id="notice">
+      <div style="text-align:center;" *ngFor="let item of notices; let i = index; let lastindex = last;" style="transform: rotate(180deg);">
+        <p *ngIf="item.hide != true" style="text-align: center;">{{item.createdOn | date:'medium'}}</p>
+        <ion-card style="border-radius:5px;" *ngIf="item.hide != true">
+          <div style="text-align:left;position: relative;width: 95%;margin: auto;" [id]="lastindex ? 'lastmessage' : ''">
+            <div *ngIf="item.status == 'unread'" style="width:8px;height:8px;position:absolute;top: 5px !important;left:5px !important;background-color: #ff2744;border-radius: 50%;"></div>
+            <div *ngIf="item.status == 'new'" style="width:8px;height:8px;position:absolute;top: 5px !important;left:5px !important;background-color: #ff2744;border-radius: 50%;"></div>
+            <div style="background-color:#ffffff;overflow:auto;width: 97%;" [id]="'term'+i" class="card-subtitle ql-editor" padding>{{ converted(item.description,'#term'+i)}}</div>
+            <!--<div *ngIf="item.category == 'invitation'" style="background-color:#ffffff;overflow:auto;width: 97%;" [id]="'term'+i" class="card-subtitle ql-editor" padding>{{ converted(item.description,'#term'+i)}}</div>
+            <div *ngIf="item.category == 'pre_survey'" style="background-color:#ffffff;overflow:auto;width: 97%;" [id]="'term'+i" class="card-subtitle ql-editor" padding>{{ converted(item.description,'#term'+i)}}</div>
+            <div *ngIf="item.category == 'badge_unlock'" style="background-color:#ffffff;overflow:auto;width: 97%;" class="card-subtitle ql-editor" [id]="'term1'+i" padding>{{converted(item.description,'#term1'+i)}}</div>
+            <div *ngIf="item.category == 'challenge_review'" style="background-color:#ffffff;overflow:auto;width: 97%;" class="card-subtitle ql-editor" [id]="'term2'+i" padding>{{converted(item.description,'#term2'+i)}}</div>
+            <div *ngIf="item.category == 'box_tracking'" style="background-color:#ffffff;overflow:auto;width: 97%;" class="card-subtitle ql-editor" [id]="'term3'+i" padding>{{converted(item.description,'#term3'+i)}}</div>
+            <div *ngIf="item.category == 'other'" style="background-color:#ffffff;overflow:auto;width: 97%;" class="card-subtitle ql-editor" [id]="'term4'+i" padding>{{converted(item.description,'#term4'+i)}}</div> -->
+            <button (click)="deleteMessage(item)" style="width:20px;height:20px;position:absolute;bottom: 5px !important;right:2px !important;background-color: transparent;padding: 0px;border: 0px;">
+              <img src="assets/img/icons/delete.png"/>
+            </button>
+          </div>
+          <button *ngIf="item.category == 'pre_survey'" [disabled]="item.clicked" (click)="openNotice(item)" style="padding: 10px;background-color: #ff2744;color: #ffffff;font-size: 14px;font-weight: 700;width: 100%;margin:0px;">{{item.buttonText}}</button>
+        </ion-card>
+      </div>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!isLast" threshold="100px">
+        <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-list>
+  <div *ngIf="!hide" style="transform: rotateZ(180deg);position:absolute;top:0px;left:0px;height:100%;width:100vw;background-size: cover;background-repeat: no-repeat;background-image:url('assets/img/no_message.jpg');"> </div>
+</ion-content>

@@ -1,0 +1,41 @@
+<ion-header no-border>
+  <ion-navbar transparent>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngFor="let notice of notices">
+    
+    <div class="notice-item" (click)="openNotice(notice)" *ngIf="notice.status == 'unread' || notice.status == 'new'" style="background: #DEDEDE !important;">
+      <div class="notice-icon">
+        <img src="{{typeIcon}}">
+      </div>
+      <div class="notice-right">
+        <div class="notice-title">
+          {{notice.title}}
+        </div>
+        <div class="notice-description">
+          {{notice.description}}
+        </div>
+      </div>
+    </div>
+    <div class="notice-item" (click)="openNotice(notice)" *ngIf="notice.status == 'read'">
+      <div class="notice-icon">
+        <img src="{{typeIcon}}">
+      </div>
+      <div class="notice-right">
+        <div class="notice-title">
+          {{notice.title}}
+        </div>
+        <div class="notice-description">
+          {{notice.description}}
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <!-- <div  *ngIf="notices.length <= 0" style="position:absolute;top:0px;left:0px;height:100%;width:100vw;background-size: cover;background-repeat: no-repeat;background-image:url('assets/img/no_message.jpg');"></div> -->
+  <!-- <div class="empty" *ngIf="notices.length == 0">
+    <div class="text">当前没有收到关联消息！</div>
+  </div> -->
+</ion-content>
+<!-- <component-footer-menu hidden></component-footer-menu> -->

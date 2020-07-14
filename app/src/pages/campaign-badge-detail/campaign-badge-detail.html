@@ -1,0 +1,50 @@
+<ion-header no-border mode="ios">
+  <ion-navbar transparent mode="ios">
+    <ion-title mode="ios">挑战</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="badge-header">
+    <div class="image-container">
+      <div class="overlay" *ngIf="gainedScore < badge.goalScore"></div>
+      <!-- <img  [src]="imageUrl+badge.imageName"> -->
+      <img class="badge-image" *ngIf="gainedScore < badge.goalScore" style="opacity:0.3;" [src]="imageUrl+badge.imageName" onError="this.src='assets/img/placeholder.jpg';">
+      <img class="badge-image" *ngIf="gainedScore >= badge.goalScore" [src]="imageUrl+badge.imageName" onError="this.src='assets/img/placeholder.jpg';">
+    </div>
+    <img class="lock-icon" *ngIf="gainedScore < badge.goalScore" src="assets/img/icons/icon11.png">
+    <div class="right">
+      <div class="title">{{badge.name}}</div>
+      <!-- <div class="score">{{getCurrentScore()}}/{{badgeData.totalScore}}分</div> -->
+      <div class="score">{{gainedScore}}/{{badge.goalScore}}分</div>
+    </div>
+  </div>
+  <div class="challenge-section">
+    <div *ngIf="!badgeChallenges">
+      <div class="challenge-header">没有奖牌活动可用</div>
+    </div>
+    <div *ngIf="badgeChallenges">
+      <div class="challenge-header">勋章活动</div>
+      <challenge-item *ngFor="let challenge of badgeChallenges" [challengeData]="challenge" [badge]="badge" (clickEvent)="onClickChallenge($event)" [class.selected]="challenge.isSelected">
+      </challenge-item>
+    </div>
+  </div>
+  <div class="terms-of-use" (click)="openPopup = true;">条款和协议
+  </div>
+  <div class="divider"></div>
+  <div class="prize-section">
+    <div class="prize-header">宝 BOX 奖品</div>
+    <div class="prize-description ql-editor">{{badge.prizeMessage}}</div>
+    <img class="prize-image" [src]="imageUrl+badge.priceImage" onError="this.src='assets/img/placeholder.jpg';">
+  </div>
+</ion-content>
+<ion-content *ngIf="openPopup" style="z-index: 99;background-color: #ffffff !important;">
+  <div style="display: flex;height: 100%;    flex-flow: column;">
+    <p style="text-align: center;">条款和协议</p>
+    <div style="padding: 10px;flex: 1;overflow: auto;" id="descc" class="ql-editor">
+      {{converted(badge.termsAndConditions,'#descc')}}
+    </div>
+    <div style="text-align: center;padding-top: 5px;">
+        <button ion-button (click)="openPopup = false;" style="margin-left: 10px;margin-bottom: 20px;height: 35px;width: 100px;border-radius: 20px;">确定</button>
+      </div>
+  </div>  
+</ion-content>

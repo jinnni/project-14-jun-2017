@@ -1,0 +1,113 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(defaultValue: 'master', description: 'Branch to checkout', name: 'BRANCH')
+        string(defaultValue: 'stage', description: 'Environment Selection', name: 'ENVIRONMENT')
+        booleanParam(defaultValue: false, description: 'Should I force this execution', name: 'FORCE_BUILD')
+        booleanParam(defaultValue: false, description: 'Should I clean the workspace', name: 'CLEAN_WS')
+        booleanParam(defaultValue: false, description: 'Should I release', name: 'RELEASE')
+    }    
+
+    tools {nodejs "node10-lts"}
+    
+    environment {
+        ANDROID_HOME="/var/lib/android"
+        PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
+        BRANCH="${params.BRANCH}"
+        CLEAN_WS="${params.CLEAN_WS}"
+        APK_NAME="app-debug-${BRANCH}.apk"
+        RELEASE_URL="http://106.14.164.125/releases/android/"
+        PROD_IP="47.100.253.183"
+        PROD_URL="http://${PROD_IP}/releases/android/"
+        ENVIRONMENT="${params.ENVIRONMENT}"
+    }
+    
+    stages {
+        stage('Cloning sources') {
+            steps {
+                slackSend "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+                sh "git config --global http.postBuffer 1048576000"
+                git (
+                    url: 'git@bitbucket.org:pjdarenapp/ionic-client.git',
+                    credentialsId: 'pjdaren-bitbucket',
+                    branch: "${BRANCH}"
+                )
+            }
+        }
+        
+        stage('Install dependencies') {
+            steps {
+                dir('app'){
+                    sh 'pwd'
+                    sh 'ls -lt'
+                    sh 'npm install'
+                    sh 'rm -rf cordova-plugin-wechat'
+                    sh 'unzip cordova-plugin-wechat.zip'
+                    sh 'ionic cordova plugin add cordova-plugin-wechat --variable WECHATAPPID="wxe6b2c324acb2b286"'
+                    sh 'ionic cordova platform add android'
+                    sh 'cp my-release-key.keystore debug-signing.properties release-signing.properties platforms/android/'
+                }
+            }
+        }
+        
+        stage('Build Android APK'){
+            environment {
+                TIMESTAMP=""
+
+            }
+            steps {
+                script {
+                    TIMESTAMP="${currentBuild.startTimeInMillis}"
+                    if("${BRANCH}".contains("/")) {
+                        BRANCH="${BRANCH}".split("/")[1];
+                    }
+                    APK_NAME="app-debug-${ENVIRONMENT}-${BRANCH}-${TIMESTAMP}.apk"
+                }
+                dir('app') {
+                    sh 'ionic cordova prepare android'
+                    script {
+                        def release = Boolean.valueOf("${env.RELEASE}");
+                        if(release) {
+                            APK_NAME = "pjdaren-${TIMESTAMP}.apk"
+                            sh "ionic cordova build android --prod --release"
+                            sh "mv platforms/android/app/build/outputs/apk/release/app-release.apk platforms/android/app/build/outputs/apk/release/${APK_NAME}"
+                            sh "scp platforms/android/app/build/outputs/apk/release/${APK_NAME} root@${PROD_IP}:/var/www/html/releases/android"
+                            sh "ssh root@${PROD_IP} cp /var/www/html/releases/android/${APK_NAME} /var/www/html/releases/android/pjdaren-latest.apk"
+                        } else {
+                            sh "ENV=${ENVIRONMENT} ionic cordova build android"
+                            sh "mv platforms/android/app/build/outputs/apk/debug/app-debug.apk platforms/android/app/build/outputs/apk/debug/${APK_NAME}"
+                            sh "cp platforms/android/app/build/outputs/apk/debug/${APK_NAME} /var/www/html/releases/android"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        success {
+            script {
+                def release = Boolean.valueOf("${env.RELEASE}");
+                if(release) {
+                    slackSend "Build Finished - APK pjdaren-latest.apk generated (<${PROD_URL}|Open>)"        
+                } else {
+                    slackSend "Build Finished - APK ${APK_NAME} generated (<${RELEASE_URL}|Open>)"
+                }
+            }
+            
+        }
+        failure {
+            slackSend "Build Failed - (<${env.BUILD_URL}|Open>)"
+        }
+        always {
+            sh 'ls -lt'
+            script {
+                def clean = Boolean.valueOf("${CLEAN_WS}");
+                if(clean) {
+                    cleanWs()
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,133 @@
+.review-item {
+  $review-item-height: 525px;
+  $review-item-profile-side: 65px;
+  width: 100%;
+  height: $review-item-height;
+  background-color: #fff;
+  border-bottom: 2px solid #f9f9f9;
+  padding: 0px 0px 0px 0px;
+  position: relative;
+  margin-bottom: 5px;
+  .profile-image {
+    width: 55px;
+    height: 55px;
+    border-radius: 50px;
+  }
+  .content-section {
+    display: inline-block;
+    width: 81%;
+    position: absolute;
+    top: 20px;
+    left:75px;
+
+    .review-header {
+      display: block;
+      ion-col {
+        padding: 0px;
+      }
+      .writer {
+        display: inline-block;
+        font-size: 1.2em;
+      }
+      .reviewer {
+        max-width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+        text-overflow: ellipsis;
+      }
+      .align-right {
+        display: inline-block;
+        right: -5px;
+        position: absolute;
+        .age {
+          display: inline-block;
+        }
+        .location {
+          display: inline-block;
+        }
+        .rating {
+          display: inline-block;
+          margin-left: 2px;
+          margin-right: 8px;
+          ion-icon {
+            font-size: 1.2em;
+          }
+        }
+      }
+    }
+    .review-content {
+      display: block;
+      margin-top: 5px;
+      width: 98%;
+    }
+  }
+  $font-size: 1em;
+  $line-height: 1.2;
+  $lines-to-show: 3;
+  .content_elipsize-3line{
+    position: relative;
+    top: 0px;
+    display: block; /* Fallback for non-webkit */
+    display: -webkit-box;
+    max-width: 400px;
+    width : 100%;
+    padding-right: 10px;
+    font-size: $font-size;
+    line-height: $line-height;
+    margin: 0;
+    overflow: visible;
+    text-overflow: unset;
+
+  }
+
+  .likebtn{
+    left: 8px;
+    width:100%;
+    height: 50px;
+  }
+  .rating {
+    margin-left: 0px;
+    margin-bottom: 10px;
+  }
+
+  .gallery{
+    position: absolute;
+    top:100px;
+    .gallery-image {
+      left: 10px;
+      width: 100%;
+      max-height: 100%;
+      background-color: $pjBackground;
+    }
+  }
+
+  .swiper-pagination-bullet {
+    border-radius: 100%;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    border:1px solid #000000;
+    opacity: .2;
+    pointer-events: auto;
+  }
+  .swiper-pagination-bullet-active {
+    background: #000000;
+    opacity: .2;
+  }
+  .content-wrapper{
+    .card-subtitle{
+      font-weight: normal;
+      margin: 8px 15px 10px 15px;
+      overflow: hidden;
+      b{
+        font-weight: bold;
+        padding: 0px 5px;
+        color: #ff2744;
+        border-radius: 9px;
+        word-break: keep-all;
+      }
+    }
+  }
+}

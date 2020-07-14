@@ -1,0 +1,116 @@
+page-profile-my-badge {
+	ion-content {
+	  background-color: #ffffff !important;
+	}
+	img.lock-icon {
+    height: 40px;
+    position: absolute;
+    right: 0px;
+    top: 60px;
+	  }
+  .toolbar-background-md, .toolbar-background-ios, .toolbar-background-wp {
+    background-color: #f8f8f8;
+  }
+  .segment-md .segment-button{
+    border-bottom-color: transparent;
+  }
+  .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated{
+    border-color: #f13636;
+    opacity: 1;
+  }
+  .tabs {
+    display: inline-block;
+    text-align: center;
+    font-size: 1.2em;
+    &.selected:after {
+      content: ' ';
+      display: block;
+      margin-top: 5px;
+      border: 0.5px solid $pjRed;
+    }
+  }
+  .slide-zoom {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-around !important;
+  }
+  .badge-item-wrapper{
+    display: inline-block;
+    position: relative;
+  }
+  .badge-item {
+    width: calc(100% / 3);
+    display: inline-block;
+    margin-top: 10px;
+    position: relative;
+    width: 100px;
+    margin-left: 3px;
+    margin-right: 3px;
+    .image-container {
+      width: 100px;
+      height: 100px;
+      margin: 4px auto;
+      overflow: hidden;
+      position: relative;
+      border-radius: 50%;
+      .overlay{
+        background-color: #222222;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+      img {
+        opacity: 0.3;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+    p {
+      text-align: center;
+      margin: 10px 0 0 0;
+      font-size: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  .point-indicator-container {
+    text-align: center;
+    .point-indicator-bar {
+      height: 10px;
+      width: 100%;
+      margin-top: 10px;
+      position: relative;
+      border-radius: 20px;
+      border: 1px solid #ff2744;
+      overflow: hidden;
+      // .point-indicator-bar-outline {
+      //   position: absolute;
+      //   height: 100%;
+      //   width: 100%;
+      // }
+      .point-indicator-bar-fill {
+        position: absolute;
+        height: 100%;
+        background-color: $pjRed;
+      }
+    }
+  }
+  .place-holder-message {
+    height: 100%;
+    // position: relative;
+    .text {
+      color: $pjRed;
+      position: absolute;
+      font-weight: lighter;
+      font-size: 1.2em;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

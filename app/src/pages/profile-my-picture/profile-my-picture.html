@@ -1,0 +1,14 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">{{pageTitle}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4 col-md-4 col-xl-3 *ngFor="let image of imageList">
+        <img [src]="imageUrl+image.name" style="width:100%;height:100%">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,17 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">{{product.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-row class="section-header">
+    <ion-col col-9 text-left class="section-header-left">
+      <p>全部问题 ({{questionList?.length? questionList.length : 0}})</p>
+    </ion-col>
+    <ion-col col-3 text-right class="section-header-right">
+      <p></p>
+    </ion-col>
+  </ion-row>
+  <component-qna-item *ngFor="let item of questionList" [type]="QnaItemType.QUESTION_IN_LIST" [productName]="product.name" [dummyProdId]="product.id" [qnaData]="item">
+  </component-qna-item>
+</ion-content>

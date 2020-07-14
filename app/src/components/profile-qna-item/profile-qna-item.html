@@ -1,0 +1,29 @@
+<div>
+  <div class="profile-image left">
+    <!-- <img src={{qnaData.writer.profileImage}}> -->
+
+    <img *ngIf="qnaData.writer.id == userData.id" [src]="socialProfilePic">
+    <img *ngIf="qnaData.writer.id != userData.id && !qnaData.writer.profileImage && qnaData.writer.gender == 'M'" src="assets/img/profile/man.png">
+    <img *ngIf="qnaData.writer.id != userData.id && !qnaData.writer.profileImage && qnaData.writer.gender == 'F'" src="assets/img/profile/woman.png">
+    <img *ngIf="qnaData.writer.id != userData.id && qnaData.writer.profileImage" [src]="imageUrl+qnaData.writer.profileImage">
+
+
+  </div>
+  <div class="right">
+    <div class="status-message">
+      <div class="writer-name">{{qnaData.writer.name}}
+      </div>
+      在
+      <div class="product-name"
+           (click)="showProduct()">{{productName}}
+      </div>
+      {{type == QnaItemType.QUESTION? '发起了一个提问' : ''}}
+      {{type == QnaItemType.ANSWER? '回答了一个提问' : ''}}:
+    </div>
+    <div class="content" [innerHtml]="qnaData.content">
+    </div>
+    <div class="created">
+      {{Util.formatTimeFacebookStyle(qnaData.created)}}
+    </div>
+  </div>
+</div>

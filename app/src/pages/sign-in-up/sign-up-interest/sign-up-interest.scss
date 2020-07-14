@@ -1,0 +1,42 @@
+page-sign-up-interest {
+  .circular-crop-container {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+    &.selected img {
+      filter: brightness(0.7);
+    }
+  }
+
+  img {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+
+  ion-item {
+    background-color: transparent !important;
+    padding: 0 !important;
+
+    .item-inner {
+      padding: 0 !important;
+      border: none !important;
+
+      ion-label {
+        margin: 0;
+      }
+    }
+  }
+  @keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .animate{
+    animation: fadein 1s;
+  }
+}

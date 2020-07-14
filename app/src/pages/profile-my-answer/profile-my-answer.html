@@ -1,0 +1,9 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">所有回答</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <profile-qna-item [type]="QnaItemType.ANSWER" *ngFor="let answer of answerList" [qnaData]="answer">
+  </profile-qna-item>
+</ion-content>

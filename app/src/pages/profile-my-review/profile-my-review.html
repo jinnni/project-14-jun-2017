@@ -1,0 +1,72 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">所有评价</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="public-review-list">
+      <div *ngFor="let review of reviewList; let inde = index" style="margin-bottom: 5px;background-color: #ffffff;">
+          <div class="product-wrapper-top">
+            <div class="product-image-wrapper">
+              <img [src]="imageUrl+review.productImage">
+            </div>
+            <h2>{{review.name}}</h2>
+          </div>
+          <div class="review-section" style="background-color:#ffffff;width: 100%;padding: 0px 10px 0px 10px;" *ngIf="review && review.imageArray.length > 0">
+            <ion-slides slidesPerView="3" pager spaceBetween="5" (ionSlideTap)="toggleClose(); reviewarr = review.imageArray; slideClick($event);">
+              <ion-slide *ngFor="let item of review.imageArray; let i = index;" [ngClass]="'thumbnails thumbs' + i" [ngStyle]="{'height': getDynamicHeight ? getDynamicHeight : '120px'}">
+                  <div class="imageHolder" [style.backgroundImage]="'url('+imageUrl+item+')'" style="height:100%;"></div>
+              </ion-slide>
+            </ion-slides>
+          </div>
+          <div class="rating" style="margin-left:10px; margin-bottom:10px;">
+            <rating [(ngModel)]="review.rating" readOnly="true"></rating>
+          </div>
+          <div class="content-wrapper">
+            <div *ngIf="review.content.length <= 140" class="card-subtitle" (click)="onReadLessReadMore5(review);">
+              <div class="ion-card-local">{{review.content}}</div>
+            </div>
+            <div *ngIf="review.content.length > 140" class="card-subtitle" (click)="onReadLessReadMore5(review);">
+              <div *ngIf="review.isopen == false" class="ion-card-local">{{review.contentLight}}...<b>展开</b></div>
+              <div *ngIf="review.isopen == true" class="ion-card-local">{{review.content}}<b>...收起</b></div>
+            </div>
+          </div>
+          <div class="likebtn">
+            <button style="padding: 0px 6px;background-color:transparent;width:35px;height: 35px;vertical-align: middle">
+              <div *ngIf="review.liked == false" (click)="reviewLikeUp(review,inde)">
+                <img src="assets/img/icons/heart_white_new.png">
+              </div>
+              <div *ngIf="review.liked == true" (click)="reviewLikeDown(review,inde)">
+                <img src="assets/img/icons/heart_red_new.png">
+              </div>
+            </button>
+            <p style="display: inline-block;margin-left: -5px;">{{review.likes}}</p>
+            <button style="padding: 0px 6px;background-color:transparent;width:35px;height: 35px;vertical-align: middle;float: right;margin-right: 10px;margin-top:5px;">
+              <div *ngIf="review.reported == false" (click)="presentReportPrompt(review)">
+                <img src="assets/img/icons/unreport_status.png">
+              </div>
+              <div *ngIf="review.reported == true" (click)="showAlert()">
+                <img src="assets/img/icons/report_status.png">
+              </div>
+            </button>
+          </div>
+          <div style="width:100%;height:8px;background-color: #f5f5f5;"></div>
+      </div>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="10px" *ngIf="!(pageNo == totpg)">
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+      <div style="text-align: center;padding-bottom: 30px;">
+          <button style="height: 25px;border-radius: 20px;font-size: 12px;padding: 5px 20px;" (click)="doInfinite('')">点击加载更多</button>
+        </div>
+    </ion-infinite-scroll>
+</ion-content>
+<ion-content class="overlay-img" *ngIf="isOpen == true">
+  <button class="close-btn" (click)="toggleClose()" style=" background-image: url('assets/img/badges/failed.png');"></button>
+  <ion-slides effect="slide" speed="100" [slidesPerView]="1" zoom="true" pager [initialSlide]= "this.clickedIndex">
+    <ion-slide *ngFor="let item of reviewarr; let i = index">
+        <div class="swiper-zoom-container">
+          <div class="imageHolder" [style.backgroundImage]="'url('+imageUrl+item+')'"></div>
+        </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

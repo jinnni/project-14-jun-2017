@@ -1,0 +1,49 @@
+page-profile-my-picture {
+  .image-grid {
+    overflow: auto;
+
+    $container-width: 30vw;
+    $side-space: (100vw - $container-width * 3) / 4 / 2;
+
+    .err-msg {
+      font-size: 1.3em;
+      color: $pjRed;
+      text-align: center;
+      margin: 15px 0;
+    }
+    .image-container {
+      display: inline-block;
+      float: left;
+      width: $container-width;
+      height: $container-width;
+      margin-top: $side-space*2;
+      position: relative;
+      overflow: hidden;
+
+
+      img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.5);
+      }
+
+      &:nth-child(3n-2) {
+        margin-left: $side-space * 2;
+        margin-right: $side-space;
+      }
+      &:nth-child(3n-1) {
+        margin-left: $side-space;
+        margin-right: $side-space;
+      }
+      &:nth-child(3n) {
+        margin-left: $side-space;
+        margin-right: $side-space * 2;
+      }
+
+      &:active img {
+        filter: brightness(90%);
+      }
+    }
+  }
+}

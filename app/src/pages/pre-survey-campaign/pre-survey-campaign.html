@@ -1,0 +1,227 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios" [hideBackButton] = "showTncPage">
+    <ion-toolbar mode="ios">
+      <ion-title mode="ios" *ngIf="showTncPage">使用条款</ion-title>
+      <ion-title mode="ios" *ngIf="!showTncPage">达人小档案</ion-title>
+      <ion-buttons end mode="ios" style="position: absolute;right: 10px;top: 50%;transform: translateY(-50%);" *ngIf="!showTncPage">
+        <div class="progressMeter" style="height: 25px;overflow: hidden;border: 1px solid #f92642;position: relative;width: 70px;border-radius: 20px;float: right;">
+          <div class="meter" [ngStyle]="{'width': meter == 0 ? '0%' : meter + '%', height:'100%','background-color':'#f92642'}"></div>
+          <button style="top: 0px;background: transparent;position:absolute;height:100%;width:100%;font-size: 12px;padding:0px;color: #ffafb9;font-weight: 700;left:0px;">{{meter}}%</button>
+        </div>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-navbar>
+  <ion-toolbar class="question-toolbar" *ngIf="!showTncPage">
+    <ion-title *ngIf="!hasIntroStatement && questionData">{{question}}</ion-title>
+  </ion-toolbar> 
+  <div class="header" *ngIf="!hasIntroStatement && questionData">
+    <div class="instruction" *ngIf="questionData.type == 'single_choice' || questionData.type == 'drop_down_list'">
+      <small>单选</small>
+    </div>
+    <div class="instruction" *ngIf="questionData.type == 'multiple_choice'">
+      <small *ngIf="!limitChoice">多选</small>
+      <small *ngIf="limitChoice && choiceMax == choiceMin">选择 {{choiceMax}} 项</small>
+      <small *ngIf="limitChoice && choiceMax > choiceMin && choiceMin == 1">总共选择 {{choiceMax}} 项</small>
+      <small *ngIf="limitChoice && choiceMax > choiceMin && choiceMin > 1">选择 {{choiceMin}} 到 {{choiceMax}} 项</small>
+      <small *ngIf="limitChoice && choiceMax < choiceMin">选择 {{choiceMin}} 项</small>
+    </div>
+    <div class="instruction" *ngIf="questionData.type == 'open_text'">
+      <small>填写在框里</small>
+    </div>
+    <div class="instruction" *ngIf="questionData.type == 'intensity'">
+      <small>每一行单选</small>
+    </div>
+    <div class="instruction" *ngIf="questionData.type == 'intensity_multiple'">
+      <small *ngIf="!limitChoice">每一行单选</small>
+      <small *ngIf="limitChoice && choiceMax == choiceMin">选择 {{choiceMax}} 项</small>
+      <small *ngIf="limitChoice && choiceMax > choiceMin && choiceMin == 1">总共选择 {{choiceMax}} 项</small>
+      <small *ngIf="limitChoice && choiceMax > choiceMin && choiceMin > 1">选择 {{choiceMin}} 到 {{choiceMax}} 项</small>
+      <small *ngIf="limitChoice && choiceMax < choiceMin">选择 {{choiceMin}} 项</small>
+    </div>
+    <div class="instruction" *ngIf="questionData.type == 'ranking'">
+      <small>点击按钮进行排序</small>
+    </div>
+    <div class="instruction" *ngIf="questionData.type == 'numeric_input'">
+      <small *ngIf="!limitChoice">填写在框里</small>
+      <small *ngIf="limitChoice && choiceMax > choiceMin && choiceMin == 0">总共选择 {{choiceMax}} 项</small>
+      <small *ngIf="limitChoice && choiceMax > choiceMin && choiceMin > 0">选择 {{choiceMin}} 到 {{choiceMax}} 项</small>
+      <small *ngIf="limitChoice && choiceMax < choiceMin">选择 {{choiceMin}} 项</small>
+    </div>
+    <div class="instruction" *ngIf="questionData.type == 'rating'">
+      <small>点击星号进行评分</small>
+    </div>
+    <div class="instruction" *ngIf="questionData.type == 'slider'">
+      <small>拖动按钮进行评分</small>
+    </div>
+  </div>
+</ion-header>
+<ion-content class="mydiv" #cont [ngStyle]="{'margin-top':this.marginValue}">
+  <div class="body" *ngIf="!surveyStatus && !hasIntroStatement && questionData">
+    <div class="banner-image" *ngIf="questionData.imageName" #banner>
+      <img [src]="imageUrl+questionData.imageName">
+    </div>
+    <div #answer *ngIf="questionData.type == 'intensity_multiple' || questionData.type == 'intensity'">
+      <div class="answer-choices" radio-group>
+        <div class="radio-options no-margin" *ngFor="let subject of subjectIntensityList; let i = index;">
+          <div class="choice-option-title" (click)="toggleOption(subject)" [class.selected]="subject.isTitleSelected">
+            <div>{{subject.subject}}</div>
+            <img class="down" *ngIf="subject.toggle" src="assets/img/icons/back-icon-black.png">
+            <img class="right" *ngIf="!subject.toggle" src="assets/img/icons/back-icon-black.png">
+          </div>
+          <div class="choice-option-selected" *ngIf="subject.value.length > 0">
+            <div class="choice-option-selected-value" *ngFor="let value of subject.value">
+              <img class="tick" src="assets/img/badges/complete.png">
+              {{value}}
+            </div>
+          </div>
+          <div class="sub-options" *ngIf="subject.toggle">
+            <div class="answer-choice" *ngFor="let intensity of subject.options; let j = index;" (click)="selectOption(subject, intensity, '')">
+              <div class="choice-button" *ngIf="questionData.type == 'intensity_multiple'">
+                <ion-checkbox [checked]="intensity.isSelected"></ion-checkbox>
+              </div>
+              <div class="choice-button" *ngIf="questionData.type == 'intensity'">
+                <ion-radio name="group" mode="md" [checked]="intensity.isSelected"></ion-radio>
+              </div>
+              <div class="choice-title">{{intensity.option.intensity}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div #answer *ngIf="questionData.type == 'single_choice' || questionData.type == 'multiple_choice' || questionData.type == 'screening_single' || questionData.type == 'screening_multiple'">
+      <div class="answer-choices" radio-group>
+        <ng-container *ngFor="let option of optionList">
+          <div class="answer-choice-image" (click)="selectOption('', '', option)">
+            <div *ngIf="option.imageName" style="padding: 20px;padding-bottom: 0px;text-align: center; border-bottom: 1px solid #e0e0e0;">
+              <img [src]="imageUrl+option.imageName">
+            </div>
+            <div class="answer-choice" style="border: none;">
+              <div class="choice-button" *ngIf="questionData.type == 'single_choice' || questionData.type == 'screening_single'">
+                <ion-radio mode="md" [checked]="option.isSelected"></ion-radio>
+              </div>
+              <div class="choice-button" *ngIf="questionData.type == 'multiple_choice' || questionData.type == 'screening_multiple'">
+                <ion-checkbox mode="md" [checked]="option.isSelected"></ion-checkbox>
+              </div>
+              <div class="choice-title" [class.selected]="option.isSelected">{{option.value}}</div>
+              <img class="tick" *ngIf="option.isSelected && option.openResponseFlag == false" src="assets/img/badges/complete.png">
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div #answer [class.rating-opentext-wrapper]="questionData.type == 'rating'">
+      <div *ngIf="questionData.type == 'rating'">
+        <div class="rating-wrapper">
+          <ul class="rating">
+            <li *ngFor="let option of optionList" [ngStyle]="{'display': !option.openResponseFlag ? 'list-item' : 'none'}">
+              <img *ngIf="!option.openResponseFlag && option.isShaded" src="assets/img/product/full-star.png" (click)="selectOption('', '', option)">
+              <img *ngIf="!option.openResponseFlag && !option.isShaded" src="assets/img/product/empty-star.png" (click)="selectOption('', '', option)">
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="open-text-answer-area" [ngStyle]="{'opacity': questionData.type == 'open_text' || enableOtherResponse ? '1' : '0', 'position' : questionData.type == 'open_text' || enableOtherResponse ? 'relative' : 'absolute', 'overflow' : questionData.type == 'open_text' || enableOtherResponse ? 'visible' :  'hidden', 'height' : questionData.type == 'open_text' || enableOtherResponse ? 'auto' :  '0px', 'width' : questionData.type == 'open_text' || enableOtherResponse ? 'auto' :  '0px'}">
+        <textarea #myInput (ngModelChange)="change($event)" rows="3" minlength="5" maxlength="50" placeholder="请输入至少5-50个字符的答案" [(ngModel)]="openTextAnswer" (focus)="onOpentextFocus()" (blur)="onOpentextBlur()"></textarea>
+        <div *ngIf="characterCounter" style="display: flex;justify-content: flex-end;align-items: center;margin-right: 5px;position: relative;">
+          <b style="color: #d9534f;margin-top: 5px;">{{characterLength}}</b>
+        </div>
+        <div *ngIf="!characterCounter" style="display: flex;justify-content: flex-end;align-items: center;margin-right: 5px;position: relative;">
+          <b style="color: seagreen;margin-top: 5px;">{{characterLength}}</b>
+          <img class="tick" src="assets/img/badges/complete.png" style="height:20px;top: -30px;position: absolute; right:0px;">
+        </div>
+      </div>
+    </div>
+    <div class="open-text-answer-area" #answer *ngIf="questionData.type == 'numeric_input'">
+      <ion-input type="number" class="open-text-numeric" (keypress)="onInput($event)" [(ngModel)]="openTextNumeric"></ion-input>
+    </div>
+    <div #answer *ngIf="questionData.type == 'ranking'">
+      <div class="answer-ranking-options" radio-group>
+        <div class="ranking-options" *ngFor="let subject of subjectIntensityList; let i = index;">
+          <div class="ranking-option-title" (click)="toggleOption(subject)" [class.selected]="subject.isTitleSelected">
+            <div>{{subject.subject}}</div>
+          </div>
+          <div class="sub-ranking-options">
+            <button class="answer-choice" [class.bgcolor]="intensity.isShaded" [class.darkRed]="intensity.isSelected" *ngFor="let intensity of subject.options; let j = index;" (click)="selectOption(subject, intensity, '')">
+              <div class="choice-button">
+                <ion-radio name="group" mode="md" [checked]="intensity.isSelected"></ion-radio>
+              </div>
+              {{intensity.option.intensity}}
+            </button>
+          </div>
+          <div>
+            <div class="bottom-detail">
+              <span>高</span>
+              <span>低</span>
+            </div>
+            <hr style="height: 1px;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div #answer *ngIf="questionData.type == 'slider'">
+      <div class="slider-wrapper">
+        <div class="slider-range">
+          <ion-range min="0" [max]="rangeMax" [snaps]="true" ticks="true" step="1" [(ngModel)]="rangeValue" (ionChange)="rangeEvent($event)" pin="true">
+          </ion-range>
+        </div>
+      </div>
+    </div>
+    <div class="answer-choices" *ngIf="questionData.type == 'drop_down_list'">
+      <ion-select class="drop-down" interface="popover" [(ngModel)]="drop_answer" (ionChange)="onDropdownChange(drop_answer)" placeholder="请选择选项">
+        <ng-container *ngFor="let option of optionList">
+          <ion-option [value]="option.value">
+            {{option.value}}
+          </ion-option>
+        </ng-container>
+      </ion-select>
+    </div>
+    <!-- submit button -->
+    <ion-row *ngIf="questionData && !surveyStatus">
+      <button class="pj-long-button submit-btn" (click)="submitSurvey()" [disabled]="(enableOtherResponse && characterCounter) || (questionData.type == 'open_text' && characterCounter) || (questionData.type == 'numeric_input' && openTextNumeric.length == 0)">
+        <div class="dot-wrapper" [ngStyle]="{'opacity': load ? 1 : 0}">
+          <div class="dot3"></div>
+          <div class="dot2"></div>
+          <div class="dot1"></div>
+        </div>
+        <div class="button-text" [ngStyle]="{'opacity': !load ? 1 : 0}">提交</div>
+      </button>
+    </ion-row>
+  </div>
+</ion-content>
+<ion-content [ngStyle]="{'display' : !surveyStatus && !hasIntroStatement && !questionData ? 'block' : 'none'}">
+  <div class="place-holder-message">
+    <!-- <div class="text">"暂时已完成了所有的问题，达人，辛苦你啦！ “</div> -->
+    <div class="text"></div>
+  </div>
+</ion-content>
+<ion-content *ngIf="showTncPage" class="tnc">
+  <div class="tnc">
+    <div  class="card-subtitle1 ql-editor" padding>{{converted('.card-subtitle1')}}</div>
+  </div>
+  <div class="ion-footer">
+    <ion-row class="agreement">
+      <ion-checkbox color="danger" [(ngModel)]="agreementIsChecked" style="margin-right: 5px;width: 16px;height: 16px;"></ion-checkbox>
+      <div>免责声明(同意使用条款和隐私设置)</div>
+    </ion-row>
+    <button ion-button (click)="DenyTerms()" style="margin-right: 10px;background-color: #343434;margin-bottom: 20px;height: 35px;width: 100px;border-radius: 20px;">拒绝</button>
+    <button ion-button (click)="AcceptTerms()" style="margin-left: 10px;margin-bottom: 20px;height: 35px;width: 100px;border-radius: 20px;">同意</button>
+  </div>
+</ion-content>
+<ion-content [ngStyle]="{'display' : !surveyStatus && hasIntroStatement && !questionData ? 'block' : 'none'}">
+  <div class="intro-statement-wrapper">
+    <div class="intro-statement">{{introStatement}}</div>
+    <div class="intro-statement-image" *ngIf=introImage>
+      <img [src]="imageUrl+introImage">
+    </div>
+    <div class="intro-statement-button">
+      <button class="pj-long-button submit-btn" (click)="submitIntroStatement()">
+        <div class="dot-wrapper" [ngStyle]="{'opacity': load ? 1 : 0}">
+          <div class="dot3"></div>
+          <div class="dot2"></div>
+          <div class="dot1"></div>
+        </div>
+        <div class="button-text" [ngStyle]="{'opacity': !load ? 1 : 0}">提交</div>
+      </button>
+    </div>
+  </div>
+</ion-content>

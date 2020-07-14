@@ -1,0 +1,62 @@
+page-notice-list {
+  .notice-item {
+    width: 100%;
+    padding: 15px 0;
+    border-bottom: 1px solid $pjAnotherGray;
+
+    .notice-icon {
+      display: inline-block;
+      vertical-align: middle;
+      width: 20vw;
+      text-align: center;
+
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    .notice-right {
+      display: inline-block;
+      vertical-align: middle;
+      width: 75vw;
+
+      .notice-title {
+        font-size: 1em;
+        font-weight: 500;
+        margin-bottom: 3px;
+      }
+      .notice-description {
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  .empty {
+    height: 100%;
+    position: relative;
+
+    .text {
+      color: $pjRed;
+      position: absolute;
+      font-weight: lighter;
+      font-size: 1.2em;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+.custom-spinner-container {
+  background-color: #fefefe;
+  width: 100vw;
+  text-align: center;
+  padding: 10px;
+  height: 100vh;
+  img{
+    transform: translate(-50%,-50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+}

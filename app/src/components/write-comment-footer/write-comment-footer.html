@@ -1,0 +1,8 @@
+<ion-row class="comment-section">
+  <ion-col col-10 class="input-container">
+    <ion-input type="text" [(ngModel)]="createComment.postComment" class="postComment" placeholder="写评论"></ion-input>
+  </ion-col>
+  <ion-col col-2 class="image-container">
+    <img src="assets/img/icons/write_review_gray.png" (click)="submitComment()">
+  </ion-col>
+</ion-row>

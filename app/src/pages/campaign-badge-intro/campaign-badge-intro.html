@@ -1,0 +1,41 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">{{campaignName}} 勋章</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content style="margin-top:56px">
+  <div class="intro-image-section">
+    <img class="badge-image" [src]="imageUrl+badge.banner" onError="this.src='assets/img/placeholder.jpg';">
+  </div>
+  <button class="see-detail-button" (click)="seeKnowMore()" style="display:none;">
+    更多详情
+  </button>
+  <div class="mission-description">
+    <p><b style="font-weight: 700;">我的任务</b></p>
+    <div class="ql-editor" id="desc">{{converted(badge.description,'#desc')}}</div>
+    <p><b style="font-weight: 700;">需做任务</b></p>
+    <div class="ql-editor" id="todo">{{converted(badge.content,'#todo')}}</div>
+  </div>
+  <div class="campaign-time-left">
+    <img src="assets/img/icons/clock_red.png">
+    <p *ngIf="util.getRelativeTime(campData.challengeDueDate) > 0">在{{util.getRelativeTime(campData.challengeDueDate)}}天内结束</p>
+    <p *ngIf="util.getRelativeTime(campData.challengeDueDate) == 0">今天结束</p>
+    <p *ngIf="util.getRelativeTime(campData.challengeDueDate) < 0">{{(util.getRelativeTime(campData.challengeDueDate)) * -1}}天前结束</p>
+  </div>
+  <div class="unlock-text">解锁</div>
+  <img class="arrow" src="assets/img/icons/arrow_down.png">
+  <div class="badge-item-container">
+    <div class="badge-item" (click)="unlockBadge()">
+      <div class="image-container">
+        <div class="overlay" *ngIf="gainedScore < badge.goalScore"></div>
+        <!-- <img  [src]="imageUrl+badge.imageName"> -->
+        <img class="badge-image" *ngIf="gainedScore < badge.goalScore" style="opacity:0.3;" [src]="imageUrl+badge.imageName" onError="this.src='assets/img/placeholder.jpg';">
+        <img class="badge-image" *ngIf="gainedScore >= badge.goalScore" [src]="imageUrl+badge.imageName" onError="this.src='assets/img/placeholder.jpg';">
+      </div>
+      <img class="lock-icon" *ngIf="gainedScore < badge.goalScore" src="assets/img/icons/icon11.png">
+    </div>
+  </div>
+  <!-- <div class="button-container" style="margin-bottom:100px;text-align: center;">
+    <button style="height: 35px;width: 170px;border-radius: 4px;margin: auto;" class="pj-long-button" (click)="unlockBadge()">Unlock Badge</button>
+  </div> -->
+</ion-content>

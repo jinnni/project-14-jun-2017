@@ -1,0 +1,18 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">问卷调查</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="center-container">
+    <div class="survey-title">
+      {{surveyData.title}}
+    </div>
+    <div class="survey-description">
+      {{surveyData.description}}
+    </div>
+    <button class="start-button" (click)="startSurvey()">
+      开始
+    </button>
+  </div>
+</ion-content>

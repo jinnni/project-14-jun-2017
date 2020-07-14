@@ -1,0 +1,9 @@
+{
+  "name": "pjdaren",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "com.pjdaren.wom",
+  "id": "com.pjdaren.wom"
+}

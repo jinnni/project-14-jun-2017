@@ -1,0 +1,100 @@
+component-qna-item {
+  .qna-item {
+    background-color: #fff;
+    margin-bottom: 10px;
+
+    .qna-item-top {
+      .profile-image {
+        display: inline-block;
+        vertical-align: middle;
+        width: 17vw;
+        height: 17vw;
+        margin: 2.5vw;
+        max-width: 85px;
+        max-height: 85px;
+
+        overflow: hidden;
+        border-radius: 50%;
+
+        img {
+          transform: scale(1.2);
+          height: 100%;
+        }
+      }
+
+      .qna-info {
+        display: inline-block;
+        vertical-align: middle;
+        width: 70vw;
+
+        .status-message {
+          .writer-name {
+            display: inline;
+            font-weight: bold;
+
+            &:active {
+              text-decoration: underline;
+            }
+          }
+
+          .product-name {
+            display: inline;
+            color: $pjRed;
+
+            &:active {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .writer-age-location {
+          margin-top: 5px;
+          font-size: 0.9em;
+        }
+      }
+    }
+
+    .qna-item-content {
+      padding: 0px 15px;
+      margin-top: 5px;
+    }
+
+    .divider {
+      border-bottom: 1px solid #f5f5f5;
+      width: 90vw;
+      margin: 10px auto 0px auto;
+    }
+
+    .qna-item-footer {
+      height: 50px;
+
+      .qna-item-button-container {
+        display: inline-block;
+        width: 80px;
+        height: 100%;
+        position: relative;
+
+        .qna-item-button-wrapper {
+          position: absolute;
+          width: 100%;
+          top: 50%;
+          left: 15px;
+          transform: translate(0%, -50%);
+
+          img {
+            display: inline-block;
+            vertical-align: middle;
+            width: 15px;
+            margin-right: 2px;
+          }
+
+          p {
+            display: inline-block;
+            vertical-align: middle;
+            color: $pjGray;
+          }
+        }
+      }
+    }
+  }
+}

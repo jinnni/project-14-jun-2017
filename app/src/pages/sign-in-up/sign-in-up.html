@@ -1,0 +1,57 @@
+<ion-content>
+
+  <div *ngIf="platform.is('ios') == true">
+    <div style="overflow: auto;height: 100%;">
+      <div class="bg-img-container" style="height:345px;">
+        <img class="bg-img" src="assets/img/login_logout_bg.png">
+        <img class="bg-img-logo" src="assets/img/logo_app.png">
+        
+      </div>
+      
+      <div [ngSwitch]="selectedTab" style="padding: 10px 16px 10px 16px;">
+        <div class="header-tab">
+          <div class="ion-col" text-center [class.active]="selectedTab==0" (click)="changeTab(0)">登录</div>
+          <div class="ion-col" text-center [class.active]="selectedTab==1" (click)="changeTab(1)">注册</div>
+        </div>
+        <div *ngSwitchCase=0>
+          <component-sign-in></component-sign-in>
+        </div>
+        <div *ngSwitchCase=1>
+          <component-sign-up></component-sign-up>
+        </div>
+      </div>
+    </div>
+    <!-- <div [ngSwitch]="selectedTab">
+      <div *ngSwitchCase=1>
+        <div class="footer-button" padding no-border (click)="signUp()">注册</div>
+      </div>
+    </div> -->
+  </div>
+  <div *ngIf="platform.is('ios') == false">
+    <div style="overflow: auto;height: 100%;">
+      <div class="bg-img-container" style="height: 345px;">
+        <img class="bg-img" src="assets/img/login_logout_bg.png">
+        <img class="bg-img-logo" src="assets/img/logo_app.png">
+        
+      </div>
+      <div [ngSwitch]="selectedTab" style="padding: 10px 16px 10px 16px;">
+        <div class="header-tab">
+          <div class="ion-col" text-center [class.active]="selectedTab==0" (click)="changeTab(0)">登录</div>
+          <div class="ion-col" text-center [class.active]="selectedTab==1" (click)="changeTab(1)">注册</div>
+        </div>
+        <div *ngSwitchCase=0>
+          <component-sign-in></component-sign-in>
+        </div>
+        <div *ngSwitchCase=1>
+          <component-sign-up></component-sign-up>
+        </div>
+      </div>
+    </div>
+    <!-- <div [ngSwitch]="selectedTab">
+      <div *ngSwitchCase=1>
+        <div class="footer-button" padding no-border (click)="signUp()">注册</div>
+      </div>
+    </div> -->
+  </div>
+</ion-content>
+<!-- <div class="footer-button" padding no-border (click)="signUp()">注册</div> -->

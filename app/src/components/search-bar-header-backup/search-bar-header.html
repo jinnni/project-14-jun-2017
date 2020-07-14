@@ -1,0 +1,132 @@
+<div class="ion-navbar" style="height: 60px">
+  <div class="header-container" [class.activate]="this.settingsProvider.isActivate">
+    <div class="search-bar">
+      <input id="myinput" type="text" placeholder="搜索产品/心得" [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()">
+      <!-- <img src="assets/img/home/icon_search.png" (click)="toggleSearchBtn();"> -->
+      <button (click)="toggleSearchBtn();"></button>
+      <div *ngIf="searching" class="spinner-container">
+        <ion-spinner></ion-spinner>
+      </div>
+    </div>
+  </div>
+</div>
+<div class = "ion-list" *ngIf="!blank">
+  <div class="search-space"></div>
+  <ion-infinite-scroll *ngIf="!(finalProductCollectionSimilar.length > 0 || finalArticleCollectionSimilar.length > 0 || finalUgcCollectionSimilar.length > 0 || finalUserCollectionSimilar.length > 0)">
+    <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <div class = "typed-text">
+    <div class="ion-item-wrapper" *ngIf="productCollectionLength > 0">
+      <ion-item *ngFor="let item of finalProductCollection">
+        <div *ngIf="item[1].length > 1" (click) = showProductsList(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+          <div class="count">
+            <h3>{{getCountStyle(item[1].length)}}</h3>
+            <h4>| 产品</h4>
+          </div>
+        </div>
+        <div *ngIf="item[1].length == 1" (click) = showProductDetail(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+          <div class="count">
+            <h3>{{item[1].length}}</h3>
+            <h4>| 产品</h4>
+          </div>
+        </div>
+      </ion-item>
+    </div>
+    <!-- <div class="ion-item-wrapper" *ngIf="articleCollectionLength > 0">
+      <ion-item *ngFor="let item of finalArticleCollection">
+        <div *ngIf="item[1].length > 1" (click) = showArticleList(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+          <div class="count">
+            <h3>{{item[1].length}}</h3>
+            <h4>| 文章</h4>
+          </div>
+        </div>
+        <div *ngIf="item[1].length == 1" (click) = showArticleDetail(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+          <div class="count">
+            <h3>{{item[1].length}}</h3>
+            <h4>| 文章</h4>
+          </div>
+        </div>
+      </ion-item>
+    </div> -->
+    <div class="ion-item-wrapper" *ngIf="ugcCollectionLength > 0">
+      <ion-item *ngFor="let item of finalUgcCollection">
+        <div *ngIf="item[1].length > 1" (click) = showUgcList(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+          <div class="count">
+            <h3>{{item[1].length}}</h3>
+            <h4>| 宝帖</h4>
+          </div>
+        </div>
+        <div *ngIf="item[1].length == 1" (click) = showUgcDetail(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+          <div class="count">
+            <h3>{{item[1].length}}</h3>
+            <h4>| 宝帖</h4>
+          </div>
+        </div>
+      </ion-item>
+    </div>
+    <div class="ion-item-wrapper" *ngIf="userCollectionLength > 0">
+      <ion-item *ngFor="let item of finalUserCollection">
+        <div *ngIf="item[1].length > 1" (click) = showUserList(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+          <div class="count">
+            <h3>{{item[1].length}}</h3>
+            <h4>| 达人</h4>
+          </div>
+        </div>
+        <div *ngIf="item[1].length == 1" (click) = showUserDetail(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+          <div class="count">
+            <h3>{{item[1].length}}</h3>
+            <h4>| 达人</h4>
+          </div>
+        </div>
+      </ion-item>
+    </div>
+    <div class="ion-item-wrapper" *ngIf="finalProductCollectionSimilar.length > 0">
+      <ion-item *ngFor="let item of finalProductCollectionSimilar">
+        <div *ngIf="item[1].length > 1" (click) = showProductsList(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+        </div>
+        <div *ngIf="item[1].length == 1" (click) = showProductDetail(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+        </div>
+      </ion-item>
+    </div>
+    <div class="ion-item-wrapper" *ngIf="finalArticleCollectionSimilar.length > 0">
+      <ion-item *ngFor="let item of finalArticleCollectionSimilar">
+        <div *ngIf="item[1].length > 1" (click) = showArticleList(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+        </div>
+        <div *ngIf="item[1].length == 1" (click) = showArticleDetail(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+        </div>
+      </ion-item>
+    </div>
+    <div class="ion-item-wrapper"*ngIf="finalUgcCollectionSimilar.length > 0">
+      <ion-item *ngFor="let item of finalUgcCollectionSimilar">
+        <div *ngIf="item[1].length > 1" (click) = showUgcList(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+        </div>
+        <div *ngIf="item[1].length == 1" (click) = showUgcDetail(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+        </div>
+      </ion-item>
+    </div>
+    <div class="ion-item-wrapper"*ngIf="finalUserCollectionSimilar.length > 0">
+      <ion-item *ngFor="let item of finalUserCollectionSimilar">
+        <div *ngIf="item[1].length > 1" (click) = showUserList(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+        </div>
+        <div *ngIf="item[1].length == 1" (click) = showUserDetail(item[1])>
+          <p class="left-text">{{item[0]}}</p>
+        </div>
+      </ion-item>
+    </div>
+  </div>
+</div>

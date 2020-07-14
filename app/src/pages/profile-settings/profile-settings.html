@@ -1,0 +1,71 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">设置</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <div class="settings-list">
+      <ion-list-header class="settings-header">
+        <img item-left src='assets/img/icons/input_phone.png'>
+        <div>关于评价达人</div>
+      </ion-list-header>
+      <button ion-item *ngIf="!setButton" style="position:relative;">
+        你使用的系统是 {{version}}
+        <button class="btn2" *ngIf="setButton == false">你现在是最新版本</button>
+      </button>
+      <button ion-item *ngIf="setButton && this.platform.is('android')" (click)="checkUpdate()" style="position:relative;">
+          你使用的系统是 {{version}}
+        <button class="btn1" *ngIf="setButton == true && this.platform.is('android')">需要更新 {{available}}</button>
+      </button>
+      <div ion-item class="no-border" *ngIf="setButton && this.platform.is('ios')" style="position:relative;">
+        你使用的系统是 {{version}}
+        <a *ngIf="setButton == true" [attr.href]="iosUrl" target="_blank">
+          <button class="btn1">需要更新 {{available}}</button>
+        </a>
+      </div>
+    </div>
+    <div class="settings-list" *ngFor="let section of settingsData">
+      <ion-list-header class="settings-header">
+        <img item-left src={{section.image}} *ngIf="!!section.image">
+        <div>{{section.name}}</div>
+      </ion-list-header>
+      <button ion-item *ngFor="let menuItem of section.menuItems" (click)="showMenuItem(menuItem.id)">
+        {{menuItem.name}}
+      </button>
+    </div>
+
+    <div *ngIf="!authorizedNotif" (click)="toggleNotifications()" class="settings-list">
+      <ion-list-header class="settings-header">
+        <img item-left src='assets/img/icons/settings_settings.png'>
+        <div>通知设置</div>
+      </ion-list-header>
+      <div ion-item class="no-border" style="position:relative;">
+        评价达人通知 
+        <a>
+          <button class="btn1">立刻开通</button>
+        </a>
+      </div>
+    </div>
+
+    <div class="settings-list">
+      <ion-list-header class="settings-header">
+        <img item-left src='assets/img/icons/settings_settings.png'>
+        <div>帮助 & 支持</div>
+      </ion-list-header>
+      <a style="text-decoration: none;" href="https://cn.pjdaren.com/how-it-works/" target="_blank"><button style="margin-bottom:1px;" ion-item>常见问题</button></a>
+      <a style="text-decoration: none;" href="https://cn.pjdaren.com/terms/" target="_blank"><button style="margin-bottom:1px;" ion-item>使用条款</button></a>
+      <a style="text-decoration: none;" href="https://cn.pjdaren.com/privacy/" target="_blank"><button style="margin-bottom:1px;" ion-item>隐私政策</button></a>
+      <a style="text-decoration: none;" href="https://cn.pjdaren.com/about-us" target="_blank"><button style="margin-bottom:1px;" ion-item>关于我们</button></a>
+    </div>
+    <div class="settings-list">
+      <ion-list-header class="settings-header">
+        <img item-left src='assets/img/icons/settings_settings.png'>
+        <div>退出登录</div>
+      </ion-list-header>
+      <button ion-item (click)="showMenuItem(41)">退出登录</button>
+    </div>
+  </ion-list>
+  <img src={{photoTaken}}>
+  <div>{{photoTaken}}</div>
+</ion-content>

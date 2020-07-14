@@ -1,0 +1,184 @@
+component-footer-menu {
+  ion-footer {
+    background-color: #fff;
+    height: $footer-menu-height;
+    text-align: center;
+    box-shadow: 0px -1px 1px $pjAnotherGray;
+
+    ion-row {
+      width: 100%;
+      height: 100%;
+    }
+
+    .pj-tab-button {
+      position: relative;
+
+      img {
+        width: 55px;
+        height: 55px;
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .camp_badge{
+        color: white;
+        padding: 2px;
+        min-width: 16px;
+        border-radius: 50px;
+        background: #f13636;
+        position: absolute;
+        left: 50%;
+        top: 2px;
+        margin-left: 0px;
+        margin-top: 0px;
+        font-size: 11px !important;
+        line-height: 1;
+        text-align: center;
+      }
+    }
+    .pj-badge-sms {
+      position: absolute;
+      top: 6px;
+      right: 15px;
+      font-size: 12px;  border-radius: 100%;
+    }
+
+    .pj-tab-button-menu {
+      position: relative;
+      padding-top: 5px;
+      padding-bottom: 0;
+
+
+      .plus-button-container-for-centering {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+
+        .plus-button-container-for-rotating {
+          width: 25px;
+          height: 25px;
+          position: absolute;
+          left: 18%;
+          top: 7%;
+        }
+      }
+
+      .floating-buttons-container {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+
+
+        .floating-button {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+
+          img {
+            width: 43px;
+            height: 50px;
+            position: relative;
+            top: 0;
+            left: 0;
+            transform: none;
+          }
+          //.floating-button-text {
+          //  font-size: 0.71em;
+          //  position: relative;
+          //  top: 0;
+          //  left: 0;
+          //  transform: none;
+          //}
+        }
+      }
+    }
+
+    .white-mask {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.95);
+      width: 130vw;
+      border-radius: 50%;
+      left: 50%;
+      transform: translate(-50%, -40%);
+      z-index: 1;
+      filter: blur(20px);
+    }
+
+    ion-col {
+      z-index: 2;
+    }
+
+    $animation-duration: 0.2s;
+    $animation-style: ease;
+
+    &.isOpened {
+      .pj-tab-button-menu {
+        .plus-button-container-for-rotating {
+          transform: rotate(45deg);
+          transition-duration: $animation-duration;
+          transition-timing-function: $animation-style;
+        }
+        .float-1 {
+          transform: translate(-90px, -90px);
+          transition-duration: $animation-duration;
+          transition-timing-function: $animation-style;
+        }
+        .float-2 {
+          transform: translateY(-130px);
+          transition-duration: $animation-duration;
+          transition-timing-function: $animation-style;
+
+        }
+        .float-3 {
+          transform: translate(90px, -90px);
+          transition-duration: $animation-duration;
+          transition-timing-function: $animation-style;
+
+        }
+
+      }
+
+      .white-mask {
+        //opacity: 1;
+        height: 110vw;
+        //transition: opacity $animation-duration $animation-style;
+        transition-duration: $animation-duration;
+        transition-timing-function: $animation-style;
+
+      }
+    }
+
+    &.isClosed {
+      .pj-tab-button-menu {
+        .plus-button-container-for-rotating {
+          transform: rotate(0deg);
+          transition-duration: $animation-duration;
+          transition-timing-function: $animation-style;
+        }
+
+        .floating-button {
+          opacity: 0;
+          transform: translate(0, 0px);
+          transition-duration: $animation-duration;
+          transition-timing-function: $animation-style;
+
+        }
+      }
+
+      .white-mask {
+        //opacity: 0;
+        height: 0;
+        //transition: opacity $animation-duration $animation-style;
+        transition-duration: $animation-duration;
+        transition-timing-function: $animation-style;
+      }
+    }
+  }
+}

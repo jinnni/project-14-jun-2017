@@ -1,0 +1,61 @@
+<div class="qna-item">
+  <div class="qna-item-top">
+    <div class="profile-image" (click)="goToProfile(qnaData.user)" *ngIf="isGuestUser">
+
+        <img *ngIf="qnaData.user?.id == userData.id" [src]="socialProfilePic">
+        <img *ngIf="qnaData.user?.id != userData.id && !qnaData.user?.profileImage && qnaData.user?.gender == 'M'" src="assets/img/profile/man.png">
+        <img *ngIf="qnaData.user?.id != userData.id && !qnaData.user?.profileImage && qnaData.user?.gender == 'F'" src="assets/img/profile/woman.png">
+        <img *ngIf="qnaData.user?.id != userData.id && qnaData.user?.profileImage" [src]="imageUrl+qnaData.user?.profileImage">
+    </div>
+
+    <div class="profile-image" (click)="goToProfile(qnaData.user)" *ngIf="!isGuestUser">
+      <img (click)="goToProfile(qnaData.user)" *ngIf="qnaData.user?.profileImage"  [src]="imageUrl+qnaData.user?.profileImage">
+      <img (click)="goToProfile(qnaData.user)" *ngIf="!qnaData.user?.profileImage  && qnaData.user?.gender == 'M'" src="assets/img/profile/man.png">
+      <img (click)="goToProfile(qnaData.user)" *ngIf="!qnaData.user?.profileImage  && qnaData.user?.gender == 'F'" src="assets/img/profile/woman.png">
+    </div>
+    <div class="qna-info">
+      <div class="status-message">
+        <div class="writer-name" (click)="showProfile(qnaData.user)"> {{qnaData.user?.nickname}}
+        </div>
+        在
+        <div class="product-name" (click)="showProduct()">
+          {{productName}}
+        </div>
+        {{simplifiedType == QnaItemType.QUESTION? '发起了一个提问。' : ''}}
+        {{simplifiedType == QnaItemType.ANSWER? '回答了一个提问。' : ''}}
+        {{simplifiedType == QnaItemType.ANSWER_COMMENT? '回复了一个回答。' : ''}}
+      </div>
+      <div class="writer-age-location">
+      <!--  {{qnaData.user.age}}岁 {{qnaData.user.location}} -->
+      </div>
+    </div>
+  </div>
+  <div class="qna-item-content" [innerHtml]="qnaData.content">
+  </div>
+  <div class="divider"></div>
+  <div class="qna-item-footer">
+    <div class="qna-item-button-container">
+      <div class="qna-item-button-wrapper">
+
+            <img src="assets/img/icons/heart_red_new.png" *ngIf="qnaData.liked == 1" (click)="toggleLikeDown(qnaData)">
+
+            <img src="assets/img/icons/heart_white_new.png" *ngIf="qnaData.liked == 0" (click)="toggleLikeUp(qnaData)">
+
+
+        <p>{{ qnaData.likeCount > 0 ? qnaData.likeCount : '' }}赞同</p>
+      </div>
+    </div>
+    <div class="qna-item-button-container" *ngIf="type==QnaItemType.QUESTION_IN_LIST" (click)="showQnaDetail(QnaItemType.QUESTION_DETAIL)">
+      <div class="qna-item-button-wrapper">
+        <img src="assets/img/icons/comment_gray.png">
+        <p>{{ qnaData.answerCount > 0 ? qnaData.answerCount : '' }}回复</p>
+      </div>
+    </div>
+    <div class="qna-item-button-container" *ngIf="type==QnaItemType.ANSWER_IN_LIST" (click)="showQnaDetail(QnaItemType.ANSWER_DETAIL)">
+      <div class="qna-item-button-wrapper">
+        <img src="assets/img/icons/reply_gray.png">
+        <p>回复</p>
+      </div>
+    </div>
+  </div>
+</div>

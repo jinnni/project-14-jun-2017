@@ -1,0 +1,16 @@
+page-followers {
+  .place-holder-message {
+    height: 100%;
+    // position: relative;
+
+    .text {
+      color: $pjRed;
+      position: absolute;
+      font-weight: lighter;
+      font-size: 1.2em;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

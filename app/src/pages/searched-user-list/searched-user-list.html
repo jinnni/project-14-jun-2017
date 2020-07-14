@@ -1,0 +1,25 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">"{{searchtext}}"</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list *ngIf="userList.length > 0">
+    <div *ngFor="let item of userList; let i = index;" (click)="goToUserProfile(item)">
+      <div class="list-item">
+        <div class="image-container">
+          <img useImg="true" style="object-fit: cover;max-height:300px;width:100%" [src]="imageUrl+item.profileImage">
+        </div>
+        <div class="info">
+          <div class="text">{{item.nickname}}</div>
+          <div *ngIf="!item.hasOwnProperty('nickname')" class="text">{{item.name}}</div>
+          <div><span>{{item.followerCount}} 关注 </span>| <span>{{item.followingCount}} 粉丝</span></div>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!lastPage" threshold="100px">
+    <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

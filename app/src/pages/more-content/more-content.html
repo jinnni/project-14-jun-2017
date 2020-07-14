@@ -1,0 +1,75 @@
+<!--
+  Generated template for the MoreContentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div *ngIf='isComment'>
+    <div class="comment-item">
+      <div class="comment-top">
+        <!-- <img class="writer-image" *ngIf="data.user.profileImage && !socialProfilePic" [src]="imageUrl+data.user.profileImage">
+        <img class="writer-image" *ngIf="!data.user.profileImage && !socialProfilePic && data.user.gender == 'M'" src="assets/img/profile/man.png" >
+        <img class="writer-image" *ngIf="!data.user.profileImage && !socialProfilePic && data.user.gender == 'F'" src="assets/img/profile/woman.png">
+        <img class="writer-image" *ngIf="socialProfilePic" [src]="socialProfilePic"> -->
+        <img class="writer-image" *ngIf="data.user.id == userData.id" [src]="socialProfilePic">
+        <img class="writer-image" *ngIf="data.user.id != userData.id && !data.user.profileImage && data.user.gender == 'M'" src="assets/img/profile/man.png">
+        <img class="writer-image" *ngIf="data.user.id != userData.id && !data.user.profileImage && data.user.gender == 'F'" src="assets/img/profile/woman.png">
+        <img class="writer-image" *ngIf="data.user.id != userData.id && data.user.profileImage" [src]="imageUrl+data.user.profileImage">
+        <div class="writer-name">
+          {{data.user.nickname}}
+        </div>
+        <div class="written-date">
+          {{util.formatTimeYearMonthDay(data.createdOn)}}
+        </div>
+      </div>
+      <div class="comment-content">
+        {{data.comment}}
+      </div>
+      <div class="comment-bottom">
+        <div class="button-section like-section">
+          <img class="like-icon" *ngIf="data.liked == false" src="assets/img/icons/heart_white_new.png" (click)="toggleLikeUp(data)">
+          <img class="like-icon" *ngIf="data.liked == true" src="assets/img/icons/heart_red_new.png" (click)="toggleLikeDown(data)">
+          <p *ngIf="data.likeCount > 0">{{data.likeCount}}</p>
+        </div>
+        <div class="button-section comment-section" *ngIf="showComment">
+          <img src="assets/img/icons/comment_white_new.png">
+          <!-- <p>{{comment.commentCount}}</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf='isReview' class="review-data">
+    <img [src]="imageUrl+data.imageArray[0]">
+    <div>
+      <!-- <img class="profile-image" *ngIf="data.user.profileImage && !socialProfilePic" [src]="imageUrl+data.user.profileImage">
+      <img class="profile-image" *ngIf="!data.user.profileImage && !socialProfilePic && data.user.gender == 'F'" src="assets/img/profile/woman.png">
+      <img class="profile-image" *ngIf="!data.user.profileImage && !socialProfilePic && data.user.gender == 'M'" src="assets/img/profile/man.png">
+      <img class="profile-image" *ngIf="socialProfilePic" [src]="socialProfilePic"> -->
+      <img class="profile-image" *ngIf="data.user.id == userData.id" [src]="socialProfilePic">
+      <img class="profile-image" *ngIf="data.user.id != userData.id && !data.user.profileImage && data.user.gender == 'M'" src="assets/img/profile/man.png">
+      <img class="profile-image" *ngIf="data.user.id != userData.id && !data.user.profileImage && data.user.gender == 'F'" src="assets/img/profile/woman.png">
+      <img class="profile-image" *ngIf="data.user.id != userData.id && data.user.profileImage" [src]="imageUrl+data.user.profileImage">
+    </div>
+    <div class="content-section">
+      <div class="review-header">
+        <ion-col col-3 class="writer">{{data.user.nickname}}</ion-col>
+        <ion-col col-9 class="align-right" text-right>
+          <div class="age">{{data.user.age}}岁</div>
+          <div class="location">{{data.user.area}}</div>
+          <div class="rating">
+            <rating [(ngModel)]="data.rating" readOnly="true"></rating>
+          </div>
+        </ion-col>
+      </div>
+      <div>
+        {{data.content}}
+      </div>
+    </div>
+  </div>
+</ion-content>

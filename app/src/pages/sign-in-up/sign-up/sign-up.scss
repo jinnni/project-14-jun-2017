@@ -1,0 +1,117 @@
+component-sign-up {
+  .footer-button {
+    height: 45px;
+    line-height: 50px;
+    padding: 0 !important;
+    color: #fdfdfd;
+    background-color: #FF2742;
+    text-align: center;
+    font-size: 1.3em;
+    width: 65%;
+    margin: 30px auto;
+    border-radius: 25px;
+    font-weight: 700;
+}
+.item-cover {
+  left: -13px;
+  top: -4px;
+  width: 40px;
+  height: 20px;
+}
+  .input {
+    ion-col {
+      margin: 0px;
+      padding: 0px;
+    }
+  }
+
+  #auth-num-input-col {
+    padding-right: 10px;
+  }
+
+
+  .sns-sign-in-header {
+    font-size: 0.8em;
+    color: $pjGray;
+    margin: 10px 0px;
+    margin-top: -7px;
+    margin-bottom: -5px;
+
+    span {
+      display: inline-block;
+      width: 20%;
+      border-bottom: 1px solid #ddd;
+      margin: 3px 15px;
+    }
+  }
+
+  .sns-sign-in {
+    img {
+      height: 50px;
+    }
+  }
+
+  .agreement {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    margin-top:  2px;
+    font-size: 0.7em;
+    color: #cccccc;
+    align-items: center;
+    //$text-width: 220px;
+
+    ion-checkbox {
+      // position: absolute;
+      // transform: translate(-200px+110px, 0px);
+      margin-right: 5px;
+      .checkbox-icon {
+        width: 12px;
+        height: 12px;
+        border-radius: 15px;
+        position: relative;
+        top: 20%;
+
+        .checkbox-inner {
+          position: relative;
+          top: -15%;
+          left: 30%;
+          right: 0px;
+          bottom: 0px;
+        }
+      }
+    }
+  }
+
+  #pj-item-button {
+    // border: 1px solid #424242 !important;
+    background: #e2e2e2 !important;
+    .item-inner {
+      ion-label {
+        color: #424242;
+        text-align: center;
+        margin: 0;
+        font-weight: 700;
+      }
+    }
+
+    &:active {
+      border: 1px solid #e2e2e2 !important;
+      ion-label {
+        color: #424242;
+      }
+    }
+
+    &.disabled {
+      border: 1px solid transparent !important;
+      background-color: transparent;
+      ion-label {
+        color: #424242;
+        font-weight: lighter;
+      }
+    }
+  }
+
+
+}

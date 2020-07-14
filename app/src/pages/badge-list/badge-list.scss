@@ -1,0 +1,75 @@
+page-badge-list {
+  ion-navbar {
+    .toolbar-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80vw;
+      text-align: center;
+    }
+
+    .badge-type-select {
+      display: inline-block;
+
+      .badge-type {
+        width: 30vw;
+        color: $pjBlack;
+        font-weight: 500;
+        font-size: 1.1em;
+        text-align: center;
+        display: inline-block;
+
+        &.selected:after {
+          content: ' ';
+          display: block;
+          margin-top: 5px;
+          border: 1px solid $pjRed;
+        }
+      }
+    }
+  }
+
+  .badge-item {
+    $badge-item-height: 70px;
+    height: $badge-item-height;
+    margin-bottom: 20px;
+
+    .badge-item-left {
+      max-height: 100%;
+      width: 100%;
+      display: inline-block;
+      vertical-align: middle;
+
+      img {
+        border-radius: 50%;
+        max-width: 70%;
+        height: 75px;
+      }
+    }
+
+    .badge-item-right {
+      display: inline-block;
+      vertical-align: middle;
+      left:1px;
+      .badge-name {
+        color: #69b6ab;
+        font-size: 1.2em;
+        margin-bottom: 7.5px;
+        white-space: nowrap;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .badge-description {
+        color: $pjBlack;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+}

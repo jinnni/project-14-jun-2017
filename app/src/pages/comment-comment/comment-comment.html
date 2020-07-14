@@ -1,0 +1,18 @@
+<ion-header no-border>
+  <ion-navbar transparent>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <comment-item [comment]="commentData" [showLike]="true" [showComment]="false">
+  </comment-item>
+  <div class="has-comment">
+    有{{commentData.commentCount}}个回复
+  </div>
+  <div class="comment-comment-section">
+    <comment-item *ngFor="let commentComment of commentComments" [comment]="commentComment" [showLike]="true" [showComment]="false">
+    </comment-item>
+  </div>
+</ion-content>
+<ion-footer>
+  <!-- <write-comment-footer></write-comment-footer>-->
+</ion-footer>

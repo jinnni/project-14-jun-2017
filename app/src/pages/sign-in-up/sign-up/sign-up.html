@@ -1,0 +1,41 @@
+<ion-row class="input">
+  <ion-list>
+    <ion-item>
+      <ion-label class="icon-label icon-phone"></ion-label>
+      <ion-input type="number" placeholder="请输入手机号" [(ngModel)]="phoneNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label class="icon-label icon-password"></ion-label>
+      <ion-input type="password" placeholder="请输入密码" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <div style="display: flex;">
+      <ion-item style="margin-right:5px;">
+        <ion-label class="icon-label icon-auth"></ion-label>
+        <ion-input type="number" placeholder="请输入验证码" [(ngModel)]="code"></ion-input>
+      </ion-item>
+      <ion-item style="margin-left:5px;" id="pj-item-button" (click)="!sendCodeButtonIsDisabled && validUserExists()" disabled="!phoneNumber && !password" [class.disabled]="sendCodeButtonIsDisabled">{{sendCodeButtonText}}
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-row>
+<div class="footer-button" padding no-border (click)="register()">注册</div>
+
+<ion-row class="sns-sign-in-header">
+  <ion-col col-12 text-center><span></span>其他登录方式<span></span></ion-col>
+</ion-row>
+<ion-row class="sns-sign-in">
+  <ion-col col-2></ion-col>
+  <ion-col col-4 text-center (click)="openWithCordovaBrowserWeibo()" *ngIf="httpService.weiboSDKInstalledIos">
+    <img src="assets/img/icons/icon_weibo.png">
+  </ion-col>
+  <ion-col col-4 text-center (click)="openWithCordovaBrowserWeChat()" *ngIf="httpService.weChatInstalledIos">
+    <img src="assets/img/icons/icon_wechat.png">
+  </ion-col>
+  <ion-col col-2></ion-col>
+</ion-row>
+
+
+<ion-row class="agreement">
+  <ion-checkbox color="danger" [(ngModel)]="agreementIsChecked"></ion-checkbox>
+    <div><a href="https://cn.pjdaren.com/terms/" target="_blank" style="color: inherit;text-decoration: none;">免责声明(同意使用条款和隐私设置)</a></div>
+</ion-row>

@@ -1,0 +1,161 @@
+<ion-header no-border style="background-color: white">
+  <ion-navbar>
+    <!-- <ion-toolbar>
+      <ion-title>{{detailData.title}}</ion-title>
+    </ion-toolbar> -->
+    <!-- <div id='myDIV' style="text-align:center;">
+      <ion-row>
+        <div class="user-name" style="display: block;color:gray;font-size: 14px;overflow: hidden; width: 80%;
+        white-space: nowrap; text-overflow: ellipsis;-webkit-line-clamp: 1;margin-left: 60px; margin-right: 10px">{{detailData.title}}</div>
+        <ion-col>
+          <ion-avatar *ngIf="!isGuestUser">
+            <img style="height: 40px;width: 40px;border-radius: 50%;" *ngIf="detailData.user?.profileImage "
+                 [src]="imageUrl+detailData.user?.profileImage">
+            <img style="height: 40px;width: 40px;border-radius: 50%;"
+                 *ngIf="!detailData.user?.profileImage  && detailData.user?.gender == 'M'"
+                 src="assets/img/profile/man.png">
+            <img style="height: 40px;width: 40px;border-radius: 50%;"
+                 *ngIf="!detailData.user?.profileImage  && detailData.user?.gender == 'F'"
+                 src="assets/img/profile/woman.png">
+          </ion-avatar>
+        </ion-col>
+      </ion-row>
+    </div> -->
+    <ion-buttons end>
+      <div (click)="toggleShare(detailData)">
+        <img width="30px" src="assets/img/icons/unreport_status.png">
+      </div>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="profile-top" *ngIf="detailData.imageArray && detailData.imageArray.length>0">
+    <div class="image-container">
+      <div class="profile-background-container">
+        <div class="background-wrapper">
+          <img [src]="imageUrl+detailData.imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+        </div>
+      </div>
+    </div>
+    <div class="user-info">
+      <div class="user-name-image">{{detailData.title}}</div>
+    </div>
+  </div>
+  <ion-item id='idUserInfo'>
+    <div>
+      <ion-avatar item-start (click)="goToUserProfile(detailData.user)" *ngIf="isGuestUser" style="float: left; margin-top: 0px;">
+        <img *ngIf="detailData.user?.id == userData.id" [src]="socialProfilePic" onError="this.src='assets/img/placeholder.jpg';">
+        <img *ngIf="detailData.user?.id != userData.id && !detailData.user?.profileImage && detailData.user?.gender == 'M'" src="assets/img/profile/man.png">
+        <img *ngIf="detailData.user?.id != userData.id && !detailData.user?.profileImage && detailData.user?.gender == 'F'" src="assets/img/profile/woman.png">
+        <img *ngIf="detailData.user?.id != userData.id && detailData.user?.profileImage" [src]="imageUrl+detailData.user?.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+      </ion-avatar>
+      <ion-avatar item-start style="margin-bottom: 30%" (click)="goToUserProfile(detailData.user)" *ngIf="!isGuestUser">
+        <img *ngIf="detailData.user?.profileImage " [src]="imageUrl+detailData.user?.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+        <img *ngIf="!detailData.user?.profileImage  && detailData.user?.gender == 'M'" src="assets/img/profile/man.png">
+        <img *ngIf="!detailData.user?.profileImage  && detailData.user?.gender == 'F'" src="assets/img/profile/woman.png">
+      </ion-avatar>
+      <h2>{{detailData.user?.nickname}}</h2>
+      <p>{{detailData.createdOn | date:'MM/dd'}}</p>
+    </div>
+    <div>
+      <div *ngIf="userAuth" item-right>
+        <button style="border-radius: 20px; width: 55px !important; height: 22px; padding: 0px; border: 1px solid #ff2744; background-color: #ff2744;" ion-button color="danger" outline *ngIf="detailData.user.following == 0 && userData.id != detailData.user.id" (click)="toggleFollowUser(detailData)">
+          <p style="font-size: 12px;color: #ffffff;align-self: center;font-weight: bold;margin: 0px;">跟随</p>
+        </button>
+        <button style="border-radius: 20px; width: 55px !important; height: 22px; padding: 0px;border: 1px solid #000000;" ion-button color="danger" outline *ngIf="detailData.user.following == 1 && this.userData.id != detailData.user.id" (click)="toggleUnfollowUser(detailData)">
+          <p style="font-size: 12px;color: #000000;align-self: center;font-weight: bold;margin: 0px;">取消关注</p>
+        </button>
+      </div>
+      <div *ngIf="!userAuth" item-right>
+        <button style="border-radius: 20px; width: 55px !important; height: 22px; padding: 0px;border: 1px solid #000000;" ion-button color="danger" outline (click)="toggleUnfollowUser(detailData)">
+          <p style="font-size: 12px;color: #000000;align-self: center;font-weight: bold;margin: 0px;">跟随</p>
+        </button>
+      </div>
+    </div>
+  </ion-item>
+  <hr>
+  <div class="card-subtitle ql-editor" padding></div>
+  <div style="margin: 8px; border-radius: 5px; background-color: #f3f3f3;" (click)="showMoreUgcComment(detailData,detailData.id,false)">
+    <div class="comment-item" *ngFor="let comment of comments; let i = index;" [ngStyle]="{'padding-top' : i == 0 ? '3px' : '0px' }">
+      <div class="comment-top" *ngIf="isGuestUser">
+        <span class="writer-name">{{comment.user.nickname}}</span><span class="comment-content">{{comment.comment}}</span>
+      </div>
+      <div class="comment-top" *ngIf="!isGuestUser">
+        <span class="writer-name">{{comment.user.nickname}}</span><span class="comment-content">{{comment.comment}}</span>
+      </div>
+    </div>
+  </div>
+  <hr *ngIf="comments.length == 0">
+  <div class="comments-showmore" *ngIf="commentsTotal > 5" (click)="showMoreUgcComment(detailData,detailData.id)">
+    <p>展示更多</p>
+  </div>
+  <div *ngIf="isWriting" class="comment-section">
+    <div class="input-container">
+      <ion-input style="user-select: text;" #input type="text" [(ngModel)]="detailData.createComment.postComment" class="postComment" placeholder="写评论" (ionFocus)="detailData.hasButton = true;"></ion-input>
+      <div class="image-container" style="background-color: #efefef;" *ngIf="detailData.hasButton == false || detailData.createComment.postComment == ''">
+          <b style="color: #ffffff; line-height: 20px; padding: 5px 8px; letter-spacing: 1px;">发布</b>
+        </div>
+      <div class="image-container" style="background-color: #ff2744;" (click)="submitComment()" *ngIf="detailData.hasButton == true && detailData.createComment.postComment != ''">
+        <b style="color: #ffffff; line-height: 20px; padding: 5px 8px; letter-spacing: 1px;">发布</b>
+      </div>
+    </div>
+  </div>
+  <div style="font-size:16px; padding:10px">更多相关内容</div>
+  <div>
+    <ion-row>
+      <ion-col col-6 style="padding:0px !important">
+        <ion-card style="background-color: black;" class="card-cell img-custom" *ngFor="let item of restListDataEven; let i = index">
+          <div style="height: 150px; background-size: cover;background-position: center;background-repeat: no-repeat;" [style.backgroundImage]="'url(' + imageUrl+item.imageArray[0] + ')'" [style.opacity]="0.6" (click)="showArticle(item.id,item.featured,item)"></div>
+          <div>
+            <div class="ion-card-local"
+                 style="text-align: center; margin-top: -10rem; font-size: 1.3rem; font-weight: 400; color: white;position: relative;text-align: left;top: 35px; overflow: hidden;text-overflow: ellipsis;margin-left: 10px; margin-right: 10px;" (click)="showArticle(item.id,item.featured,item)">
+              {{item.title}}
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 style="padding:0px !important">
+        <ion-card style="background-color: black;" class="card-cell img-custom" *ngFor="let item of restListDataOdd; let i = index">
+          <div style="height: 150px; background-size: cover;background-position: center;background-repeat: no-repeat;" [style.backgroundImage]="'url(' + imageUrl+item.imageArray[0] + ')'" [style.opacity]="0.6" (click)="showArticle(item.id,item.featured,item)"></div>
+          <div>
+            <div class="ion-card-local"
+                 style="text-align: center; margin-top: -10rem; font-size: 1.3rem; font-weight: 400; color: white;position: relative;text-align: left;top: 35px;overflow: hidden;text-overflow: ellipsis;margin-left: 10px; margin-right: 10px;" (click)="showArticle(item.id,item.featured,item)" >
+              {{item.title}}
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="600px" *ngIf="!(page == totPg)">
+    <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<img class="arrowup" *ngIf="isScroll" src="assets/img/icons/arrow-up.png" (click)="scrollTop()">
+<ion-footer>
+  <div id="footer_box" class="fr">
+    <ion-row>
+      <ion-col col-4>
+        <button ion-button icon-left clear default color="light" style="color: #ababab" class="top-icons">
+          <img *ngIf="!detailData.liked" (click)="toggleLikeUpHeader(detailData)" class="icon-like"
+                src="assets/img/icons/white_heart.png">
+          <img *ngIf="detailData.liked" (click)="toggleLikeDownHeader(detailData)" class="icon-like"
+                src="assets/img/icons/heart_red_new.png">
+          <div style="margin-bottom: 15px;" *ngIf="detailData.likeCount > 0">{{detailData.likeCount}}</div>
+        </button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button icon-left clear default color="light" style="color: #ababab" class="top-icons"
+        (click)="showMoreUgcComment(detailData,detailData.id)">
+          <img class="icon-comment" src="assets/img/icons/white_comment.png">
+          <div style="margin-bottom: 15px;" *ngIf="detailData.commentCount > 0">{{detailData.commentCount}}</div>
+        </button>
+      </ion-col>
+      <ion-col col-4 >
+        <button ion-button icon-left clear default class="top-icons" (click)="toggleShare(detailData)">
+          <img class="icon-comment" src="assets/img/icons/white_share.png">
+        </button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-footer>

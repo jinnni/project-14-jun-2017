@@ -1,0 +1,58 @@
+profile-qna-item {
+  display: block;
+  border-bottom: 1px solid $pjAnotherGray;
+  padding: 10px 0;
+
+  $image-side: 15vw;
+  $image-margin: 2.5vw;
+  $rest-of-space: 100vw - $image-side - $image-margin * 2 - 1vw;
+
+  .profile-image {
+    display: inline-block;
+    width: $image-side;
+    height: $image-side;
+    margin: 0 $image-margin 5px $image-margin;
+    max-width: 40px;
+    max-height: 40px;
+
+    overflow: hidden;
+    border-radius: 50%;
+
+    img {
+      transform: scale(1.2);
+      height: 100%;
+    }
+  }
+
+  .right {
+    display: inline-block;
+    vertical-align: top;
+    width: $rest-of-space;
+
+    .status-message {
+      .writer-name {
+        display: inline;
+        font-weight: bold;
+      }
+
+      .product-name {
+        display: inline;
+        color: $pjRed;
+
+        &:active {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .content {
+      margin-top: 7px;
+    }
+
+    .created {
+      font-size: 0.8em;
+      float: right;
+      color: $pjMediumGray;
+    }
+  }
+}

@@ -1,0 +1,84 @@
+profile-review-item {
+  width: 100%;
+  display: block;
+  overflow: auto;
+  padding: 10px 0;
+  border-bottom: 1px solid $pjAnotherGray;
+
+  $left-size: 20vw;
+  $image-side: 13vw;
+  $right-size: 100vw - $left-size;
+
+  .left {
+    width: $left-size;
+    display: inline-block;
+    float: left;
+
+    .image-container {
+      display: block;
+      margin: auto;
+      height: $image-side;
+      width: $image-side;
+      background-color: white;
+      position: relative;
+      overflow: hidden;
+      border-radius: 50%;
+
+      img {
+        position: absolute;
+        max-width: initial;
+        width: 120%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  $padding-right: 10px;
+  $padding-vertical: 5px;
+
+  .right {
+    width: $right-size;
+    display: block;
+    float: left;
+
+    .top {
+      margin-bottom: $padding-vertical;
+
+      .product-name {
+        font-weight: bold;
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &:active {
+          text-decoration: underline;
+        }
+      }
+      rating {
+        display: inline-block;
+        vertical-align: middle;
+        float: right;
+        margin-right: $padding-right;
+
+        ion-icon {
+          font-size: 1.1em;
+          margin-right: -3px;
+        }
+      }
+    }
+    .review-content {
+      padding-right: $padding-right;
+    }
+    .time-created {
+      float: right;
+      margin-right: $padding-right;
+      font-size: 0.9em;
+      color: $pjMediumGray;
+    }
+  }
+}

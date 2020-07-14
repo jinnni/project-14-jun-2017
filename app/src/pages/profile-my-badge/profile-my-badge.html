@@ -1,0 +1,96 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">{{pageTitle}}</ion-title>
+  </ion-navbar>
+  <ion-toolbar mode="md">
+    <ion-segment mode="md" class="wrapper" [(ngModel)]="pageTabs" color="dark">
+      <ion-segment-button value="tab0" (click)="selectedTab(0)" [class.selected]="selectedBadgeTab == 0">
+        <div class="tabs">
+          达人勋章
+        </div>
+      </ion-segment-button>
+      <ion-segment-button value="tab1" (click)="selectedTab(1)" [class.selected]="selectedBadgeTab == 1">
+        <div class="tabs">
+          已获得勋章
+        </div>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="bodyContent">
+    <ion-slides #slider>
+      <ion-slide *ngIf="expertBadge">
+        <div class="badge-item-wrapper"  *ngFor="let badge of badgeList;" (click)="showBadge(badge)">
+          <!-- <div class="badge-item" *ngIf="(alllistIds.includes(badge.id) && score(badge.id) < 100)">
+            <div class="image-container">
+              <div class="overlay"></div>
+              <img style="opacity:0.3;" [src]="imageUrl+badge.imageName">
+            </div>
+            <img class="lock-icon" src="assets/img/icons/icon11.png">
+            <p>{{badge.name}}</p>
+            <div class="point-indicator-container">
+              <div class="point-indicator-label">累计得分</div>
+              <div class="point-indicator-bar">
+                <div class="point-indicator-bar-outline"></div>
+                <div class="point-indicator-bar-fill" [style.width]="calculateWidth(badge.id)"></div>
+              </div>
+              <div class="point-indicator-status-label">{{currentScore}}/100</div>
+            </div>
+          </div> -->
+          <div class="badge-item" style="margin-bottom: 20px;">
+            <div class="image-container">
+              <div class="overlay"></div>
+              <img style="opacity:0.3;" [src]="imageUrl+badge.imageName">
+            </div>
+            <img class="lock-icon" src="assets/img/icons/icon11.png">
+            <p>{{badge.name}}</p>
+          </div>
+          <div class="place-holder-message" *ngIf="badgeList?.length <= 0">
+            <div class="text">You did not have any badge.</div>
+          </div>
+        </div>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!lastPage" threshold="100%">
+          <!-- <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content> -->
+        </ion-infinite-scroll>
+      </ion-slide>
+      <ion-slide *ngIf="myBadge">
+        <div class="badge-item-wrapper"  *ngFor="let badge of badgeList1;">
+          <div class="badge-item">
+            <!-- <div *ngIf=" score(badge.id) < 100">
+              <div class="image-container">
+                <div class="overlay"></div>
+                <img style="opacity:0.3;" [src]="imageUrl+badge.imageName">
+              </div>
+              <img class="lock-icon" src="assets/img/icons/icon11.png">
+            </div> -->
+            <div *ngIf="badge.badge.badgeTypeId == 3">
+              <div class="image-container">
+                <img style="opacity:1;" [src]="imageUrl+badge.badge.imageName">
+              </div>
+              <!-- <img class="lock-icon" src="assets/img/icons/icon20.png"> -->
+            </div>
+            <div *ngIf="badge.badge.badgeTypeId != 3" (click)="showBadge(badge.badge)">
+              <div class="image-container">
+                <img style="opacity:1;" [src]="imageUrl+badge.badge.imageName">
+              </div>
+              <!-- <img class="lock-icon" src="assets/img/icons/icon20.png"> -->
+            </div>
+            <p>{{badge.badge.name}}</p>
+            <div class="point-indicator-container">
+              <p class="point-indicator-label">累计得分</p>
+              <div class="point-indicator-bar">
+                <div class="point-indicator-bar-outline"></div>
+                <div class="point-indicator-bar-fill" [style.width]="calculateWidth(badge.badge.id,badge.point)"></div>
+              </div>
+              <p class="point-indicator-status-label">{{badge.point}}/100</p>
+            </div>
+          </div>
+          <div class="place-holder-message" *ngIf="badgeList1?.length <= 0">
+            <div class="text">You did not have any badge.</div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</ion-content>

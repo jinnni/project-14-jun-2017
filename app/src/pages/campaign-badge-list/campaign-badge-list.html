@@ -1,0 +1,22 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">{{campaignName}} 勋章</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="badge-item-container" [ngStyle]="{'justify-content': this.badges.length > 2 ? 'space-around' : 'flex-start'}" style="display: flex;display: flex;flex-wrap: wrap;">
+    <div class="badge-item" *ngFor="let badge of badges" [ngStyle]="{'margin-left': this.badges.length > 2 ? '3px' : '25px'}">
+      <div class="image-container" (click)="seeBadge(badge)">
+        <div class="overlay" *ngIf="badge.gainedScore < badge.goalScore"></div>
+        <!-- <div style="color:#ffffff;text-align:center;">{{badge.gainedScore}}</div> -->
+        <img class="badge-image" *ngIf="badge.gainedScore < badge.goalScore" style="opacity:0.3;height: 100%;width: 100%;object-fit: cover;border-radius: 50%;" [src]="imageUrl+badge.imageName" onError="this.src='assets/img/placeholder.jpg';">
+        <img class="badge-image" *ngIf="badge.gainedScore >= badge.goalScore" style="height: 100%;width: 100%;object-fit: cover;border-radius: 50%;" [src]="imageUrl+badge.imageName" onError="this.src='assets/img/placeholder.jpg';">
+      </div>
+      <img class="lock-icon" *ngIf="badge.gainedScore < badge.goalScore" src="assets/img/icons/icon11.png">
+      <!-- <div style="width:100px;height: 100px;overflow:hidden;border-radius: 50%;">
+          <img [src]="imageUrl+badge.imageName" (click)="seeBadge(badge)" style="height: 100%;width: 100%;object-fit: cover;">
+      </div> -->
+      <p>{{badge.name}}</p>
+    </div>
+  </div>
+</ion-content>

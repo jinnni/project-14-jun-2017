@@ -1,0 +1,248 @@
+page-product-write-review {
+  .header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before{
+    background-image: none;
+  }
+  .item-md.item-block .item-inner {
+    padding-right: 8px;
+    border-bottom: 0px;
+  }
+  // .toolbar-ios ion-title {
+  //   left: inherit !important;
+  // }
+
+  // .toolbar-title-ios {
+  //   text-align: start !important;
+  // }
+  .review-input {
+    border-bottom: 1.0px solid #ababab;
+    border-top: 1.0px solid #ababab;
+    width: 100%;
+    height: 155px;
+    
+    textarea {
+      border: 0.0px  #ababab;
+      width: 100%;
+      margin: 0px;
+      margin-top: 5px;
+      height: 140px;
+      background-color: transparent;
+    }
+  }
+  .imagePreview{
+    width: 150px;
+    height: 150px;
+  }
+  .review-publish-button {
+    margin-top: 10px;
+    position: relative;
+
+    .add-picture {
+      width: 110px;
+      height: 110px;
+      background-color: transparent;
+      border: 0.5px solid #ababab;
+      border-radius: 10px;
+
+      img {
+        width: 50px;
+      }
+    }
+
+    .pj-long-button {
+      position: absolute;
+      right: 0px;
+      border-radius: 5px;
+      width: 100px;
+      font-weight: 300;
+    }
+  }
+  .button-container {
+    margin-top: 30px;
+    text-align: center;
+
+    .pj-long-button {
+      width: 100%;
+      height: 45px;
+      // border-radius: 5px;
+    }
+  }
+
+  .images-wrapper {
+    font-size: 0;
+    .image-wrapper {
+      display: inline-block;
+      margin: 0;
+      width: 100%;
+      height: 33.3%;
+      box-sizing: border-box;
+      padding: 1px;
+      position: relative;
+      .remove-image {
+        z-index: 100;
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        padding: 5px 6px;
+        font-size: 20px;
+        text-shadow: white 0 0 1px;
+      }
+      ion-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        * {
+          stroke: white;
+        }
+      }
+      .image {
+        position: relative;
+        background-size: cover;
+        background-position: center center;
+        img {
+          width: 100%;
+          &.uploading {
+            background: rgba(0, 0, 0, 0.20);
+          }
+        }
+        ion-icon {
+          font-size: 50px;
+          position: absolute;
+          transform: translate(-50%, -50%);
+          top: 50%;
+          left: 50%;
+          color: white;
+        }
+        .progress-bar {
+          height: 6px;
+          width: 100%;
+          position: absolute;
+          bottom: 0px;
+          overflow: hidden;
+          .progress {
+            background: map_get($colors, 'primary');
+            height: 100%;
+          }
+        }
+      }
+
+      &.add-image-btn .image {
+        background: #DDD;
+      }
+    }
+
+    .image-wrappers {
+      display: inline-block;
+      margin: 0;
+      width: 33.3333%;
+      box-sizing: border-box;
+      padding: 1px;
+      position: relative;
+      .remove-image {
+        z-index: 100;
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        padding: 5px 6px;
+        font-size: 20px;
+        text-shadow: white 0 0 1px;
+      }
+      ion-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        * {
+          stroke: white;
+        }
+      }
+      .image {
+        position: relative;
+        background-size: cover;
+        background-position: center center;
+        img {
+          width: 100%;
+          &.uploading {
+            background: rgba(0, 0, 0, 0.20);
+          }
+        }
+        ion-icon {
+          font-size: 50px;
+          position: absolute;
+          transform: translate(-50%, -50%);
+          top: 50%;
+          left: 50%;
+          color: white;
+        }
+        .progress-bar {
+          height: 6px;
+          width: 100%;
+          position: absolute;
+          bottom: 0px;
+          overflow: hidden;
+          .progress {
+            background: map_get($colors, 'primary');
+            height: 100%;
+          }
+        }
+      }
+
+      &.add-image-btn .image {
+        background: #DDD;
+      }
+    }
+  }
+
+  .challenge-sub{
+    .challenge-link-input {
+      input {
+        display: block;
+        width: 95%;
+        margin: auto;
+        padding: 7px;
+        border-radius: 5px;
+        border: 1px solid $pjAnotherGray;
+
+        &::placeholder {
+          color: $pjGray;
+        }
+      }
+    }
+
+    .description {
+      margin-bottom: 10px;
+    }
+
+    img.upload-pic {
+      width: 80px;
+      height: 80px;
+    }
+
+    img.add-button {
+      border: 2px solid #f0f0f0;
+      padding: 10px;
+      width: 80px;
+      height: 80px;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: $pjRed;
+      opacity: 1;
+    }
+
+    .challenge-submit-button {
+      background-color: $pjAnotherRed;
+      color: white;
+      height: 30px;
+      width: 100px;
+      border-radius: 5px;
+      font-size: 1.1em;
+      margin: 10px auto;
+      display: block;
+
+      &:active {
+        background-color: $pjDarkRed;
+      }
+    }
+  }
+}

@@ -1,0 +1,189 @@
+<div class="search-bar-wrapper" [class.toggle-fade-in]="this.isCollapse" [class.toggle-fade-out]="!this.isCollapse">
+  <div class="top">
+    <div class="radial-left"></div>
+    <div class="radial-center">
+      <div class="search-bar">
+        <div class="left">
+          <div style="text-align: center;"><img src="assets/img/white_text_logo.png"></div>
+        </div>
+        <div class="right" (click)="searchPage($event)">
+          <div class="search-button">
+            <img src="assets/img/home/searchicon.png">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="radial-right"></div>
+  </div>
+  <div class="bottom">
+    <ion-toolbar mode="md" style="padding: 0px 100px;" *ngIf="isGuestUser">
+      <ion-segment mode="md" class="wrapper" [(ngModel)]="pageTabs" color="dark">
+        <ion-segment-button id="tab_1" value="tab0" (click)="selectedTab(0)" [class.selected]="selectedUgcTab == 0" checked="true">
+          <div class="tabs">发现</div>
+        </ion-segment-button>
+        <ion-segment-button id="tab_2" value="tab1" (click)="selectedTab(1)" [class.selected]="selectedUgcTab == 1" checked="false">
+          <div class="tabs">关注</div>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </div>
+</div>
+<ion-content (ionScroll)="scrollHandler($event)">
+  <div class="banner-section " #banner [class.expand]="!isCollapse" [class.collapse]="isCollapse">
+    <swiper (init)="onMySlideInit($event)"  (indexChange)="onSlideIndexChange($event)" [index]="0" #myswiper  *ngIf="slideImages.length > 0"  class="swiper-container image-slide imag-banner" [config]="config"   [ngStyle]="{'background':'radial-gradient(circle at 50% 0%, ' + bgColor + ' 69%, rgba(255,255,255,1) 70%)'}" >
+      <div  *ngFor="let item of slideImages" class="swiper-slide" >
+        <a href="{{item.linkUrl}}" target="_blank" *ngIf="item.bannerType == 'URL_LINK'">
+          <img src={{item.imageName}}  style="border-radius: 10px"  onError="this.src='assets/img/placeholder.jpg';" >
+        </a>
+        <img class="redirect" *ngIf="item.bannerType != 'URL_LINK'" src="assets/img/placeholder.jpg" (click)="showDetail(item)"  onError="this.src='assets/img/placeholder.jpg';">
+      </div>
+    </swiper>
+    <!-- <div class="slider-banner " style="display: none !important;">
+      <ion-slides ionSlideReachEnd="sliderDidReachEnd(event)"   *ngIf="slideImages.length > 0" #slides loop="true" slidesPerView="1" spaceBetween="10px" (ionSlideDidChange)="onSlideLoad()" autoplay="3000" [ngStyle]="{'background':'radial-gradient(circle at 50% 0%, ' + bgColor + ' 69%, rgba(255,255,255,1) 70%)'}" class="image-slide">
+        <ion-slide  class="image-section" *ngFor="let item of slideImages">
+          <a href="{{item.linkUrl}}" target="_blank" *ngIf="item.bannerType == 'URL_LINK'">
+            <img src={{item.imageName}}  onError="this.src='assets/img/placeholder.jpg';" ></a>
+          <img class="redirect" *ngIf="item.bannerType != 'URL_LINK'" src="assets/img/placeholder.jpg" (click)="showDetail(item)"  onError="this.src='assets/img/placeholder.jpg';">
+        </ion-slide>
+      </ion-slides>
+    </div> -->
+    <swiper (init)="onMyProductSlideInit($event)" [index]="0" #myswiper1  *ngIf="newProducts && newProducts.length"  class="swiper-container image-slide product-slider" [config]="product_slider_config">
+      <div  *ngFor="let item of newProducts" class="swiper-slide"  (click)="showProduct(item)"> 
+        <div class="title_prod">
+          <div class="productImages"> 
+            <img src={{imageUrl+item.imageArray[0]}}  style="border-radius: 10px"  onError="this.src='assets/img/placeholder.jpg';" >
+          </div>
+          <p>{{item.shortName}}</p>
+        </div>
+      </div>
+    </swiper>
+    <!-- <div class="product-slider" style="display: none !important;">
+      <ion-slides #productSlider *ngIf="newProducts && newProducts.length" (ionSlideWillChange)="onProductSlideChange($event)" loop="true" slidesPerView="4" spaceBetween="7px">
+        <ion-slide *ngFor="let item of newProducts">
+          <div class="productImages" (click)="showProduct(item)">
+            <img useImg=true [src]="imageUrl+item.imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+          </div>
+          <p>{{item.shortName}}</p>
+        </ion-slide>
+      </ion-slides>
+    </div> -->
+  </div>
+  <div class="ugc-section">
+    <ion-toolbar mode="md" style="padding: 0px 100px;" *ngIf="isGuestUser">
+      <ion-segment mode="md" class="wrapper" [(ngModel)]="pageTabs" color="dark">
+        <ion-segment-button id="tab_1" value="tab0" (click)="selectedTab(0)" [class.selected]="selectedUgcTab == 0" checked="true">
+          <div class="tabs">发现</div>
+        </ion-segment-button>
+        <ion-segment-button id="tab_2" value="tab1" (click)="selectedTab(1)" [class.selected]="selectedUgcTab == 1" checked="false">
+          <div class="tabs">关注</div>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+    <div class="bodyContentUGCs" id="bodyContentUGCID" [class.hidden]="!isCollapse">
+      <ion-refresher [closeDuration]="5" [snapbackDuration]="5" [pullMax]="5" [pullMin]="5" (ionRefresh)="doRefresh($event)" *ngIf="isCollapse">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <ion-slides #slider>
+        <ion-slide>
+          <ion-list id="ion-row-margin-top" style="display: flex; flex-wrap: wrap;padding-top: 5px;background-color: #f9f9f9;">
+            <ion-col col-6 style="padding: 0px 2px 0px 4px !important;">
+              <ion-card class="card-cell" *ngFor="let item of featureListEven; let i = index">
+                <img *ngIf="item.imageArray.length !=0" class="imgCell" (click)="GoDetail(item,item.id,item.featured)" useImg="true" style="object-fit: cover;max-height:300px;width:100%" [src]="imageUrl+item.imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+                <ion-card-content style="padding:13px 5px 0px 5px !important; ">
+                  <ion-card-title class="ion-card-local">{{item.title}}</ion-card-title>
+                  <ion-row>
+                    <ion-col col-7>
+                      <ion-item>
+                        <ion-avatar class="imageProfile" style="margin: 8px -7px 8px 0" item-start (click)="goToProfile(item.user)" *ngIf="isGuestUser">
+                          <img useImg=true *ngIf="item.user.id == userData.id" [src]="socialProfilePic" onError="this.src='assets/img/placeholder.jpg';">
+                          <img useImg=true *ngIf="item.user.id != userData.id && !item.user.profileImage && item.user.gender == 'M'" src="assets/img/profile/man.png">
+                          <img useImg=true *ngIf="item.user.id != userData.id && !item.user.profileImage && item.user.gender == 'F'" src="assets/img/profile/woman.png">
+                          <img useImg=true *ngIf="item.user.id != userData.id && item.user.profileImage" [src]="imageUrl+item.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+                        </ion-avatar>
+                        <ion-avatar class="imageProfile" style="margin: 8px -7px 8px 0" item-start (click)="goToProfile(item.user)" *ngIf="!isGuestUser">
+                          <img useImg=true *ngIf="item.user.profileImage" [src]="imageUrl+item.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+                          <img useImg=true *ngIf="!item.user.profileImage  && item.user.gender == 'M'" src="assets/img/profile/man.png">
+                          <img useImg=true *ngIf="!item.user.profileImage  && item.user.gender == 'F'" src="assets/img/profile/woman.png">
+                          <img useImg=true *ngIf="socialProfilePic" [src]="socialProfilePic" onError="this.src='assets/img/placeholder.jpg';">
+                        </ion-avatar>
+                        <h4 class="max_line_elips" style="color: black">{{item.user.nickname}}</h4>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col col-5 *ngIf="item.liked == false" style="align-self:center;">
+                      <ion-col style="display:flex;justify-content: flex-end;height: 100%;align-items: center;padding: 0px;" (click)="toggleLikeUp(item, i, 'featureListEven')">
+                        <button ion-button icon-right clear small style="margin:0px;padding:0 !important;height: 100%;">
+                          <img class="icon-like1" src="assets/img/icons/heart_white_new.png">
+                        </button>
+                        <div style="font-size: 12px;align-self: center;margin-left: 5px;" [ngStyle]="{'visibility' : item.likeCount > 0 ? 'visible' : 'hidden'}">{{item.likeCount}} </div>
+                      </ion-col>
+                    </ion-col>
+                    <ion-col col-5 *ngIf="item.liked == true" style="align-self:center;">
+                      <ion-col style="display:flex;justify-content: flex-end;height: 100%;align-items: center;padding: 0px;" (click)="toggleLikeDown(item, i, 'featureListEven')">
+                        <button ion-button icon-right clear small style="margin:0px;padding:0 !important;height: 100%;">
+                          <img class="icon-like1" src="assets/img/icons/heart_red_new.png">
+                        </button>
+                        <div style="font-size: 12px;align-self: center;margin-left: 5px;" [ngStyle]="{'visibility' : item.likeCount > 0 ? 'visible' : 'hidden'}">{{item.likeCount}} </div>
+                      </ion-col>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col col-6 style="padding: 0px 4px 0px 2px !important;">
+              <ion-card class="card-cell" *ngFor="let item of featureListOdd; let i = index">
+                <img *ngIf="item.imageArray.length !=0" class="imgCell" (click)="GoDetail(item,item.id,item.featured)" useImg="true" style="object-fit: cover;max-height:300px;width:100%" [src]="imageUrl+item.imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+                <ion-card-content style="padding:13px 5px 0px 5px !important; ">
+                  <ion-card-title class="ion-card-local">{{item.title}} </ion-card-title>
+                  <ion-row>
+                    <ion-col col-7>
+                      <ion-item>
+                        <ion-avatar class="imageProfile" style="margin: 8px -7px 8px 0" item-start (click)="goToProfile(item.user)" *ngIf="isGuestUser">
+                          <img useImg=true *ngIf="item.user.id == userData.id" [src]="socialProfilePic" onError="this.src='assets/img/placeholder.jpg';">
+                          <img useImg=true *ngIf="item.user.id != userData.id && !item.user.profileImage && item.user.gender == 'M'" src="assets/img/profile/man.png">
+                          <img useImg=true *ngIf="item.user.id != userData.id && !item.user.profileImage && item.user.gender == 'F'" src="assets/img/profile/woman.png">
+                          <img useImg=true *ngIf="item.user.id != userData.id && item.user.profileImage" [src]="imageUrl+item.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+                        </ion-avatar>
+                        <ion-avatar class="imageProfile" style="margin: 8px -7px 8px 0" item-start (click)="goToProfile(item.user)" *ngIf="!isGuestUser">
+                          <img useImg=true *ngIf="item.user.profileImage" [src]="imageUrl+item.user.profileImage" onError="this.src='assets/img/placeholder.jpg';">
+                          <img useImg=true *ngIf="!item.user.profileImage  && item.user.gender == 'M'" src="assets/img/profile/man.png">
+                          <img useImg=true *ngIf="!item.user.profileImage  && item.user.gender == 'F'" src="assets/img/profile/woman.png">
+                          <img useImg=true *ngIf="socialProfilePic" [src]="socialProfilePic" onError="this.src='assets/img/placeholder.jpg';">
+                        </ion-avatar>
+                        <h4 class="max_line_elips" style="color: black">{{item.user.nickname}}</h4>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col col-5 *ngIf="item.liked == false" style="align-self:center;">
+                      <ion-col style="display:flex;justify-content: flex-end;height: 100%;align-items: center;padding: 0px;" (click)="toggleLikeUp(item, i, 'featureListOdd')">
+                        <button ion-button icon-right clear small style="margin:0px;padding:0 !important;height: 100%;">
+                          <img class="icon-like1" src="assets/img/icons/heart_white_new.png">
+                        </button>
+                        <div style="font-size: 12px;align-self: center;margin-left: 5px;" [ngStyle]="{'visibility' : item.likeCount > 0 ? 'visible' : 'hidden'}">{{item.likeCount}} </div>
+                      </ion-col>
+                    </ion-col>
+                    <ion-col col-5 *ngIf="item.liked == true" style="align-self:center;">
+                      <ion-col style="display:flex;justify-content: flex-end;height: 100%;align-items: center;padding: 0px;" (click)="toggleLikeDown(item, i, 'featureListOdd')">
+                        <button ion-button icon-right clear small style="margin:0px;padding:0 !important;height: 100%;">
+                          <img class="icon-like1" src="assets/img/icons/heart_red_new.png">
+                        </button>
+                        <div style="font-size: 12px;align-self: center;margin-left: 5px;" [ngStyle]="{'visibility' : item.likeCount > 0 ? 'visible' : 'hidden'}">{{item.likeCount}} </div>
+                      </ion-col>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-infinite-scroll (ionInfinite)="doInfiniteUGC($event)" *ngIf="!(pageNoFeatured == totPg)" threshold="200px" style="padding-bottom: 30px;">
+              <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+              <div style="text-align: center;">
+                <button style="height: 25px;border-radius: 20px;font-size: 12px;padding: 5px 20px;" (click)="doInfiniteUGC('')">点击加载更多</button>
+              </div>
+            </ion-infinite-scroll>
+            <!-- <div *ngIf="!(pageNoFeatured == totPg) && this.platform.is('ios')"  style="text-align: center;height: 50px;" (click)="doInfiniteUGCClicking()"> <button style="background-color: #ffffff;padding: 10px;border-radius: 5px;">点击加载更多</button> </div> -->
+          </ion-list>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  <!-- </ion-content> -->
+  </div>
+</ion-content>
+<!-- <img class="arrowup" *ngIf="isScroll" src="assets/img/icons/arrow-up.png" (click)="scrollTop()"> -->

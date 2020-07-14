@@ -1,0 +1,92 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios" transparent>
+    <ion-title mode="ios">
+      <span>收货信息</span>
+      <button *ngIf="from == 'quick-try'" style="color: #ffffff;background-color: #ff2744;padding: 0px 20px;border-radius: 20px;height: 30px;" (click)="submit_GM()" [disabled]="!this.recipient || !this.selectedProvince || !this.selectedCity || !this.selectedArea || !this.detailAddress || !this.phoneNumber">完成</button>    
+      <button *ngIf="from != 'quick-try'" style="color: #ffffff;background-color: #ff2744;padding: 0px 20px;border-radius: 20px;height: 30px;" (click)="submit()" [disabled]="!this.recipient || !this.selectedProvince || !this.selectedCity || !this.selectedArea || !this.detailAddress || !this.phoneNumber">完成</button>    
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content [class.addressfocus] = "addressfocus">
+  <div>
+    <div style="background: #ff2745;margin: 10px 10px 40px 10px;color: #ffffff;border-radius: 5px;padding: 5px 0px;font-size: 14.5px;">
+      <p style="text-align: center;margin: 4px;">非常重要提示</p>
+      <ol style="width:97%;margin: 0px;">
+        <li>请确认你填写的信息有效且正确，否则您将选中的情况下，可能不会收到宝BOX</li>
+        <li>如果您填写的手机号和您在APP上注册时的号码不同，您将被要求验证你的新号码。验证后您的新号码将成为您登陆的ID，密码还是保留之前的。在验证你的手机号后，您将需要用你的新手机号重新在APP上登录。</li>
+      </ol>
+    </div>
+      <div class="input-container user-name-input" [ngStyle]="{'border-bottom': recipient != '' ? '2px solid #2ec95c' : '2px solid #f92642'}" style="display: flex;align-items: center;">
+          <img src="assets/img/icons/input_user.png">
+          <ion-input type="text" placeholder="收件人姓名" [(ngModel)]="recipient" (ionFocus) = "addressfocus = true;" (ionBlur)="addressfocus = false;onBlurValidateBlank($event);"></ion-input>
+        </div>
+        <div class="input-container user-name-input" [ngStyle]="{'border-bottom': phoneNumber != '' ? '2px solid #2ec95c' : '2px solid #f92642'}" style="display: flex;align-items: center;">
+          <img src="assets/img/icons/input_phone.png">
+          <ion-input type="number" placeholder="请输入手机号" [(ngModel)]="phoneNumber"></ion-input>
+        </div>
+        <div *ngIf="!otp" class="otp-name-input">
+          <ion-item style="margin-right:5px;padding: 0px;">
+            <ion-label class="icon-label icon-auth"></ion-label>
+            <ion-input type="number" placeholder="请输入验证码" [(ngModel)]="code"></ion-input>
+          </ion-item>
+          <ion-item style="margin-left:5px;padding: 0px;" id="pj-item-button" (click)="!sendCodeButtonIsDisabled && validUserExists()" disabled="!phoneNumber" [class.disabled]="sendCodeButtonIsDisabled">{{sendCodeButtonText}}
+          </ion-item>
+        </div>
+        <div class="input-container location-input" [ngStyle]="{'border-bottom': selectedProvince != '' ? '2px solid #2ec95c' : '2px solid #f92642'}" style="display: flex;align-items: center;">
+          <img src="assets/img/icons/input_location.png">
+          <!-- <ion-input type="text" placeholder="省" [(ngModel)]="selectedProvince" (ionFocus) = "addressfocus = true;" (ionBlur)="addressfocus = false;onBlurValidateBlank($event);"></ion-input> -->
+          <div style="justify-content: space-between;width: 100%;display: flex;">
+            <ion-select placeholder="省份" okText="完成" cancelText="取消" [(ngModel)]="selectedProvince">
+              <ion-option *ngFor="let province of provinces" [value]="province">{{province.name}}</ion-option>
+            </ion-select>
+          </div>
+        </div>
+        <div class="input-container location-input" [ngStyle]="{'border-bottom': selectedCity != '' ? '2px solid #2ec95c' : '2px solid #f92642'}" style="display: flex;align-items: center;">
+          <img src="assets/img/icons/input_location.png">
+          <!-- <ion-input type="text" placeholder="市" [(ngModel)]="selectedCity" (ionFocus) = "addressfocus = true;" (ionBlur)="addressfocus = false;onBlurValidateBlank($event);"></ion-input> -->
+          <div style="justify-content: space-between;width: 100%;display: flex;">
+            <ion-select placeholder="城市" okText="完成" cancelText="取消" [(ngModel)]="selectedCity">
+              <ng-container *ngIf="selectedProvince">
+                <ion-option *ngFor="let city of selectedProvince.cities" [value]="city">{{city.name}}</ion-option>
+              </ng-container>
+            </ion-select>
+          </div>
+        </div>
+        <div class="input-container location-input" [ngStyle]="{'border-bottom': selectedArea != '' ? '2px solid #2ec95c' : '2px solid #f92642'}" style="display: flex;align-items: center;">
+          <img src="assets/img/icons/input_location.png">
+          <!-- <ion-input type="text" placeholder="区" [(ngModel)]="selectedArea" (ionFocus) = "addressfocus = true;" (ionBlur)="addressfocus = false;onBlurValidateBlank($event);"></ion-input> -->
+          <div style="justify-content: space-between;width: 100%;display: flex;">
+            <ion-select placeholder="地区" okText="完成" cancelText="取消" [(ngModel)]="selectedArea">
+              <ng-container *ngIf="selectedCity">
+                <ion-option *ngFor="let area of selectedCity.districts" [value]="area">{{area.name}}</ion-option>
+              </ng-container>
+            </ion-select>
+          </div>
+        </div>
+        <div class="input-container" [ngStyle]="{'border-bottom': detailAddress != '' ? '2px solid #2ec95c' : '2px solid #f92642'}" style="display: flex;align-items: center;">
+          <img src="assets/img/icons/input_location.png">
+          <ion-input type="text" placeholder="其他详细地址" [(ngModel)]="detailAddress" (ionFocus) = "addressfocus = true;" (ionBlur)="addressfocus = false;onBlurValidateBlank($event);"></ion-input>
+        </div>
+  </div>
+</ion-content>
+<div class="overlay" [class.fadein]="quickTryMessage1" [class.fadeout]="quickTryMessage1">
+  <div class="message-box-wrapper">
+    <div class="check-circle">
+      <div class="check"></div>
+    </div>
+    <p class="pj-red-text">提交成功</p>
+  </div>
+</div>
+<div class="overlay" [class.fadein]="quickTryMessage" [class.fadeout]="quickTryMessage">
+  <div class="message-box-wrapper">
+    <b>再次确认:</b>
+    <p>1. 当前你的总积分为 {{userPoint}} 分;</p>
+    <p>2. 获得该产品需要 {{giftPoint}} 积分;</p>
+    <p>3. 兑换后剩余积分为 {{userPoint - giftPoint}} 分;</p>
+    <p>是否确认兑换呢?</p>
+    <div class="button-wrapper">
+      <button class="den" (click)="deny()">再想一想</button>
+      <button class="acc" (click)="accept()">我要兑换</button>
+    </div>
+  </div>
+</div>

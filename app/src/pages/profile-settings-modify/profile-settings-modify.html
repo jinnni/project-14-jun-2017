@@ -1,0 +1,42 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">设置</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <div class="settings-list">
+      <ion-list-header class="settings-header">
+        <div>{{chosenLayout.sectionHeader}}</div>
+      </ion-list-header>
+      <div *ngFor="let item of chosenLayout.items">
+        <ion-item [class.last-item-of-section]="item.isLastItemOfSection">
+          <img item-left src={{chosenLayout.image}}>
+          <!-- <div class="text-container"
+               *ngIf="item.type == 'normal_text'">
+            {{item.text}}
+          </div> -->
+          <ion-input *ngIf="item.type == 'normal_text'" [(ngModel)]="inputs[item.inputId]" value="{{item.text}}" disabled="true" placeholder={{item.placeholder}}></ion-input>
+          <input *ngIf="item.type == 'normal_input'" [(ngModel)]="inputs[item.inputId]" placeholder={{item.placeholder}}  maxlength="9">
+          <div *ngIf="item.type == 'button_input'" class="button-input-container">
+            <input class="has-button" [(ngModel)]="inputs[item.inputId]" placeholder={{item.placeholder}}>
+            <div class="horizontal-divider"></div>si
+            <button item-right (click)="onButtonClicked(item)" [disabled]="item.isDisabled">
+              <p>{{item.buttonText}}</p>
+              <p>{{item.buttonTextExtra}}</p>
+            </button>
+          </div>
+        </ion-item>
+        <div *ngIf="item.isLastItemOfSection" class="divider"></div>
+      </div>
+    </div>
+  </ion-list>
+  <ion-row class="sign-in-button">
+      <ion-col text-center>
+        <button class="footer-button" (click)="save()">保存设置</button>
+      </ion-col>
+    </ion-row>
+</ion-content>
+<!-- <ion-footer class="footer-button" padding no-border (click)="save()">
+  保存设置
+</ion-footer> -->

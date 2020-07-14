@@ -1,0 +1,108 @@
+page-profile-my-ugc {
+  .item-md{
+    padding-left: 0px;
+  }
+  component-two-way-ugc-list {
+    display: block;
+    margin-top: 10px;
+  }
+  .place-holder-message {
+    height: 100%;
+    // position: relative;
+
+    .text {
+      color: $pjRed;
+      position: absolute;
+      font-weight: lighter;
+      font-size: 1.2em;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .ion-card-local{
+    font-size: 1.1rem !important;
+    padding-bottom: 2px;
+    display: block;
+    margin: 0 auto;
+    line-height: 1.4em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    font-weight: bold;
+  }
+  .ion-list-row{
+    display: flex;
+      flex-wrap: wrap;
+      padding-top: 5px;
+      background-color: #f9f9f9;
+  }
+    .row {
+      .max_line_elips {
+        white-space: nowrap;
+        color: black !important;
+        margin: 1px 0;
+        width: 100%;
+        font-size: 1.0rem;
+      }
+      .item-inner {
+        padding-right: 0px !important;
+      }
+      .button-inner{
+        justify-content: flex-end !important;
+        font-size: 1.0rem;
+        font-weight: 300;
+      }
+    }
+
+    .card-cell{
+      box-shadow: none;
+      margin: 0px 0px 5px 0px !important;
+      width: 100%;
+      border-radius: 5px;
+    }
+
+  .icon-like{
+    display: inline-block;
+    //vertical-align: middle;
+    width: 14px;
+    height: 14px;
+    margin-right: 7px;
+  }
+
+  .icon-comment{
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+  }
+  .icon-view{
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 15px;
+    margin-right: 5px;
+  }
+
+  .likeButton{
+    font-size: 1.0rem;
+    font-weight: 300;
+  }
+
+  ion-label{
+    margin:0 !important;
+    width:100% !important;
+  }
+  .imageProfile{
+    item-ios ion-avatar[item-left], .item-ios ion-thumbnail[item-left], .item-ios ion-avatar[item-start], .item-ios ion-thumbnail[item-start] {
+      margin: 8px -7px 8px 0 !important;
+    }
+    img{
+      max-width: 25px;
+      max-height: 25px;
+      margin-top: 6px;
+    }
+  }
+}

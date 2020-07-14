@@ -1,0 +1,72 @@
+page-profile-my-review {
+    .product-wrapper-top{
+        align-items: center;
+        display: flex;
+        h2{
+            width: 72vw;
+            font-size: 14px;
+        }
+    }
+    .product-image-wrapper{
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 10px 10px 10px 10px;
+    border: 2px solid #efefef;
+    }
+    .public-review-list{
+        background-color: #ffffff;
+    }
+    .review-section .swiper-container{
+        padding-bottom: 35px;
+    }
+    .review-section .swiper-pagination-bullets {
+        left: 0;
+        width: 100%;
+    }
+    .review-section .swiper-slide{
+        border-radius: 10px;
+        height: 110px;
+        overflow: hidden;
+        background-color: #eaeaea;
+        .slide-zoom{
+            height: 100%;
+        }
+        .imageHolder{
+            height: 100%;
+            width:100%;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+    }
+    .content-wrapper{
+        .card-subtitle{
+          font-weight: normal;
+          margin: 8px 15px 10px 15px;
+          overflow: hidden;
+          b{
+            font-weight: bold;
+            padding: 0px 5px;
+            color: #ff2744;
+            border-radius: 9px;
+            word-break: keep-all;
+          }
+        }
+      }
+      .swiper-pagination-bullet {
+        border-radius: 100%;
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: #ffffff;
+        border:1px solid #000000;
+        opacity: .2;
+        pointer-events: auto;
+      }
+      .swiper-pagination-bullet-active {
+        background: #000000;
+        opacity: .2;
+      }
+}

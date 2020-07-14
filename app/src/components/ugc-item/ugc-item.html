@@ -1,0 +1,19 @@
+<ion-card (click)="showUgcDetail()">
+  <img src={{ugcData.imageContent[0].image}}>
+  <ion-card-content no-padding>
+    <div class="title">{{ugcData.title}}</div>
+    <p [innerHtml]="ugcData.content"></p>
+    <div class="card-writer-container">
+      <img src={{ugcData.writer.profileImage}}>
+      <div class="writer-name">{{ugcData.writer.name}}</div>
+    </div>
+    <div class="card-footer-container">
+      <img src="assets/img/icons/eye_padding.png">
+      <div class="desc-label">{{ugcData.viewCount}}</div>
+      <img src="assets/img/icons/heart_padding.png">
+      <div class="desc-label">{{ugcData.likeCount}}</div>
+      <img src="assets/img/icons/comment_padding.png">
+      <div class="desc-label">{{ugcData.commentCount}}</div>
+    </div>
+  </ion-card-content>
+</ion-card>

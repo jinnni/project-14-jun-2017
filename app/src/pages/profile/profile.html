@@ -1,0 +1,116 @@
+<ion-content>
+        <ion-refresher (ionRefresh)="doProfileRefresh($event)">
+                <ion-refresher-content></ion-refresher-content>
+            </ion-refresher>
+    <div class="profile-top">
+        <div class="write-article-icon" (click)="goToSettings()">
+            <img src="assets/img/profile/6_bold.png">
+        </div>
+        <div class="image-container">
+            <div class="profile-background-container">
+                <div class="background-wrapper" *ngIf="backgroundImage">
+                    <img [src]="imageUrl+userData.backgroundImage">
+                </div>
+                <div class="background-wrapper" *ngIf="!backgroundImage">
+                    <img src="assets/img/profile/background.png" style="height:150%;width:100%;opacity: 1;width: auto;max-width: none;">
+                </div>
+            </div>
+            <div class="info">
+                <div class="profile-image-container" *ngIf="!socialProfilePic && profileImage" [style.backgroundImage]="'url('+imageUrl+profileImage+')'">
+                    <div (click)="addImage('profile')">
+                        <img class="upload-icon" src="assets/img/ugc-selector/edit_picture.png">
+                    </div>
+                </div>
+                <div class="profile-image-container" *ngIf="socialProfilePic" [style.backgroundImage]="'url('+socialProfilePic+')'">
+                    <div (click)="addImage('profile')">
+                        <img class="upload-icon" src="assets/img/ugc-selector/edit_picture.png">
+                    </div>
+                </div>
+                <div class="profile-image-container" *ngIf="!socialProfilePic && !profileImage && userData.gender == 'M'" [style.backgroundImage]="'url(assets/img/profile/man.png)'">
+                    <div (click)="addImage('profile')">
+                        <img class="upload-icon" src="assets/img/ugc-selector/edit_picture.png">
+                    </div>
+                </div>
+                <div class="profile-image-container" *ngIf="!socialProfilePic && !profileImage && userData.gender == 'F'" [style.backgroundImage]="'url(assets/img/profile/woman.png)'">
+                    <div (click)="addImage('profile')">
+                        <img class="upload-icon" src="assets/img/ugc-selector/edit_picture.png">
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="user-name" style="margin-top: -5px">{{userData.nickname}}</div>
+                    <div class="user-name" style="margin-top: 5px">
+                        <div class="followed" (click)="showFollowers()">关注{{followingCount}}</div>
+                        <div class="divider"></div>
+                        <div class="followers" (click)="showFollowing()"> 粉丝 {{followersCount}}</div>
+                    </div>
+                </div>
+                <div class="user-editor-score" (click)="showScorePage()">
+                    <div>
+                        <img src="assets/img/editor_score.png">
+                    </div>
+                    <div class="text">{{editorScore}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-grid">
+        <div class="card" (click)="showSocialImpactPage()">
+            <div class="content-wrapper">
+                <div class="card-left">
+                    <img src="assets/img/profile/social_impact_medium.png">
+                </div>
+                <div class="card-right">
+                    <div class="title">社交影响力</div>
+                    <div class="content">{{socialImpactScore}} 分</div>
+                </div>
+            </div>
+        </div>
+        <div class="card" (click)="showSurveyPage()">
+            <div class="content-wrapper">
+                <div class="card-left" style="height: 37px;width: 37px;">
+                    <img src="assets/img/profile/survey.png">
+                    <div class="completion-bar-container">
+                        <div class="completion-bar green-bar" [style.height]="surveyCompletionPercentage"></div>
+                        <div class="completion-bar gray-bar" [style.height]="surveyCompletionLeftPercentage"></div>
+                    </div>
+                </div>
+                <div class="card-right">
+                    <div class="title">达人小档案</div>
+                    <div class="content">已完成 {{userData.profileScore}}%</div>
+                </div>
+            </div>
+        </div>
+        <div class="card" (click)="showMyBadge()">
+            <div class="content-wrapper">
+                <div class="card-left">
+                    <img src="assets/img/profile/badge.png">
+                </div>
+                <div class="card-right">
+                    <div class="title">我的勋章</div>
+                    <div class="content">已获得 {{userData.earnedBadges}} 个</div>
+                </div>
+            </div>
+        </div>
+        <div class="card" (click)="showCampaignListPage()">
+            <div class="content-wrapper">
+                <div class="card-left">
+                    <img src="assets/img/profile/bao-box.png">
+                </div>
+                <div class="card-right">
+                    <div class="title">宝 BOX</div>
+                    <!-- <div class="content">已获得 {{campaignScore}} 个</div> -->
+                </div>
+            </div>
+            <div class="camp_badge" *ngIf="settingsProvider.campBadgeCounter"> {{settingsProvider.campBadgeCounter}}</div>
+        </div>
+    </div>
+    <ion-list class="list-item-section">
+        <div *ngFor="let item of menuItems">
+            <button ion-item class="list-item" [class.last-item-of-section]="item.lastItemOfSection" (click)="showMenuItem(item.id)">
+        <img item-left src={{item.image}}>
+        <h3>{{item.name}}</h3>
+      </button>
+            <div *ngIf="item.lastItemOfSection" class="divider"></div>
+        </div>
+    </ion-list>
+</ion-content>

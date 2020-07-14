@@ -1,0 +1,125 @@
+page-campaign-badge-list {
+  .toolbar-title {
+    display: block;
+    overflow: hidden;
+    width: 45vh;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+  .badge-item-container {
+    $side: 25vw;
+    $item-count: 3;
+    $space-in-between: (100vw - $side * $item-count) / ($item-count + 1);
+    $half-of-the-space: $space-in-between / 2;
+
+    .badge-item {
+      width: calc(100% / 3);
+      display: inline-block;
+      margin-top: 10px;
+      position: relative;
+      width: 100px;
+      margin-left: 3px;
+      margin-right: 3px;
+      .image-container {
+        width: 100px;
+        height: 100px;
+        margin: 4px auto;
+        overflow: hidden;
+        position: relative;
+        border-radius: 50%;
+        .overlay{
+          background-color: #222222;
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          top: 0px;
+          left: 0px;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      img.lock-icon {
+        height: 40px;
+        position: absolute;
+        right: 0px;
+        top: 60px;
+      }
+      p{
+        text-align: center;
+        margin: 10px 0 0 0;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+  .intro-image-section {
+    img {
+      width: 100%;
+    }
+  }
+
+  .see-detail-button {
+    display: block;
+    width: 100px;
+    height: 25px;
+    background-color: $pjRed;
+    color: $pjWhite;
+    border-radius: 5px;
+    margin: 20px auto;
+
+    &:active {
+      background-color: $pjDarkRed;
+    }
+  }
+
+  .mission-description {
+    padding: 0 15px;
+  }
+
+  .campaign-time-left {
+    text-align: center;
+    margin: 15px 0 0 0;
+
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      height: 30px;
+      width: 30px;
+      margin-left: -15px;
+    }
+    p {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+      color: $pjRed;
+      font-size: 1.1em;
+    }
+  }
+  .unlock-text {
+    font-size: 1.1em;
+    text-align: center;
+    color: $pjRed;
+  }
+
+  img.arrow {
+    display: block;
+    width: 20px;
+    margin: 20px auto;
+  }
+
+  img.badge-image {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+
+    &:active {
+      filter: brightness(70%);
+    }
+  }
+}

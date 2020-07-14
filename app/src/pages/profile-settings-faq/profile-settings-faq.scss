@@ -1,0 +1,40 @@
+page-profile-settings-faq {
+
+  ion-navbar {
+    .toolbar-background {
+      background-color: #fff !important;
+    }
+  }
+
+  .menu-list-wrapper {
+    margin: 20px 10px;
+
+    .menu-item {
+      background-color: $pjRed;
+      height: 50px;
+      line-height: 50px;
+      width: 100%;
+      border-bottom: 1px solid $pjBackground;
+
+      img {
+        margin: 0 10px;
+        display: inline-block;
+        vertical-align: middle;
+        width: 22px;
+        height: 22px;
+      }
+
+      p {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        color: $pjWhite;
+        font-weight: lighter;
+      }
+
+      &:active {
+        background-color: $pjDarkRed;
+      }
+    }
+  }
+}

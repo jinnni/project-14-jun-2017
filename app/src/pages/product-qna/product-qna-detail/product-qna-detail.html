@@ -1,0 +1,88 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">Q&A</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content *ngIf="this.platform.is('android')" [class.replyfocus] = "replyfocus && this.platform.is('android')">
+  <div style="display: flex;flex-flow: column;justify-content: space-between;height: 100%;">
+      <div style="height: calc(100% - 60px);overflow: auto;">
+          <component-qna-item [type]="type" [productName]="productName" [dummyProdId]="dummyProdId" [qnaData]="qnaData">
+          </component-qna-item>
+          <div *ngIf="qnaData.answerCount > 0" class="question-list">
+            <ion-row class="section-header">
+              <ion-col class="section-header-left">
+                <p>收到{{qnaData.answerCount}}个回复</p>
+              </ion-col>
+            </ion-row>
+            <div class="question-items-container">
+              <component-qna-item *ngFor="let answer of answerList" [type]="type==QnaItemType.QUESTION_DETAIL?QnaItemType.ANSWER_IN_LIST:QnaItemType.ANSWER_COMMENT" [productName]="productName" [dummyProdId]="dummyProdId" [qnaData]="answer">
+              </component-qna-item>
+            </div>
+          </div>
+          <div *ngIf="qnaData.answerCount == 0 && type == QnaItemType.QUESTION_DETAIL" class="no-answer">
+            <div class="msg-top">
+              成为第一个回复她的人
+            </div>
+            <div class="msg-bottom">
+              看起来还没有人回答过这个问题。快来帮助她！
+            </div>
+          </div>
+        </div>
+        <div class="ion-footer" *ngIf="isWriting && this.platform.is('android')">
+            <!-- <div class="footer-bar-container"> -->
+              <div class="input-container">
+                <ion-input *ngIf="type==QnaItemType.QUESTION_DETAIL" [(ngModel)]="replyInputContent" type="text" placeholder='回答这个问题' (ionFocus) = "replyfocus = true;" (ionBlur)="replyfocus = false;"></ion-input>
+                <ion-input *ngIf="type==QnaItemType.ANSWER_DETAIL" [(ngModel)]="replyInputContent" type="text" placeholder='回复这个回答' (ionFocus) = "replyfocus = true;" (ionBlur)="replyfocus = false;"></ion-input>
+                <div class="image-container" style="background-color: #f3f3f3;" *ngIf="replyInputContent.length == 0">
+                  <b style="color: #ffffff; line-height: 20px; padding: 5px 8px; letter-spacing: 1px;">发布</b>
+                </div>
+                <div class="image-container" style="background-color: #ff2744;" (click)="giveAnswer()" *ngIf="replyInputContent.length > 0">
+                  <b style="color: #ffffff; line-height: 20px; padding: 5px 8px; letter-spacing: 1px;">发布</b>
+                </div>
+              </div>
+              <!-- <div class="publish-button image-container" [class.has-content]="replyInputContent.length > 0" (click)="giveAnswer()">
+                发送
+              </div> -->
+            <!-- </div> -->
+          </div>
+  </div>
+</ion-content>
+<ion-content *ngIf="this.platform.is('ios')" [class.replyfocus] = "replyfocus && this.platform.is('ios')">
+  <component-qna-item [type]="type" [productName]="productName" [dummyProdId]="dummyProdId" [qnaData]="qnaData"></component-qna-item>
+  <div *ngIf="qnaData.answerCount > 0" class="question-list">
+    <ion-row class="section-header">
+      <ion-col class="section-header-left">
+        <p>收到{{qnaData.answerCount}}个回复</p>
+      </ion-col>
+    </ion-row>
+    <div class="question-items-container">
+      <component-qna-item *ngFor="let answer of answerList" [type]="type==QnaItemType.QUESTION_DETAIL?QnaItemType.ANSWER_IN_LIST:QnaItemType.ANSWER_COMMENT" [productName]="productName" [dummyProdId]="dummyProdId" [qnaData]="answer">
+      </component-qna-item>
+    </div>
+  </div>
+  <div *ngIf="qnaData.answerCount == 0 && type == QnaItemType.QUESTION_DETAIL" class="no-answer">
+    <div class="msg-top">
+      成为第一个回复她的人
+    </div>
+    <div class="msg-bottom">
+      看起来还没有人回答过这个问题。快来帮助她！
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="ion-footer" *ngIf="isWriting && this.platform.is('ios')">
+  <!-- <div class="footer-bar-container"> -->
+    <div class="input-container">
+      <ion-input *ngIf="type==QnaItemType.QUESTION_DETAIL" [(ngModel)]="replyInputContent" type="text" placeholder='回答这个问题' (ionFocus) = "replyfocus = true;" (ionBlur)="replyfocus = false;"></ion-input>
+      <ion-input *ngIf="type==QnaItemType.ANSWER_DETAIL" [(ngModel)]="replyInputContent" type="text" placeholder='回复这个回答' (ionFocus) = "replyfocus = true;" (ionBlur)="replyfocus = false;"></ion-input>
+      <div class="image-container" style="background-color: #f3f3f3;" *ngIf="replyInputContent.length == 0">
+        <b style="color: #ffffff; line-height: 20px; padding: 5px 8px; letter-spacing: 1px;">发布</b>
+      </div>
+      <div class="image-container" style="background-color: #ff2744;" (click)="giveAnswer()" *ngIf="replyInputContent.length > 0">
+        <b style="color: #ffffff; line-height: 20px; padding: 5px 8px; letter-spacing: 1px;">发布</b>
+      </div>
+    </div>
+    <!-- <div class="publish-button image-container" [class.has-content]="replyInputContent.length > 0" (click)="giveAnswer()">
+      发送
+    </div> -->
+  <!-- </div> -->
+</ion-footer>

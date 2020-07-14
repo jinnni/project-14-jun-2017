@@ -1,0 +1,75 @@
+<ion-header no-border mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">我的宝 BOX</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let item of campaigns;">
+      <div *ngIf="item.recordStatus == 'ACTIVE' && item.type =='CAMPAIGN'">
+        <div class="top">
+          <div *ngIf="util.getRelativeTime(item.challengeDueDate) >= 0" class="campaign-name">{{item.name}}</div>
+          <div *ngIf="util.getRelativeTime(item.challengeDueDate) < 0" class="campaign-name">{{item.name}}</div>
+          <div *ngIf="util.getRelativeTime(item.challengeDueDate) < 0" class="campaign-name" style="color: #343434;">收官问卷 </div>
+          <div class="campaign-time-left" *ngIf="util.getRelativeTime(item.challengeDueDate) >= 0">
+            <img src="assets/img/icons/clock_red.png">
+            <p *ngIf="util.getRelativeTime(item.challengeDueDate) > 0">在 {{util.getRelativeTime(item.challengeDueDate)}} 天内结束</p>
+            <p *ngIf="util.getRelativeTime(item.challengeDueDate) == 0">今天结束</p>
+            <p *ngIf="util.getRelativeTime(item.challengeDueDate) < 0 && util.getRelativeTime(item.postSurveyDueDate) >=0">{{ (util.getRelativeTime(item.challengeDueDate)) * -1}} 天前结束</p>
+          </div>
+          <div class="campaign-time-left" *ngIf="util.getRelativeTime(item.challengeDueDate) < 0">
+              <img src="assets/img/icons/clock_red.png">
+              <p *ngIf="util.getRelativeTime(item.postSurveyDueDate) > 0">在 {{util.getRelativeTime(item.postSurveyDueDate)}} 天内结束</p>
+              <p *ngIf="util.getRelativeTime(item.postSurveyDueDate) == 0">今天结束</p>
+              <p *ngIf="util.getRelativeTime(item.postSurveyDueDate) < 0">{{ (util.getRelativeTime(item.postSurveyDueDate)) * -1}} 天前结束</p>
+            </div>
+        </div>
+        <div class="campaign-description">
+          <img [src]="imageUrl+item.imageName" onError="this.src='assets/img/placeholder.jpg';">
+          <div class="card-subtitle ql-editor">{{item.campaignDescription}}</div>
+        </div>
+        <button *ngIf="util.getRelativeTime(item.challengeDueDate) >= 0" (click)="seeBadges(item,'none')">
+          解锁勋章
+        </button>
+        <button *ngIf="util.getRelativeTime(item.challengeDueDate) < 0 && util.getRelativeTime(item.postSurveyDueDate) >=0" (click)="seeBadges(item,'postSurvey')">
+          意见反馈
+        </button>
+      </div>
+      <div *ngIf="item.type != 'CAMPAIGN'">
+          <div class="top">
+            <div *ngIf="util.getRelativeTime(item.challengeDueDate) >= 0" class="campaign-name">{{item.name}}</div>
+            <div *ngIf="util.getRelativeTime(item.challengeDueDate) < 0" class="campaign-name">{{item.name}}</div>
+            <div *ngIf="util.getRelativeTime(item.challengeDueDate) < 0" class="campaign-name" style="color: #343434;">收官问卷 </div>
+            <div class="campaign-time-left" *ngIf="util.getRelativeTime(item.challengeDueDate) >= 0">
+              <img src="assets/img/icons/clock_red.png">
+              <p *ngIf="util.getRelativeTime(item.challengeDueDate) > 0">在 {{util.getRelativeTime(item.challengeDueDate)}} 天内结束</p>
+              <p *ngIf="util.getRelativeTime(item.challengeDueDate) == 0">今天结束</p>
+              <p *ngIf="util.getRelativeTime(item.challengeDueDate) < 0 && util.getRelativeTime(item.postSurveyDueDate) >=0">{{ (util.getRelativeTime(item.challengeDueDate)) * -1}} 天前结束</p>
+            </div>
+            <div class="campaign-time-left" *ngIf="util.getRelativeTime(item.challengeDueDate) < 0">
+                <img src="assets/img/icons/clock_red.png">
+                <p *ngIf="util.getRelativeTime(item.postSurveyDueDate) > 0">在 {{util.getRelativeTime(item.postSurveyDueDate)}} 天内结束</p>
+                <p *ngIf="util.getRelativeTime(item.postSurveyDueDate) == 0">今天结束</p>
+                <p *ngIf="util.getRelativeTime(item.postSurveyDueDate) < 0">{{ (util.getRelativeTime(item.postSurveyDueDate)) * -1}} 天前结束</p>
+              </div>
+          </div>
+          <div class="campaign-description">
+            <img [src]="imageUrl+item.imageName" onError="this.src='assets/img/placeholder.jpg';">
+            <!-- <div class="card-subtitle ql-editor">{{item.campaignDescription}}</div> -->
+          </div>
+          <button *ngIf="util.getRelativeTime(item.challengeDueDate) >= 0" (click)="seeBadges(item,'none')">
+            解锁勋章
+          </button>
+          <button *ngIf="util.getRelativeTime(item.challengeDueDate) < 0 && util.getRelativeTime(item.postSurveyDueDate) >=0" (click)="seeBadges(item,'postSurvey')">
+            意见反馈
+          </button>
+        </div>
+    </ion-card>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!last" threshold="500%">
+        <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-list>
+  <div *ngIf="hide" style="position:absolute;top:0px;left:0px;height:100%;width:100%;background-size: cover;background-repeat: no-repeat;background-image:url('assets/img/no_campaign.jpg');"></div>
+  
+</ion-content>
+

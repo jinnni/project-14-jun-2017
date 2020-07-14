@@ -1,0 +1,131 @@
+page-more-content {
+  .comment-item {
+    border-bottom: 1px solid $pjAnotherGray;
+    margin-left: 10px;
+    margin-right: 10px;
+    .comment-top {
+      position: relative;
+      padding: 2px 5px;
+
+      img.writer-image {
+        display: inline-block;
+        vertical-align: middle;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+      .writer-name {
+        margin-left: 10px;
+        display: inline-block;
+        vertical-align: middle;
+        font-weight: bold;
+      }
+      .written-date {
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        right: 10px;
+        color: $pjGray;
+        font-size: small;
+      }
+    }
+
+    .comment-content {
+      padding: 5px 15px 0 55px;
+    }
+
+    .comment-bottom {
+      text-align: right;
+      padding: 10px 15px;
+
+      .button-section {
+        display: inline-block;
+        vertical-align: middle;
+
+        img {
+          display: inline-block;
+          vertical-align: middle;
+
+          width: 15px;
+          height: 15px;
+        }
+        p {
+          display: inline-block;
+          vertical-align: middle;
+          color: $pjGray;
+          margin: 0;
+        }
+
+        &:nth-child(1) {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+
+  .review-data{
+    .profile-image {
+      display: inline-block;
+      width: 65px;
+      height: 65px;
+      border-radius: 50px;
+      position: absolute;
+    }
+    .content-section {
+      display: inline-block;
+      width: 81%;
+      position: absolute;
+      left: 75px;
+
+      .review-header {
+        display: block;
+
+        ion-col {
+          padding: 0px;
+        }
+        .writer {
+          display: inline-block;
+          font-size: 1.2em;
+        }
+        .reviewer {
+
+          max-width: 100px;
+          white-space: nowrap;
+          overflow: hidden;
+          display: inline-block;
+          text-overflow: ellipsis;
+        }
+        .align-right {
+          //display: inline-block;
+          //margin-right: -5px;
+
+          display: inline-block;
+          right: -5px;
+          position: absolute;
+
+          .age {
+            display: inline-block;
+          }
+          .location {
+            display: inline-block;
+          }
+          .rating {
+            display: inline-block;
+            margin-left: 2px;
+            margin-right: 8px;
+
+            ion-icon {
+              font-size: 1.2em;
+            }
+          }
+        }
+      }
+      .review-content {
+        display: block;
+        margin-top: 5px;
+        width: 98%;
+      }
+    }
+  }
+}

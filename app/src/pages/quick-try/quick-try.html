@@ -1,0 +1,229 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">闪闪宝</ion-title>
+  </ion-navbar>
+  <ion-toolbar mode="md">
+    <ion-segment mode="md" class="wrapper" [(ngModel)]="pageTabs">
+      <ion-segment-button value="tab1" (click)="selectedTab(0)" [class.selected]="selectTab == 0">
+        <div class="ugc-tab">
+          <div *ngIf="pageTabs == 'tab1'" class="active-tab">待申请</div>
+          <div *ngIf="pageTabs != 'tab1'">待申请</div>
+        </div>
+      </ion-segment-button>
+      <ion-segment-button value="tab2" (click)="selectedTab(1)" [class.selected]="selectTab == 1">
+        <div class="ugc-tab">
+          <div *ngIf="pageTabs == 'tab2'" class="active-tab">已结束</div>
+          <div *ngIf="pageTabs != 'tab2'">已结束</div>
+        </div>
+      </ion-segment-button>
+      <ion-segment-button value="tab3" (click)="selectedTab(2)" [class.selected]="selectTab == 2">
+        <div class="ugc-tab">
+          <div *ngIf="pageTabs == 'tab3'" class="active-tab">宝屋</div>
+          <div *ngIf="pageTabs != 'tab3'">宝屋</div>
+        </div>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="count-bar" *ngIf="selectTab == 2">我的积分状态是: <b>{{balancePoints}}</b> 分</div>
+  <div class="count-bar" *ngIf="selectTab == 0">
+    <button ion-item (click)="showHowToPlayQTCMessage()">如何玩转闪闪宝？</button>
+  </div>
+  <!-- <button class="count-bar center-red ion-item" *ngIf="selectTab == 0"></button> -->
+  <ion-content class="review-content" [ngStyle]="{'display' : selectTab == 0 ? 'block' : 'none'}">
+    <!-- <div class="empty-qtc" *ngIf="hide1">
+      <p>You do not have any QTC</p>
+    </div> -->
+    <ion-list class="ion-row-margin-top" *ngIf="evenList.length > 0">
+      <ion-col col-6 class="col-left">
+        <ion-card class="card-cell" *ngFor="let item of evenList; let i = index">
+          <a [href]="item.productDetail[0].urlLink">
+            <img *ngIf="item.productDetail[0].imageArray.length !=0" [src]="imageUrl+item.productDetail[0].imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+          </a>
+          <ion-card-content>
+            <div class="top-message-wrapper">
+              <p class="top-message">距离结束还剩</p>
+              <div class="count-down-watch">
+                <span>{{item.days}} </span>天
+                <span>{{item.hours}} </span>时
+                <span>{{item.mins}} </span>分
+                <span>{{item.secs}} </span>秒
+              </div>
+            </div>
+            <ion-card-title class="ion-card-local" *ngIf="item.productDetail[0].name.length > 27">{{item.productDetail[0].name.substring(0,27)}}...</ion-card-title>
+            <ion-card-title class="ion-card-local" *ngIf="item.productDetail[0].name.length <= 27">{{item.productDetail[0].name}}</ion-card-title>
+            <ion-row>
+              <a [href]="item.productDetail[0].urlLink"><button class="pj-button-white">产品详情</button></a>
+            </ion-row>
+            <ion-row class="count-data">
+              <div class="applicant-count" *ngIf="item.giftNumber">总量:<span>{{getCountStyle(item.giftNumber.toString(),0)}}</span>份</div>
+              <div class="separator">|</div>
+              <div class="applicant-count" *ngIf="item.applicantsCount">已申请:<span>{{getCountStyle(((item.applicantsCount + 1) * 19).toString(),1)}}</span>份</div>
+            </ion-row>
+            <ion-row>
+              <button class="pj-button-radius" *ngIf="!item.campaignMember[0].preSurveyDone" (click)="surveyPage(item)" [ngStyle]="{'opacity': item.disableButton ? '0.5' : '1'}" [disabled]="item.disableButton">立即申请</button>
+              <button class="pj-button-radius grey" *ngIf="item.campaignMember[0].preSurveyDone" (click)="surveyPage(item)">提交成功</button>
+              <p class="bottom-message" *ngIf="item.requiredQuestions > item.points">若没有被选中, 你仍可获得 <span class="red-text">{{getCountStyle((item.requiredQuestions).toString(),0)}}</span> 积分！</p>
+              <p class="bottom-message" *ngIf="item.requiredQuestions <= item.points">若没有被选中, 你仍可获得 <span class="red-text">{{getCountStyle((item.points).toString(),0)}}</span> 积分！</p>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 class="col-right">
+        <ion-card class="card-cell" *ngFor="let item of oddList; let i = index">
+          <a [href]="item.productDetail[0].urlLink">
+            <img *ngIf="item.productDetail[0].imageArray.length !=0" [src]="imageUrl+item.productDetail[0].imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+          </a>
+          <ion-card-content>
+            <div class="top-message-wrapper">
+              <p class="top-message">距离结束还剩</p>
+              <div class="count-down-watch">
+                <span>{{item.days}} </span>天
+                <span>{{item.hours}} </span>时
+                <span>{{item.mins}} </span>分
+                <span>{{item.secs}} </span>秒
+              </div>
+            </div>
+            <ion-card-title class="ion-card-local" *ngIf="item.productDetail[0].name.length > 27">{{item.productDetail[0].name.substring(0,27)}}...</ion-card-title>
+            <ion-card-title class="ion-card-local" *ngIf="item.productDetail[0].name.length <= 27">{{item.productDetail[0].name}}</ion-card-title>
+            <ion-row>
+              <a [href]="item.productDetail[0].urlLink"><button class="pj-button-white">产品详情</button></a>
+            </ion-row>
+            <ion-row class="count-data">
+              <div class="applicant-count" *ngIf="item.giftNumber">总量:<span>{{getCountStyle(item.giftNumber.toString(),0)}}</span>份</div>
+              <div class="separator">|</div>
+              <div class="applicant-count" *ngIf="item.applicantsCount">已申请:<span>{{getCountStyle(((item.applicantsCount + 1) * 19).toString(),1)}}</span>份</div>
+            </ion-row>
+            <ion-row>
+              <button class="pj-button-radius" *ngIf="!item.campaignMember[0].preSurveyDone" (click)="surveyPage(item)" [ngStyle]="{'opacity': item.disableButton ? '0.5' : '1'}" [disabled]="item.disableButton">立即申请</button>
+              <button class="pj-button-radius grey" *ngIf="item.campaignMember[0].preSurveyDone" (click)="surveyPage(item)">提交成功</button>
+              <p class="bottom-message" *ngIf="item.requiredQuestions > item.points">若没有被选中, 你仍可获得 <span class="red-text">{{getCountStyle((item.requiredQuestions).toString(),0)}}</span> 积分！</p>
+              <p class="bottom-message" *ngIf="item.requiredQuestions <= item.points">若没有被选中, 你仍可获得 <span class="red-text">{{getCountStyle((item.points).toString(),0)}}</span> 积分！</p>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite0($event)" *ngIf="!lastPage0" threshold="100%">
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+      <div style="text-align: center;padding-bottom: 30px;">
+        <button style="height: 25px;border-radius: 20px;font-size: 12px;padding: 5px 20px;" (click)="doInfinite0('')">点击加载更多</button>
+      </div>
+    </ion-infinite-scroll>
+  </ion-content>
+  <ion-content class="price-content" [ngStyle]="{'display' : selectTab == 1 ? 'block' : 'none'}">
+    <!-- <div class="empty-qtc" *ngIf="hide2">
+      <p>You do not have any QTC</p>
+    </div> -->
+    <ion-card *ngFor="let item of appliedCampaign; let i = index" (click)="toggleWinnerBox(item);">
+      <div class="card-container">
+        <div class="card-image">
+            <img [src]="imageUrl+item.productDetail[0].imageArray[0]" alt="">
+        </div>
+        <ion-card-content>
+          <ion-card-title class="ion-card-local" class="ion-card-local" *ngIf="item.name.length > 27">{{item.name.substring(0,27)}}...</ion-card-title>
+          <ion-card-title class="ion-card-local" *ngIf="item.name.length <= 27">{{item.name}}</ion-card-title>
+          <p class="more-winners">查看幸运达人名单</p>
+          <div class="bottom-p">
+            <p>提交成功: {{(datePipe.transform(item.createdOn, 'dd/MM/yyyy').replace("/", ".")).replace("/", ".")}}-{{(datePipe.transform(item.preSurveyDueDate, 'dd/MM/yyyy').replace("/", ".")).replace("/", ".")}}</p>
+            <p>已有 {{getCountStyle(((item.applicantsCount + 1) * 19).toString(),1)}} 人申请成功</p>
+          </div>
+        </ion-card-content>
+        <div class="tag">
+          <div class="arrow-body red" *ngIf="item.campaignMember[0].preSurveyDone">
+            <div>申</div>
+            <div>请</div>
+            <div>成</div>
+            <div>功</div>
+          </div>
+          <div class="arrow-body grey" *ngIf="!item.campaignMember[0].preSurveyDone">
+            <div>错</div>
+            <div>过</div>
+            <div>啦</div>
+            <div style="visibility:hidden;">效</div>
+          </div>
+          <div class="arrow-tail red" *ngIf="item.campaignMember[0].preSurveyDone"></div>
+          <div class="arrow-tail grey" *ngIf="!item.campaignMember[0].preSurveyDone"></div>
+        </div>
+      </div>
+    </ion-card>
+    <ion-infinite-scroll (ionInfinite)="doInfinite1($event)" *ngIf="!lastPage1" threshold="100%">
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+      <div style="text-align: center;padding-bottom: 30px;">
+        <button style="height: 25px;border-radius: 20px;font-size: 12px;padding: 5px 20px;" (click)="doInfinite1('')">点击加载更多</button>
+      </div>
+    </ion-infinite-scroll>
+  </ion-content>
+  <ion-content class="rating-content"  [ngStyle]="{'display' : selectTab == 2 ? 'block' : 'none'}">
+      <!-- <div class="empty-qtc" *ngIf="hide3">
+        <p>Gift Market is empty!</p>
+      </div> -->
+      <ion-list class="ion-row-margin-top" *ngIf="evenListGM.length > 0">
+        <ion-col col-6 class="col-left">
+          <ion-card class="card-cell" *ngFor="let item of evenListGM; let i = index">
+            <a [href]="item.urlLink">
+              <img *ngIf="item.imageArray.length !=0" [src]="imageUrl+item.imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+            </a>
+            <ion-card-content>
+              <ion-card-title class="ion-card-local" *ngIf="item.name.length > 27">{{item.name.substring(0,27)}}...</ion-card-title>
+              <ion-card-title class="ion-card-local" *ngIf="item.name.length <= 27">{{item.name}}</ion-card-title>
+              <a [href]="item.urlLink"><button class="pj-button-white">产品详情</button></a>
+              <ion-row>
+                <div class="count-data-point">
+                  <div>兑换需要 <b>{{item.coinCost}}</b> 积分</div>
+                </div>
+                <button *ngIf="item.stock > 0" class="pj-button-radius gift-market" (click)="claimGift(item)">立即申请</button>
+                <!-- <button *ngIf="item.stock <= 0" class="pj-button-radius gift-market grey">点击加载</button> -->
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col col-6 class="col-right">
+          <ion-card class="card-cell" *ngFor="let item of oddListGM; let i = index">
+            <a [href]="item.urlLink">
+              <img *ngIf="item.imageArray.length !=0" [src]="imageUrl+item.imageArray[0]" onError="this.src='assets/img/placeholder.jpg';">
+            </a>
+            <ion-card-content>
+              <ion-card-title class="ion-card-local" *ngIf="item.name.length > 27">{{item.name.substring(0,27)}}...</ion-card-title>
+              <ion-card-title class="ion-card-local" *ngIf="item.name.length <= 27">{{item.name}}</ion-card-title>
+              <a [href]="item.urlLink"><button class="pj-button-white">产品详情</button></a>
+              <ion-row>
+                <div class="count-data-point">
+                  <div>兑换需要 <b>{{item.coinCost}}</b> 积分</div>
+                </div>
+                <button *ngIf="item.stock > 0" class="pj-button-radius gift-market" (click)="claimGift(item)">立即申请</button>
+                <!-- <button *ngIf="item.stock <= 0" class="pj-button-radius gift-market grey">点击加载</button> -->
+              </ion-row>
+              </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfinite2($event)" *ngIf="!lastPage2" threshold="100%">
+        <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+        <div style="text-align: center;padding-bottom: 30px;">
+          <button style="height: 25px;border-radius: 20px;font-size: 12px;padding: 5px 20px;" (click)="doInfinite2('')">点击加载更多</button>
+        </div>
+      </ion-infinite-scroll>
+  </ion-content>
+</ion-content>
+<div class="overlay" *ngIf="showOverlay">
+  <div class="winner-box">
+    <div class="winner-list">
+      <div class="winner-list-header" (click)="showOverlay = !showOverlay;"><span>申请成功用户</span><span class="close">x</span></div>
+      <div class="winner-list-body" *ngIf="winnerList.length > 0">
+        <div class="winner-list-info" *ngFor="let winners of winnerList; let i = index">
+          <div class="avatar" (click)="goToProfile(winners.user)">
+            <img [src]="imageUrl+winners.user.profileImage" alt="">
+          </div>
+          <div>{{winners.user.name}}</div>
+          <div>{{winners.user.city}}</div>
+        </div>
+      </div>
+      <div *ngIf="winnerList.length == 0">
+          <div class="winner-list-info" style="padding: 55px 10px;">我们正在抽选本次活动的幸运达人。一旦完成我们会立刻公布结果，请耐心等待哦。</div>
+      </div>
+      <div class="winner-list-footer" *ngIf="!winnerLastPage" (click)="showMoreWinners();">查看很多 ></div>
+    </div>
+  </div>
+</div>

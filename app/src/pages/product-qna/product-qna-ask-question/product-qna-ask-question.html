@@ -1,0 +1,20 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">写问题</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-row>
+    <!--{{productName}} -->
+    <div class="question-header">
+      {{productName}}
+    </div>
+
+  </ion-row>
+  <ion-row class="question-input">
+    <ion-textarea overflow-scroll="true" [(ngModel)]="review_question" placeholder="在这里写下你的问题"></ion-textarea>
+  </ion-row>
+  <ion-row class="question-publish-button">
+    <button class="pj-long-button" (click)="publish()">发布</button>
+  </ion-row>
+</ion-content>

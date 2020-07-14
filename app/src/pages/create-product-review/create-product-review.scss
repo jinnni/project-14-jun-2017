@@ -1,0 +1,41 @@
+page-create-product-review {
+  .toolbar-background{
+    border-style: none !important;
+  }
+  .toolbar-content{
+    padding-right: 65px;
+    justify-content: center !important;
+  }
+  .item-inner{
+    border: 0.55px solid #c8c7cc !important;
+    border-radius: 5px !important;
+    .label{
+      margin: 0px !important;
+      height: 60px;
+    }
+  }
+
+  ion-content{
+    text-align: center;
+    background-color: #FFFFFF !important;
+    .rate-text{
+      font-size: 15px;
+      margin-top: 45%;
+      opacity: .7;
+    }
+    .pj-long-button {
+      width: 35vw;
+      border-radius: 5px;
+      font-weight: normal;
+      font-size: 1.1em;
+      margin: 20px auto 30px auto;
+    }
+    .review-rating{
+      margin-top: 5px;
+      img {
+        width: 45px !important;
+        height: 45px !important;
+      }
+    }
+  }
+}

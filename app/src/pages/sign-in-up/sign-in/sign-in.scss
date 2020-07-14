@@ -1,0 +1,80 @@
+component-sign-in {
+  .other-actions {
+    font-size: 1.1em;
+    color: $pjGray;
+
+    ion-col:active {
+      text-decoration: underline;
+    }
+  }
+  .item-cover {
+    left: -13px;
+    top: -4px;
+    width: 40px;
+    height: 20px;
+  }
+  .agreement {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    margin-top:  2px;
+    font-size: 0.7em;
+    color: #cccccc;
+    align-items: center;
+    //$text-width: 220px;
+
+    ion-checkbox {
+      // position: absolute;
+      // transform: translate(-200px+110px, 0px);
+      margin-right: 5px;
+      .checkbox-icon {
+        width: 12px;
+        height: 12px;
+        border-radius: 15px;
+        position: relative;
+        top: 20%;
+
+        .checkbox-inner {
+          position: relative;
+          top: -15%;
+          left: 30%;
+          right: 0px;
+          bottom: 0px;
+        }
+      }
+    }
+  }
+  .footer-button {
+    height: 45px;
+    line-height: 50px;
+    padding: 0 !important;
+    color: #fdfdfd;
+    background-color: #FF2742;
+    text-align: center;
+    font-size: 1.3em;
+    width: 65%;
+    margin: 10px auto;
+    border-radius: 25px;
+}
+  .sns-sign-in-header {
+    font-size: 0.8em;
+    color: $pjGray;
+    margin: 10px 0px;
+
+    span {
+      display: inline-block;
+      width: 20%;
+      border-bottom: 1px solid #ddd;
+      margin: 3px 15px;
+    }
+  }
+
+  .sns-sign-in {
+    img {
+      height: 50px;
+    }
+  }
+}
+
+

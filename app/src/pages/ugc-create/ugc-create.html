@@ -1,0 +1,62 @@
+<ion-header mode="ios" no-border>
+  <ion-navbar mode="ios" transparent>
+    <ion-title mode="ios">发布新帖子</ion-title>
+    <ion-buttons end mode="ios" style="height: 30px;margin-right: 10px;position: absolute;right: 0px;">
+      <button style="color: #ffffff;background-color: #ff2742;padding: 0px 20px;border-radius: 20px;height: 30px;font-size:12px;" (click)="saveImages()" [disabled]="(!titleLength || !descLength || !images.length)">发布</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <hr style="margin:0px;">
+  <input  style="user-select: text;" [(ngModel)]="createUgc.postTitle" (ngModelChange)="change($event, 'title')" class="title" placeholder="请输入标题" value="{{imagePath}}">
+  <hr style="margin-bottom:10px;">
+  <ion-item>
+    <textarea style="user-select: text;" overflow-scroll="true" [(ngModel)]="createUgc.postDescription" (ngModelChange)="change($event,'description')" class="content" placeholder="请输入帖子正文" (blur)="_isFocus = false" (focus)="_isFocus = true"></textarea>
+  </ion-item>
+  <!-- <input type="file" class="form-control" name="bannerImage" id="bannerImage" #image > -->
+  <div class="challenge-submit" style="min-height: calc(100% - 300px);">
+
+    <div class="images-wrapper">
+      <ion-slides [slidesPerView]="3" style="margin-top: 30px;">
+        <ion-slide *ngFor="let image of images;let i =index;">
+
+          <div class="image-wrapper">
+
+            <!-- <img *ngIf="platform.is('ios') == true" [src]="image" [class.uploading]="isUploading" alt="" style="height: auto;width: 100%" /> -->
+            <img *ngIf="platform.is('ios') == true" [src]="getFileEntry(image)" [class.uploading]="isUploading" alt="" style="height: auto;width: 100%" />
+            <!-- <img *ngIf="platform.is('ios') == false" [src]="this.win.Ionic.WebView.convertFileSrc(image)" [class.uploading]="isUploading" alt="" style="height: auto;width: 100%" /> -->
+            <img *ngIf="platform.is('ios') == false" [src]="image" [class.uploading]="isUploading" alt="" style="height: auto;width: 100%" />
+
+            <button item-right clear (click)='removeItem(image)' style="background-color: #f5f5f5">
+              <img src="assets/img/icons/deleteIcon.png" style="width : 20px ; height : 20px;position:absolute;bottom:30px;right:5px;background-color: transparent"/>
+            </button>
+
+            <ion-icon name="checkmark" *ngIf="isUploading && uploadingProgress[image.url]==100"></ion-icon>
+
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div class="image-wrapper add-image-btn" *ngIf="!isUploading && images.length < 9" (click)="presentActionSheet()">
+            <div class="image">
+              <ion-icon name="add"></ion-icon>
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" />
+            </div>
+          </div>
+          <div class="image-wrapper add-image-btn" *ngIf="!isUploading && images.length > 8 ">
+            <div class="image">
+              <ion-icon name="add"></ion-icon>
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" />
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+</ion-content>
+<div *ngIf="count < length" style="position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.6);z-index: 999;">
+  <div style="width: 60%; position: absolute;top: 50%; left: 50%; transform: translate(-50%,-50%);background-color: rgba(255, 255, 255, 0.55);height: 3px;">
+    <div style="height: 3px; background-color: #ff2744; text-align: center;position: absolute;left: 0px;top: 0px;" [ngStyle]="{'width': perc + '%'}"></div>
+  </div>
+</div>

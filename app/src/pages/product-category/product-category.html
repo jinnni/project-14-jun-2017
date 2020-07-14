@@ -1,0 +1,214 @@
+<ion-header mode="ios">
+  <ion-navbar mode="ios">
+    <ion-title mode="ios">分类</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content style="text-align: center">
+  <div  class="description-header">{{name}} </div>
+  <div class="product-category-container">
+    <div class="product-category-l2-image-section">
+      <ion-slides *ngIf="cat7&&cat7.length>0" pager>
+        <ion-slide *ngFor="let subcat of cat7" >
+          <ion-row style=" margin-bottom: 40px;margin-left: 5px;">
+            <ion-col col-4 align-items-center *ngFor="let SubCat of subcat" (click)="showProductsInCategory(SubCat)">
+              <div class="sub-cat-gray-bg">
+                <p>{{SubCat.name}}</p>
+                <!-- <div class="image-masker"></div>
+                <img src="assets/img/test-img.jpg"> -->
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+  <div  class="description-header" *ngIf="CatId!=1">美妆 </div>
+  <div class="product-category-container">
+    <div class="product-category-l2-image-section">
+      <ion-slides *ngIf="cat1&&cat1.length>0" pager>
+        <ion-slide *ngFor="let subcat of cat1" >
+          <ion-row style=" margin-bottom: 40px;margin-left: 5px;">
+            <ion-col col-4 align-items-center *ngFor="let SubCat of subcat" (click)="showProductsInCategory(SubCat)">
+              <div class="sub-cat-gray-bg">
+                <p>{{SubCat.name}}</p>
+                <!-- <div class="image-masker"></div>
+                <img src="assets/img/test-img.jpg"> -->
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+  <div  class="description-header" *ngIf="CatId!=2">美食 </div>
+  <div class="product-category-container">
+    <div class="product-category-l2-image-section">
+      <ion-slides *ngIf="cat2&&cat2.length>0" pager>
+        <ion-slide *ngFor="let subcat of cat2" >
+          <ion-row style=" margin-bottom: 40px;margin-left: 5px;">
+            <ion-col col-4 align-items-center *ngFor="let SubCat of subcat" (click)="showProductsInCategory(SubCat)">
+              <div class="sub-cat-gray-bg">
+                <p>{{SubCat.name}}</p>
+                <!-- <div class="image-masker"></div>
+                <img src="assets/img/test-img.jpg"> -->
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+  <div  class="description-header" *ngIf="CatId!=3">健身 </div>
+  <div class="product-category-container">
+    <div class="product-category-l2-image-section">
+      <ion-slides *ngIf="cat3&&cat3.length>0" pager>
+        <ion-slide *ngFor="let subcat of cat3" >
+          <ion-row style=" margin-bottom: 40px; margin-left: 5px;">
+            <ion-col col-4 align-items-center *ngFor="let SubCat of subcat" (click)="showProductsInCategory(SubCat)">
+              <div class="sub-cat-gray-bg">
+                <p>{{SubCat.name}}</p>
+                <!-- <div class="image-masker"></div>
+                <img src="assets/img/test-img.jpg"> -->
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+  <div  class="description-header" *ngIf="CatId!=4">母婴 </div>
+  <div class="product-category-container">
+    <div class="product-category-l2-image-section">
+      <ion-slides *ngIf="cat4&&cat4.length>0" pager>
+        <ion-slide *ngFor="let subcat of cat4" >
+          <ion-row style=" margin-bottom: 40px;    margin-left: 5px;">
+            <ion-col col-4 align-items-center *ngFor="let SubCat of subcat" (click)="showProductsInCategory(SubCat)">
+              <div class="sub-cat-gray-bg">
+                <p>{{SubCat.name}}</p>
+                <!-- <div class="image-masker"></div>
+                <img src="assets/img/test-img.jpg"> -->
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+  <div  class="description-header" *ngIf="CatId!=5">更多 </div>
+  <div class="product-category-container">
+    <div class="product-category-l2-image-section">
+      <ion-slides *ngIf="cat5&&cat5.length>0" pager>
+        <ion-slide *ngFor="let subcat of cat5" >
+          <ion-row style=" margin-bottom: 40px;    margin-left: 5px;">
+            <ion-col col-4 align-items-center *ngFor="let SubCat of subcat" (click)="showProductsInCategory(SubCat)">
+              <div class="sub-cat-gray-bg">
+                <p>{{SubCat.name}}</p>
+                <!-- <div class="image-masker"></div>
+                <img src="assets/img/test-img.jpg"> -->
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+  <!--<div *ngIf="this.value != 6" class="description-header">家 </div>-->
+  <!--<div class="product-category-container">-->
+  <!--<div class="product-category-l2-image-section">-->
+  <!--<ion-row>-->
+  <!--<ion-col col-4 align-items-center *ngFor="let SubCat of cat06"-->
+  <!--(click)="showProductsInCategory(SubCat)">-->
+  <!--<div class="sub-cat-gray-bg">-->
+  <!--<p >{{SubCat.name}}</p>-->
+  <!--&lt;!&ndash; <div class="image-masker"></div>-->
+  <!--<img src="assets/img/test-img.jpg"> &ndash;&gt;-->
+  <!--</div>-->
+  <!--</ion-col>-->
+  <!--</ion-row>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div *ngIf="this.value != 7" class="description-header">数码 </div>-->
+  <!--<div class="product-category-container">-->
+  <!--<div class="product-category-l2-image-section">-->
+  <!--<ion-row>-->
+  <!--<ion-col col-4 align-items-center *ngFor="let SubCat of cat07"-->
+  <!--(click)="showProductsInCategory(SubCat)">-->
+  <!--<div class="sub-cat-gray-bg">-->
+  <!--<p >{{SubCat.name}}</p>-->
+  <!--&lt;!&ndash; <div class="image-masker"></div>-->
+  <!--<img src="assets/img/test-img.jpg"> &ndash;&gt;-->
+  <!--</div>-->
+  <!--</ion-col>-->
+  <!--</ion-row>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!-- <div *ngIf="this.value != 8" class="description-header">娱乐&艺术 </div>
+  <div class="product-category-container">
+    <div class="product-category-l2-image-section">
+      <ion-row>
+        <ion-col col-4 align-items-center *ngFor="let SubCat of cat08"
+                 (click)="showProductsInCategory(SubCat)">
+          <div class="sub-cat-gray-bg">
+            <p >{{SubCat.name}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div> -->
+  <!-- <div *ngIf="this.value != 9" class="description-header">零售商&服务 </div>
+  <div class="product-category-container">
+    <div class="product-category-l2-image-section">
+      <ion-row>
+        <ion-col col-4 align-items-center *ngFor="let SubCat of cat09"
+                 (click)="showProductsInCategory(SubCat)">
+          <div class="sub-cat-gray-bg">
+            <p >{{SubCat.name}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div> -->
+  <!--<div *ngIf="this.value != 10" class="description-header">Others </div>-->
+  <!--<div class="product-category-container">-->
+  <!--<div class="product-category-l2-image-section">-->
+  <!--<ion-row>-->
+  <!--<ion-col col-4 align-items-center *ngFor="let SubCat of cat10"-->
+  <!--(click)="showProductsInCategory(SubCat)">-->
+  <!--<div class="sub-cat-gray-bg">-->
+  <!--<p >{{SubCat.name}}</p>-->
+  <!--</div>-->
+  <!--</ion-col>-->
+  <!--</ion-row>-->
+  <!--</div>-->
+  <!--</div>-->
+</ion-content>
+<!--<div class="description-header">达人说</div>-->
+<!--<div class="product-category-container" *ngFor="let l1Category of l1Categories">-->
+<!--<div class="product-category-l1-header">-->
+<!--<ion-row>-->
+<!--<ion-col col-4 text-left>{{l1Category.name}}</ion-col>-->
+<!--<ion-col col-4></ion-col>-->
+<!--<ion-col col-4 text-right-->
+<!--*ngIf="l1Category.subCategories.length > 6 && !getL1CategoryShown(l1Category.id).didSeeAll"-->
+<!--(click)="showAll(l1Category.id)">查看全部-->
+<!--</ion-col>-->
+<!--</ion-row>-->
+<!--</div>-->
+<!--<div class="product-category-l2-image-section">-->
+<!--<ion-row>-->
+<!--<ion-col col-4 align-items-center *ngFor="let l2Category of getL1CategoryShown(l1Category.id).subCategories"-->
+<!--(click)="showProductsInCategory(l2Category.id)">-->
+<!--<div>-->
+<!--<p>{{l2Category.name}}</p>-->
+<!--<div class="image-masker"></div>-->
+<!--<img src="assets/img/test-img.jpg">-->
+<!--</div>-->
+<!--</ion-col>-->
+<!--</ion-row>-->
+<!--</div>-->
+<!--<div class="product-category-see-more-button"-->
+<!--*ngIf="l1Category.subCategories.length > 6 && !getL1CategoryShown(l1Category.id).didSeeAll"-->
+<!--(click)="seeMore(l1Category.id, 6)">-->
+<!--<p>ㆍㆍㆍ</p>更多-->
+<!--</div>-->
+<!--</div>-->
